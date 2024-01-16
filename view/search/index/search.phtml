@@ -1,0 +1,134 @@
+<?php
+/*
+ * Copyright BibLibre, 2016
+ * Copyright Daniel Berthereau, 2017-2018
+ *
+ * This software is governed by the CeCILL license under French law and abiding
+ * by the rules of distribution of free software.  You can use, modify and/ or
+ * redistribute the software under the terms of the CeCILL license as circulated
+ * by CEA, CNRS and INRIA at the following URL "http://www.cecill.info".
+ *
+ * As a counterpart to the access to the source code and rights to copy, modify
+ * and redistribute granted by the license, users are provided only with a
+ * limited warranty and the software's author, the holder of the economic
+ * rights, and the successive licensors have only limited liability.
+ *
+ * In this respect, the user's attention is drawn to the risks associated with
+ * loading, using, modifying and/or developing or reproducing the software by
+ * the user in light of its specific status of free software, that may mean that
+ * it is complicated to manipulate, and that also therefore means that it is
+ * reserved for developers and experienced professionals having in-depth
+ * computer knowledge. Users are therefore encouraged to load and test the
+ * software's suitability as regards their requirements in conditions enabling
+ * the security of their systems and/or data to be ensured and, more generally,
+ * to use and operate it in the same conditions as regards security.
+ *
+ * The fact that you are presently reading this means that you have had
+ * knowledge of the CeCILL license and that you accept its terms.
+ */
+?>
+
+
+<?php
+$this->htmlElement('body')->appendAttribute('class', 'resource search');
+$escape = $this->plugin('escapeHtml');
+$this->headScript()
+  ->appendFile($this->assetUrl('js/search.js', 'Search'));
+$totalResults = $response->getTotalResults();
+?>
+
+<div class="container pt-2 pb-3 pt-md-5 pb-md-4">
+  <div class="row justify-content-center results-header">
+    <div class="col">
+      <?php echo $this->pageTitle($this->translate('Search'), 2); ?>
+      <?php echo $this->messages(); ?>
+      <?php if (isset($response)): ?>
+        <?php if ($totalResults > 0): ?>
+          <div class="results">
+            Showing
+            <?php echo number_format($totalResults); ?>
+            <?php echo ($totalResults > 1) ? ' results' : ' result'; ?>
+            <?php echo $this->QueryToStringHelper($this->params()->fromQuery(), $this->params()->fromRoute(), $this->searchForm()); ?>
+          </div>
+          <!-- filter  -->
+          <button id="filter-button" class="btn btn-fit-pink floating-action" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#searchFilters" aria-controls="searchFilters" aria-label="Filter results">
+            <span class="action-container">
+              <i class="fas fa-filter" aria-hidden="true" title="Filter results">
+              </i>
+              Filter results
+            </span>
+          </button>
+          <div class="offcanvas offcanvas-start shadow border-end-0" data-bs-scroll="true" data-bs-backdrop="false"
+            tabindex="-1" id="searchFilters" aria-labelledby="searchFiltersLabel">
+            <div class="offcanvas-header border-bottom">
+              <h3 class="offcanvas-title" id="searchFiltersLabel">
+                <?php echo $this->translate('Search Filters'); ?>
+              </h3>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+              <?php echo $this->partial('search/facets', ['facets' => $facets, 'dateFacetStats' => $dateFacetStats, 'queryParams' => $this->params()->fromQuery()]); ?>
+            </div>
+          </div>
+        <?php else: ?>
+          <div class="results">
+            Showing 0 results
+            <?php echo $this->QueryToStringHelper($this->params()->fromQuery(), $this->params()->fromRoute(), $this->searchForm()); ?>
+          </div>
+          <p class="lead">
+            <?php echo $this->translate('We\'re sorry, but your search did not return any results. Please try searching again, or browsing through the items or collections.'); ?>
+          </p>
+        <?php endif; ?>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+
+<?php if (isset($response) && ($response->getTotalResults() > 0)): ?>
+  <?php
+  echo $this->partial('search/results-header', [
+    'query' => $query,
+    'response' => $response,
+    'sortOptions' => $sortOptions,
+  ]);
+  ?>
+  <?php $itemSetsCount = $response->getResourceTotalResults('item_sets'); ?>
+  <?php echo $this->partial('search/resource-list', [
+    'response' => $response,
+    'resourceName' => 'item_sets',
+    'site' => $site,
+  ]);
+  ?>
+
+  <?php $itemsCount = $response->getResourceTotalResults('items'); ?>
+  <?php echo $this->partial('search/resource-list', [
+    'response' => $response,
+    'resourceName' => 'items',
+    'site' => $site
+  ]); ?>
+
+  <?php
+  echo $this->partial('search/results-footer', [
+    'query' => $query,
+    'response' => $response,
+    'sortOptions' => $sortOptions,
+  ]);
+?>
+<?php endif; ?>
+
+<script>
+  $(document).ready(function () {
+
+    $('#search-results-sort select').on('change', function () {
+      Search.sortBy($(this).val());
+    });
+    $('.expander').on("click", function () {
+      if ($(this).attr('aria-expanded') == "true") {
+        $(this).text("Less");
+      } else {
+        $(this).text("More");
+      }
+    });
+  });
+</script>

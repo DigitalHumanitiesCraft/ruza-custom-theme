@@ -1,0 +1,26 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+if (!$sortByQuery) {
+    $sortByQuery = 'created';
+}
+if (!$sortOrderQuery) {
+    $sortOrderQuery = 'asc';
+}
+?>
+<form class="sorting input-group" action="">
+    <select class="form-select" name="sort_by" aria-label="<?php echo $translate('Sort by'); ?>">
+        <?php foreach ($sortConfig as $sortBy => $label): ?>
+            <option value="<?php echo $escape($sortBy); ?>" <?php echo ($sortByQuery === $sortBy) ? ' selected' : ''; ?>><?php echo $escape($label); ?></option>
+        <?php endforeach; ?>
+    </select>
+    <?php echo $this->queryToHiddenInputs(['sort_by', 'sort_order']); ?>
+    <select class="form-select" name="sort_order" aria-label="<?php echo $translate('Sort order'); ?>">
+        <option value="asc" <?php echo ($sortOrderQuery === 'asc') ? 'selected' : ''; ?>><?php echo $translate('Ascending'); ?></option>
+        <option value="desc" <?php echo ($sortOrderQuery === 'desc') ? 'selected' : ''; ?>><?php echo $translate('Descending'); ?></option>
+    </select>
+    <button class="btn btn-secondary" type="submit" aria-label="<?php echo $translate('Sort'); ?>">
+        <i class="fas fa-sort" aria-hidden="true" title="<?php echo $translate('Sort'); ?>">
+        </i>
+    </button>
+</form>

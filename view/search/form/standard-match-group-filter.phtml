@@ -1,0 +1,36 @@
+<div class="value input-group mb-2">
+    <?php
+        $fieldSelect = new \Laminas\Form\Element\Select($namePrefix . '[field]');
+        $fieldSelect->setValueOptions($availableFieldsOptions);
+        if (isset($query['field'])) {
+            $fieldSelect->setValue($query['field']);
+        }
+        $fieldSelect->setAttribute('class', 'search-form-standard-filter-field form-select');
+        $fieldSelect->setAttribute('aria-label', 'Property');
+        echo $this->formSelect($fieldSelect);
+    ?>
+    <?php
+        $operatorSelect = new \Laminas\Form\Element\Select($namePrefix . '[operator]');
+        $operatorSelect->setValueOptions($availableOperatorsOptions);
+        if (isset($query['operator'])) {
+            $operatorSelect->setValue($query['operator']);
+        }
+        $operatorSelect->setAttribute('class', 'search-form-standard-filter-operator form-select');
+        $operatorSelect->setAttribute('aria-label', 'Query type');
+        echo $this->formSelect($operatorSelect);
+    ?>
+    <?php
+        $termText = new \Laminas\Form\Element\Text($namePrefix . '[term]');
+        if (isset($query['term'])) {
+            $termText->setValue($query['term']);
+        }
+        $termText->setAttribute('class', 'search-form-standard-filter-term form-control w-50');
+        $termText->setAttribute('aria-label', 'Query text');
+        $termText->setAttribute('autocomplete', 'off');
+        echo $this->formText($termText);
+    ?>
+    <button type="button" class="o-icon-delete search-delete-filter button btn btn-secondary" aria-label="Remove value">
+      <i class="fas fa-trash-alt" title="Remove value" aria-hidden="true">
+      </i>
+    </button>
+</div>

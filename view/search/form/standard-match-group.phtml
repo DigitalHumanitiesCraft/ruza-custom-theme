@@ -1,0 +1,38 @@
+<div class="search-form-standard-match-group">
+
+    <input type="hidden" name="<?php echo $namePrefix . '[match]' ?>" value="all">
+
+    <div class="search-form-standard-match-group-items mb-0 m-0 p-0">
+        <?php if (!empty($data['queries'])): ?>
+            <?php foreach ($data['queries'] as $i => $query): ?>
+                <div class="search-form-standard-match-group-item mb-0">
+                    <?php if (isset($query['match'])): ?>
+                        <?php echo $this->partial('search/form/standard-match-group', [
+                            'availableFieldsOptions' => $availableFieldsOptions,
+                            'availableOperatorsOptions' => $availableOperatorsOptions,
+                            'data' => $query,
+                            'namePrefix' => $namePrefix . "[queries][$i]",
+                            'mainGroup' => false,
+                        ]); ?>
+                    <?php else: ?>
+                        <?php echo $this->partial('search/form/standard-match-group-filter', [
+                            'availableFieldsOptions' => $availableFieldsOptions,
+                            'availableOperatorsOptions' => $availableOperatorsOptions,
+                            'query' => $query,
+                            'namePrefix' => $namePrefix . "[queries][$i]",
+                        ]); ?>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="search-form-standard-match-group-item mb-0">
+                <?php echo $this->partial('search/form/standard-match-group-filter', [
+                    'availableFieldsOptions' => $availableFieldsOptions,
+                    'availableOperatorsOptions' => $availableOperatorsOptions,
+                    'query' => [],
+                    'namePrefix' => $namePrefix . '[queries][0]',
+                ]); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

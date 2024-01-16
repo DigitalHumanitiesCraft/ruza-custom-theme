@@ -1,0 +1,32 @@
+<?php
+$translate = $this->plugin('translate');
+?>
+<div>
+    <?php
+    $iterate = function ($pages) use ($translate) {
+        // Sort pages alphabetically by 'text' (page name)
+        usort($pages, function ($a, $b) {
+            return strcmp($a['text'], $b['text']);
+        });
+
+        $totalPages = count($pages);
+        foreach ($pages as $index => $page) {
+            $pageName = $page['text'];
+            $pageLink = $page['data']['url'];
+
+            if (empty($pageLink)) {
+                echo '<span>' . $translate('[Missing Page]') . '</span>';
+            } else {
+                echo '<span>' . $this->hyperlink($pageName, $pageLink) . '</span>';
+            }
+
+            // Add delimiter except after the last page
+            if ($index < $totalPages - 1) {
+                echo ' · ';
+            }
+        }
+    };
+
+    $iterate($pageList);
+    ?>
+</div>

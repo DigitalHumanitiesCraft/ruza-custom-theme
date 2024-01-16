@@ -1,0 +1,95 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$this->htmlElement('html')->appendAttribute('lang', $this->lang())->appendAttribute('class', 'h-100');
+$this->headMeta()->setCharset('utf-8');
+$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
+$this->headTitle($site->title())->setSeparator(' · ');
+$this->headLink(['rel' => 'icon', 'type' => 'image/png', 'href' => $this->assetUrl('img/favicon.png')]);
+$this->headLink(['rel' => 'icon', 'type' => 'image/svg+xml', 'href' => $this->assetUrl('img/favicon.svg')], 'PREPEND')
+  ->prependStylesheet($this->assetUrl('css/style.css'))
+  ->prependStylesheet('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.css', 'screen', null, ['integrity' => 'sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==', 'crossorigin' => 'anonymous'])
+  ->prependStylesheet('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', 'screen', null, ['integrity' => 'sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=', 'crossorigin' => 'anonymous'])
+  ->prependStylesheet('https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css', 'screen', null, ['integrity' => 'sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU', 'crossorigin' => 'anonymous']);
+$this->headScript()
+  ->prependFile($this->assetUrl('js/advanced-search.js', 'Omeka'))
+  ->prependFile($this->assetUrl('js/theme.js'))
+  ->prependFile($this->assetUrl('js/global.js', 'Omeka'))
+  ->prependFile('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js', 'text/javascript', ['integrity' => 'sha512-1mDhG//LAjM3pLXCJyaA+4c+h5qmMoTc7IuJyuNNPaakrWT9rVTxICK4tIizf7YwJsXgDC2JP74PGCc7qxLAHw==', 'crossorigin' => 'anonymous'])
+  ->prependFile('https://unpkg.com/infinite-scroll@4.0.1/dist/infinite-scroll.pkgd.min.js', 'text/javascript')
+  ->prependFile('https://cdn.jsdelivr.net/npm/corejs-typeahead@1.3.1/dist/typeahead.bundle.min.js', 'text/javascript', ['integrity' => 'sha256-xZuy7z/QR1H5FKCYUbRDj4yvcyMEyVIg4iQUhs8MI+w=', 'crossorigin' => 'anonymous'])
+  ->prependFile('https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js', 'text/javascript', ['integrity' => 'sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ', 'crossorigin' => 'anonymous'])
+  ->prependFile('https://code.jquery.com/jquery-3.6.0.min.js', 'text/javascript', ['integrity' => 'sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=', 'crossorigin' => 'anonymous']);
+$this->trigger('view.layout');
+$userBar = $this->userBar();
+?>
+<?php echo $this->doctype(); ?>
+<?php echo $this->htmlElement('html'); ?>
+
+<head>
+
+  <?php echo $this->headMeta(); ?>
+  <?php echo $this->headTitle(); ?>
+  <?php echo $this->headLink(); ?>
+  <?php echo $this->headStyle(); ?>
+  <?php echo $this->headScript(); ?>
+</head>
+
+<?php echo $this->htmlElement('body')->appendAttribute('class', 'd-flex flex-column h-100'); ?>
+<a class="visually-hidden-focusable" href="#content">
+  <?php echo $this->translate('Skip to main content'); ?>
+</a>
+<?php echo $userBar; ?>
+<header>
+  <div class="container pt-5 pb-2 d-none d-md-block">
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <a href="/" class="logo text-dark text-decoration-none">
+          <h1 class="visually-hidden"><?php echo $escape($site->title()); ?></h1>
+          <img width="7000" src="<?php echo $this->assetUrl('img/ruzake-gila-top-logo.svg'); ?>" title="Home" alt="Ruzake Gila Logo">
+        </a>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-md navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand  d-md-none" href="<?php echo $site->url(); ?>">
+        <h1 class="h5 d-inline">Ružake Gila</h1>
+        <img width="15" src="<?php echo $this->assetUrl('img/ruza-face-logo.svg'); ?>" title="Home" alt="Ruzake Gila Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <?php echo $site->publicNav()->menu()->renderPartialWithParams(['site' => $site,], null, 'common/bootstrap-navigation.phtml'); ?>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="container" id="content" role="main">
+  <?php echo $this->content; ?>
+</div>
+<footer class="footer mt-auto py-3 py-md-5 border-top border-light">
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-5">
+        <a href="https://www.mdw.ac.at/musicandminorities/">
+          <img class="mb-3" src="<?php echo $this->assetUrl('img/mm-logo.svg'); ?>" alt="Music & Minorities Logo" id="mm-logo">
+        </a>
+        <p class="small">
+          <?php echo date("Y"); ?> mdw – Universität für Musik und darstellende Kunst Wien
+          <br>Anton-von-Webern-Platz 1
+          <br>1030 Wien
+          <br>E-Mail: <a href="mailto:mmrc@mdw.ac.at">mmrc@mdw.ac.at</a>
+        </p>
+        <p>
+          <a href="https://www.mdw.ac.at/datenschutz/">Datenschutzerklärung</a>
+          |
+          <a href="https://www.mdw.ac.at/musicandminorities/impressum/">Impressum</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>

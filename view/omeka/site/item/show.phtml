@@ -1,0 +1,132 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+$this->htmlElement('body')->appendAttribute('class', 'item resource show');
+$embedMedia = $this->siteSetting('item_media_embed', false);
+$itemMedia = $item->media();
+//remove captions files from itemMedia so it doesn't display
+foreach ($itemMedia as $key => $media) {
+  if ($media->mediaType() == "text/vtt") {
+    unset($itemMedia[$key]);
+  } elseif (strtolower($media->displayTitle()) == "release form") {
+    unset($itemMedia[$key]);
+  }
+}
+$this->headScript()->appendFile('https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js', 'text/javascript', ['defer' => 'defer']);
+
+$filterLocale = (bool) $this->siteSetting('filter_locale_values');
+$lang = $this->lang();
+?>
+
+<?php $this->trigger('view.show.before'); ?>
+
+<?php if ($embedMedia) : ?>
+  <?php if ($itemMedia) : ?>
+    <div class="container pt-2 pb-3 pt-md-5 pb-md-4">
+      <div class="row" id="media-wrapper">
+        <?php if ((count($itemMedia) > 1)) : ?>
+          <div class="col-md-11">
+            <div class="media-embeds">
+              <div class="tab-content" id="mediaTabContent">
+                <?php $panel_id = 1; ?>
+                <?php foreach ($itemMedia as $media) : ?>
+                  <div class="tab-pane fade <?php echo ($panel_id == 1 ? ' show active' : ''); ?>" id="media-<?php echo $panel_id; ?>" role="tabpanel" aria-labelledby="media-<?php echo $panel_id; ?>-tab">
+                    <?php echo $media->render(); ?>
+                  </div>
+                <?php
+                  $panel_id++;
+                endforeach;
+                ?>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1 py-1 p-md-0 px-xl-2" id="media-sidebar">
+            <ul class="nav align-items-center flex-md-column d-md-block" id="mediaTab" role="tablist">
+              <?php $tab_id = 1; ?>
+              <?php foreach ($itemMedia as $media) : ?>
+                <li class="nav-item p-md-0 mb-md-3" role="presentation">
+                  <button class="nav-link text-secondary border-0 shadow-sm rounded p-0<?php echo ($tab_id == 1 ? ' active' : ''); ?>" id="media-<?php echo $tab_id; ?>-tab" data-bs-toggle="tab" data-bs-target="#media-<?php echo $tab_id; ?>" type="button" role="tab" aria-controls="media-<?php echo $tab_id; ?>" aria-selected="<?php echo ($tab_id == 1 ? 'true' : 'false'); ?>">
+                    <?php echo $this->thumbnail($media, 'medium', ['class' => 'rounded img-fluid', 'alt' => $media->displayTitle(), 'title' => $media->displayTitle(), 'data-bs-toggle' => 'tooltip']); ?>
+                  </button>
+                </li>
+              <?php
+                $tab_id++;
+              endforeach;
+              ?>
+            </ul>
+            <button class="btn-arrow btnNext border-0 bg-transparent text-secondary d-none d-md-block mx-auto" type="button" aria-controls="mediaTabContent" aria-label="Next">
+              <i class="fas fa-chevron-down" title="Next" aria-hidden="true">
+              </i>
+            </button>
+          </div>
+        <?php else : ?>
+          <div class="col">
+            <div class="media-embeds">
+              <?php foreach ($itemMedia as $media) : ?>
+                <?php echo $media->render(); ?>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        <?php endif; ?>
+      </div>
+    </div>
+  <?php endif; ?>
+<?php endif; ?>
+
+<div class="pt-2 pb-3 py-md-4">
+  <div class="row justify-content-between">
+    <div class="col-md-6">
+      <?php echo $this->pageTitle($item->displayTitle(null, ($filterLocale ? $lang : null)), 3); ?>
+      <?php echo $item->displayValues(); ?>
+      <?php if (!$embedMedia) : ?>
+        <?php if ($itemMedia) : ?>
+          <div class="media-list">
+            <h4><?php echo $translate('Media'); ?></h4>
+            <?php foreach ($itemMedia as $media) : ?>
+              <?php echo $media->linkPretty($this->thumbnail($media, 'square')); ?>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+      <!-- <div class="property">
+        <?php $itemSets = $item->itemSets(); ?>
+        <?php if (count($itemSets) > 0) : ?>
+          <h4>
+            <?php echo $translate('Collections'); ?>
+          </h4>
+          <?php foreach ($itemSets as $itemSet) : ?>
+            <div class="value"><a href="<?php echo $escape($itemSet->url()); ?>">
+                <?php echo $itemSet->displayTitle(null, ($filterLocale ? $lang : null)); ?>
+              </a></div>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div> -->
+    </div>
+
+    <div class="col-md-6 getBlocks">
+
+        <?php echo $this->resourcePageBlocks($item)->getBlocks(); ?>
+
+
+      <?php /* if (($this->siteSetting('show_attached_pages', true)) && ($sitePages = $item->sitePages($site->id()))) : ?>
+        <div class="property">
+          <h4>
+            <?php echo $translate('Site pages'); ?>
+          </h4>
+          <div class="values">
+            <?php foreach ($sitePages as $sitePage) : ?>
+              <div class="value">
+                <?php echo $sitePage->link($sitePage->title()); ?>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      <?php endif;  */?>
+    </div>
+  </div>
+</div>
+
+
+
+
+<?php $this->trigger('view.show.after'); ?>

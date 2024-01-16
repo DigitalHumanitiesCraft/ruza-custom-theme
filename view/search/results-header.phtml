@@ -1,0 +1,40 @@
+<?php
+$translate = $this->plugin('translate');
+?>
+<div class="container pt-2 pb-3 pt-md-4 pb-md-3">
+  <div class="row justify-content-center">
+    <div class="col">
+      <ul class="nav justify-content-between browse-controls">
+        <li class="nav-item">
+          <form class="input-group" id="search-results-sort">
+              <?php if ($sortOptions):
+                  $sortSelect = new Laminas\Form\Element\Select('sort');
+                  $sortSelect->setValueOptions($sortOptions);
+                  $sortSelect->setValue($query->getSort());
+                  $sortSelect->setAttributes(['class' => 'form-select', 'aria-label' => $translate('Sort by')]);
+              endif; ?>
+              <?php if (!empty($sortSelect)): ?>
+              <span class="input-group-text">
+                <i class="fas fa-sort" aria-hidden="true" title="<?php echo $translate('Sort'); ?>">
+                </i>
+              </span>
+              <?php echo $this->formSelect($sortSelect); ?>
+              <?php endif; ?>
+          </form>
+        </li>
+        <li class="nav-item d-none d-md-block">
+          <div class="btn-group" role="group" aria-label="Layout View">
+            <button type="button" class="btn btn-secondary active list" aria-pressed="true" aria-label="List View">
+              <i class="fas fa-list" aria-hidden="true" title="List View">
+              </i>
+            </button>
+            <button type="button" class="btn btn-secondary grid" aria-label="Grid View">
+              <i class="fas fa-th" aria-hidden="true" title="Grid View">
+              </i>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

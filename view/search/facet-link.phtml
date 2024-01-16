@@ -1,0 +1,14 @@
+<?php if ($active): ?>
+  <a href="<?php echo $this->escapeHtml($url); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <span class="badge bg-transparent text-secondary order-last">
+      <i class="fas fa-times" aria-hidden="true" title="Remove facet:"></i>
+      <span class="visually-hidden">Remove facet:</span>
+    </span>
+    <?php echo $this->escapeHtml($value); ?>
+  </a>
+<?php else: ?>
+  <a href="<?php echo $this->escapeHtml($url); ?>" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <?php echo $this->escapeHtml($value); ?>
+    <span class="badge bg-secondary rounded-pill"><?php echo $count; ?></span>
+  </a>
+<?php endif; ?>

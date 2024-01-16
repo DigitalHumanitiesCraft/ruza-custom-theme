@@ -1,0 +1,94 @@
+<?php $escape = $this->plugin('escapeHtml'); ?>
+<?php if (count($filters) > 0): ?>
+    <?php $url = $this->plugin('url'); ?>
+    <?php $api = $this->plugin('api'); ?>
+    <?php $query = $this->params()->fromQuery(); ?>
+    <?php $controller = $this->params()->fromRoute()["__CONTROLLER__"]; ?>
+    <ul id="current-search" class="list-inline mb-md-0">
+        <?php foreach ($filters as $filterLabel => $filterValues): ?>
+            <?php foreach ($filterValues as $filterValue): ?>
+                <?php
+                $removeURL = "";
+                if ($filterLabel == "Item set") {
+                    $query_copy = $query;
+                    foreach ($query_copy["item_set_id"] as $key => $item_set_id) {
+                        $thisTitle = $api->read('item_sets', $item_set_id)->getContent()->displayTitle();
+                        if ($filterValue == $thisTitle) {
+                            unset($query_copy["item_set_id"][$key]);
+                            $removeURL = $url(
+                                'site/resource',
+                                ['controller' => $controller, 'action' => 'browse'],
+                                [
+                                    'query' => $query_copy,
+                                ],
+                                true
+                            );
+                            break;
+                        }
+                    }
+                } elseif ($filterLabel == "Search full-text") {
+                    $query_copy = $query;
+                    if (array_key_exists("fulltext_search", $query_copy)) {
+                        unset($query_copy["fulltext_search"]);
+                        $removeURL = $url(
+                            'site/resource',
+                            ['controller' => $controller, 'action' => 'browse'],
+                            [
+                                'query' => $query_copy,
+                            ],
+                            true
+                        );
+                    }
+                } else {
+                    $query_copy = $query;
+                    if (array_key_exists("property", $query_copy)) {
+                        foreach ($query_copy["property"] as $key => $property) {
+                            if ($filterValue == $property["text"]) {
+                                unset($query_copy["property"][$key]);
+                                $removeURL = $url(
+                                    'site/resource',
+                                    ['controller' => $controller, 'action' => 'browse'],
+                                    [
+                                        'query' => $query_copy,
+                                    ],
+                                    true
+                                );
+                                if ($property["type"] == "res") {
+                                    $adapter = "";
+                                    if ($controller == "item") {
+                                        $adapter = "items";
+                                    } elseif ($controller == "item-set") {
+                                        $adapter = "item_sets";
+                                    }
+                                    if ($adapter) {
+                                        $thisTitle = $api->read($adapter, $property["text"])->getContent()->displayTitle();
+                                        if ($thisTitle) {
+                                            $filterValue = $thisTitle;
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                ?>
+                <?php if ($removeURL): ?>
+                    <li class="list-inline-item">
+                        <a href="<?php echo $removeURL; ?>" class="remove-query link-secondary text-decoration-none"><i
+                                aria-hidden="true" title="Remove facet:" class="far fa-times-circle"></i><span
+                                class="visually-hidden">Remove facet:</span>
+                            <?php echo $escape($filterValue); ?>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="list-inline-item">
+                        <span class="remove-query"><i aria-hidden="true">-</i>
+                            <?php echo $escape($filterValue); ?>
+                        </span>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

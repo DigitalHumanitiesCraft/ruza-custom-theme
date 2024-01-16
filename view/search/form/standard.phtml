@@ -1,0 +1,270 @@
+<?php
+$translate = $this->plugin('translate');
+$availableFields = $this->searchForm()->getAvailableSearchFields();
+$availableFieldsOptions = array_map(function ($field) {
+  return [
+    'value' => $field['name'],
+    'label' => $field['label'],
+    'attributes' => [
+      'data-valid-operators' => implode(' ', $field['valid_operators'] ?? []),
+    ],
+  ];
+}, $availableFields);
+$availableOperators = $this->searchForm()->getAvailableOperators();
+$availableOperatorsOptions = array_column($availableOperators, 'display_name', 'name');
+$settings = $form->getOption('search_page')->settings();
+$query = $this->params()->fromQuery();
+if (!$query) {
+  $query = [];
+}
+if (array_key_exists('suggester', $query) && ($query['suggester'] == 'true')) {
+  if (array_key_exists('q', $query)) {
+    $query['q'] = stripslashes($query['q']);
+    if ((substr($query['q'], 0, 1) == '"') && (substr($query['q'], -1, 1) == '"')) {
+      $query['q'] = substr(substr($query['q'], 1), 0, -1);
+    }
+  }
+}
+
+
+$form->prepare();
+$form->setData($query);
+$form->setAttribute('id', 'search-form-standard');
+$formQueryInput = $form->get('q');
+$formQueryInput->setAttributes(['class' => 'form-control form-control-lg', 'type' => 'search', 'aria-label' => $translate('Search'), 'autocomplete' => 'off']);
+$suggesterURL = $form->getOption('search_page')->url() . '/suggester.json';
+?>
+
+<!-- Basic Search -->
+<?php echo $this->form()->openTag($form); ?>
+<div class="input-group">
+  <?php echo $this->formInput($formQueryInput); ?>
+  <button class="btn btn-secondary" type="submit" aria-label="Search">
+    <i class="fas fa-search" title="<?php echo $translate('Search'); ?>" aria-hidden="true"></i>
+  </button>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+
+<!-- Advanced Search -->
+<?php $form->setAttribute('id', 'search-form-advanced'); ?>
+
+
+<div class="collapse mt-3<?php echo (array_key_exists("filters", $query) ? ' show' : ''); ?>" id="collapseAdvanced">
+  <h3>
+    <?php echo $translate('Advanced Search'); ?>
+  </h3>
+  <?php echo $this->form()->openTag($form); ?>
+
+  <div class="field mb-3">
+    <div class="field-meta">
+      <label class="form-label" for="fulltext_search">
+        <?php echo $this->translate('Search all metadata'); ?>
+      </label>
+    </div>
+    <div class="inputs">
+      <?php echo $this->formInput($formQueryInput->setAttributes(['class' => 'form-control', 'type' => 'search', 'placeholder' => '', 'id' => 'fulltext_search'])); ?>
+    </div>
+  </div>
+
+  <?php if (!empty($settings['form']['search_fields'])): ?>
+    <div id="property-queries" class="field removable multi-value mb-3" role="group" aria-labelledby="by-value-label">
+      <div class="field-meta form-label">
+        <span id="by-value-label" class="label">
+          <?php echo $translate('Search by specific fields'); ?>
+        </span>
+        <button type="button" class="search-add-filter o-icon-add button border-0 bg-transparent"
+          aria-label="<?php echo $translate('Add new value'); ?>">
+          <i class="fas fa-plus" title="<?php echo $translate('Add new value'); ?>" aria-hidden="true">
+          </i>
+        </button>
+      </div>
+      <div class="inputs">
+        <?php echo $this->partial('search/form/standard-match-group', [
+          'availableFieldsOptions' => $availableFieldsOptions,
+          'availableOperatorsOptions' => $availableOperatorsOptions,
+          'data' => $query['filters'] ?? [],
+          'namePrefix' => 'filters',
+          'mainGroup' => true,
+        ]); ?>
+      </div>
+    </div>
+
+    <template id="template-search-filter">
+      <div class="search-form-standard-match-group-item mb-0">
+        <?php echo $this->partial('search/form/standard-match-group-filter', [
+          'availableFieldsOptions' => $availableFieldsOptions,
+          'availableOperatorsOptions' => $availableOperatorsOptions,
+          'query' => [],
+          'namePrefix' => '__placeholder__',
+        ]); ?>
+      </div>
+    </template>
+
+    <script>
+      $(document).ready(function () {
+        //if suggester terms exist in session storage, load them. If not, use getJSON to get them and store them in session storage
+        if (sessionStorage.getItem("suggesterTerms")) {
+          var suggesterTerms = JSON.parse(sessionStorage.getItem("suggesterTerms"));
+          initializeTypeahead(suggesterTerms);
+        } else {
+          var suggesterURL = '<?php echo $suggesterURL; ?>';
+          $.getJSON(suggesterURL, function (suggesterTerms) {
+            sessionStorage.setItem("suggesterTerms", JSON.stringify(suggesterTerms));
+            initializeTypeahead(suggesterTerms);
+          });
+        }
+        function initializeTypeahead(suggesterTerms) {
+          var terms = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('term'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: suggesterTerms
+          });
+          var termSuggester = $('#search-form-standard input').typeahead(
+            {
+              hint: false,
+              highlight: true,
+              minLength: 2
+
+            },
+            {
+              name: 'terms',
+              source: terms,
+              display: 'term',
+              limit: 15,
+              templates: {
+                suggestion: function (data) {
+                  return '<div><span class="badge rounded-pill bg-secondary float-end ms-1">' + data.count + '</span>' + data.term + '</div>';
+                }
+              }
+            });
+          termSuggester.on('typeahead:select', function (ev, data) {
+            $(this).blur();
+            var escapedTerm = solrEscape(data.term);
+            var query = '\"' + escapedTerm + '\"';
+            const search_url = new URL(document.getElementById("search-form-standard").action);
+            search_url.searchParams.append($(this).attr("name"), query);
+            search_url.searchParams.append('suggester', 'true');
+            window.location.href = search_url;
+          });
+          //solr query escape from https://github.com/joeybaker/lucene-escape-query/blob/master/index.js
+          function solrEscape(str) {
+            return [].map.call(str, function escapeSpecialCharacter(char) {
+              if (char === '+'
+                || char === '-'
+                || char === '&'
+                || char === '|'
+                || char === '!'
+                || char === '('
+                || char === ')'
+                || char === '{'
+                || char === '}'
+                || char === '['
+                || char === ']'
+                || char === '^'
+                || char === '"'
+                || char === '~'
+                || char === '*'
+                || char === '?'
+                || char === ':'
+                || char === '\\'
+                || char === '/'
+              ) return '\\' + char
+              else return char
+            }).join('')
+          };
+        }
+
+        $('#search-form-advanced').on('click', '.search-add-filter', function (ev) {
+          ev.preventDefault();
+          insertFilterAfter(this);
+          renameAllFormControls();
+        });
+
+        $('#search-form-advanced').on('click', '.search-delete-filter', function (ev) {
+          ev.preventDefault();
+          $(this).closest('.search-form-standard-match-group-item').remove();
+          renameAllFormControls();
+        });
+
+        // Disable operators that are not valid to use with the selected field
+        $('#search-form-advanced').on('change', '.search-form-standard-filter-field', function () {
+          const validOperators = $(this).find('option:selected').attr('data-valid-operators').split(' ');
+          const options = $(this).closest('.search-form-standard-match-group-item').find('.search-form-standard-filter-operator').find('option');
+          options.attr('disabled', false);
+          options.each(function () {
+            const option = $(this);
+            if (!validOperators.includes(option.val())) {
+              option.attr('disabled', true);
+              option.prop('selected', false);
+            }
+          })
+        });
+        $('#search-form-advanced .search-form-standard-filter-field').trigger('change');
+        $('#reset-form').on("click", function () {
+          $('#search-form-advanced').find('input[type=search], input[type=number], input:text').val('');
+          $('#search-form-advanced').find('select').prop("selectedIndex", 0);
+        });
+
+        function insertFilterAfter(element) {
+          var fieldContainer = $(element).parents('.field');
+          var template = document.getElementById('template-search-filter');
+          var newValue = $(template.content.cloneNode(true).firstElementChild);
+          newValue.appendTo(fieldContainer.find('.search-form-standard-match-group-items'));
+          newValue.trigger('o:value-created');
+        }
+
+        function renameFormControls(element, namePrefix) {
+          $(element).children('select').attr('name', namePrefix + '[match]');
+
+          const items = $(element)
+            .children('.search-form-standard-match-group-items')
+            .children('.search-form-standard-match-group-item');
+
+          for (let i = 0; i < items.length; i++) {
+            const item = items.get(i);
+            $(item).find('input,select').each(function () {
+              const match = $(this).attr('name').match(/\[([^[]+)\]$/);
+              if (match) {
+                $(this).attr('name', namePrefix + '[queries][' + i + '][' + match[1] + ']');
+              }
+            });
+            $(item).children('.search-form-standard-match-group').each(function () {
+              renameFormControls(this, namePrefix + '[queries][' + i + ']');
+            });
+          }
+        }
+
+        function renameAllFormControls() {
+          const mainGroup = document.querySelector('#search-form-advanced > .field > .inputs > .search-form-standard-match-group');
+          renameFormControls(mainGroup, 'filters');
+        }
+      });
+    </script>
+  <?php endif; ?>
+
+  <?php if (!empty($settings['form']['date_range_field'])): ?>
+    <?php echo $this->partial('search/form/date-range', ['query' => $query]); ?>
+  <?php endif; ?>
+
+  <?php if (!empty($settings['form']['item_sets_field'])): ?>
+    <?php echo $this->partial('common/advanced-search/item-sets-solr', ['query' => $query]); ?>
+  <?php endif; ?>
+
+  <?php if (!empty($settings['form']['resource_class_field'])): ?>
+    <?php echo $this->partial('common/advanced-search/resource-class-solr', ['query' => $query]); ?>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#resource-class select optgroup:not([label="Dublin Core Type"])').remove();
+        $('#resource-class select option[data-term="dctype:Image"]').remove();
+      });
+    </script>
+  <?php endif; ?>
+
+  <div id="page-actions">
+    <button type="submit" name="submit" class="btn btn-secondary mt-3"
+      value="<?php echo $this->escapeHtml($translate('Search')); ?>"><?php echo $this->escapeHtml($translate('Search')); ?></button>
+    <button type="button" id="reset-form" name="reset" class="btn btn-secondary mt-3"
+      value="<?php echo $this->escapeHtml($translate('Clear form')); ?>"><?php echo $this->escapeHtml($translate('Clear form')); ?></button>
+  </div>
+  <?php echo $this->form()->closeTag(); ?>
+</div>

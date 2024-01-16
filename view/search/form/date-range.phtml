@@ -1,0 +1,37 @@
+<?php
+$translate = $this->plugin('translate');
+// Prepare the date range queries
+$date_range_start = isset($query['date_range_start']) ? $query['date_range_start'] : null;
+if (is_array($date_range_start)) {
+    $date_range_start = array_filter($date_range_start);
+    if (!$date_range_start) {
+        $date_range_start = null;
+    } else {
+        $date_range_start = $date_range_start[0];
+    }
+}
+
+$date_range_end = isset($query['date_range_end']) ? $query['date_range_end'] : null;
+if (is_array($date_range_end)) {
+    $date_range_end = array_filter($date_range_end);
+    if (!$date_range_end) {
+        $date_range_end = null;
+    } else {
+        $date_range_end = $date_range_end[0];
+    }
+}
+
+?>
+<div id="date-range" class="field mb-3" role="group">
+    <div class="field-meta form-label">
+        <span id="by-date-range-label" class="label"><?php echo $translate('Search by date range'); ?></span>
+    </div>
+    <div class="inputs">
+        <div class="value input-group mb-2">
+          <input name="date_range_start[]" type="number" step="1" class="form-control" placeholder="YYYY" aria-label="Start Year" aria-describedby="by-date-range-label" value="<?php echo $date_range_start; ?>">
+          <span class="input-group-text">TO</span>
+          <input name="date_range_end[]" type="number" step="1" class="form-control" placeholder="YYYY" aria-label="End Year" aria-describedby="by-date-range-label" value="<?php echo $date_range_end; ?>">
+        </div>
+    </div>
+    <div class="field-description form-text"><?php echo $translate('Searches for resources that fall between a range of years. Leave either blank for a wildcard.'); ?></div>
+</div>

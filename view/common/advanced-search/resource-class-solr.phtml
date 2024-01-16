@@ -1,0 +1,34 @@
+<?php
+$translate = $this->plugin('translate');
+// Prepare the resource class query.
+$ids = isset($query['resource_class_id']) ? $query['resource_class_id'] : [];
+if (!is_array($ids)) {
+    $ids = [$ids];
+}
+$ids = array_filter($ids);
+if (!$ids) {
+    $ids = [null];
+}
+?>
+<div id="resource-class" class="field removable multi-value mb-3" role="group">
+    <div class="field-meta form-label">
+        <span id="by-resource-class-label" class="label"><?php echo $translate('Search by class'); ?></span>
+    </div>
+    <div class="inputs">
+        <?php foreach ($ids as $id): ?>
+        <div class="value input-group mb-2">
+            <?php echo $this->resourceClassSelect([
+                'name' => 'resource_class_id[]',
+                'attributes' => [
+                    'value' => $id,
+                    'class' => 'form-select',
+                    'aria-labelledby' =>  'by-resource-class-label'
+                ],
+            ]); ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="field-description form-text">
+      <?php echo $translate('Searches for resources that are any of these classes.'); ?>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+<?php
+/*
+ * Copyright BibLibre, 2016
+ *
+ * This software is governed by the CeCILL license under French law and abiding
+ * by the rules of distribution of free software.  You can use, modify and/ or
+ * redistribute the software under the terms of the CeCILL license as circulated
+ * by CEA, CNRS and INRIA at the following URL "http://www.cecill.info".
+ *
+ * As a counterpart to the access to the source code and rights to copy, modify
+ * and redistribute granted by the license, users are provided only with a
+ * limited warranty and the software's author, the holder of the economic
+ * rights, and the successive licensors have only limited liability.
+ *
+ * In this respect, the user's attention is drawn to the risks associated with
+ * loading, using, modifying and/or developing or reproducing the software by
+ * the user in light of its specific status of free software, that may mean that
+ * it is complicated to manipulate, and that also therefore means that it is
+ * reserved for developers and experienced professionals having in-depth
+ * computer knowledge. Users are therefore encouraged to load and test the
+ * software's suitability as regards their requirements in conditions enabling
+ * the security of their systems and/or data to be ensured and, more generally,
+ * to use and operate it in the same conditions as regards security.
+ *
+ * The fact that you are presently reading this means that you have had
+ * knowledge of the CeCILL license and that you accept its terms.
+ */
+$this->headScript()->appendFile($this->assetUrl('js/dateRange.js'));
+?>
+
+<?php if (!empty($facets)): ?>
+  <?php if (array_key_exists('limit', $queryParams) && ($queryFacets = $queryParams['limit'])): ?>
+    <div class="card rounded-0 border-start-0 border-end-0">
+      <h4 class="card-header"><?php echo $this->translate('Active Filters'); ?></h4>
+      <ul class="list-group list-group-flush">
+      <?php foreach ($queryFacets as $queryFacetName => $queryFacetValues): ?>
+        <?php $subArray = $facets[$queryFacetName]; ?>
+        <?php foreach ($queryFacetValues as $queryFacetValue): ?>
+          <?php $keyMatch = array_search($queryFacetValue, array_column($facets[$queryFacetName], 'value')); ?>
+          <?php unset($subArray[$keyMatch]); ?>
+          <?php echo $this->facetLink($queryFacetName, array('value' => $queryFacetValue, 'count' => null)); ?>
+        <?php endforeach; ?>
+        <?php $facets[$queryFacetName] = $subArray; ?>
+      <?php endforeach; ?>
+      </ul>
+    </div>
+  <?php endif; ?>
+  <?php // check if date facet stats exist and check if the min and max are not the same because if they are there is no need for a range?>
+  <?php if ((!empty($dateFacetStats)) && (!empty($dateFacetStats["min"])) && (!empty($dateFacetStats["max"])) && ($dateFacetStats["min"] != $dateFacetStats["max"])): ?>
+    <?php (isset($queryParams['date_range_start']) && ($queryParams['date_range_start'][0]) && ($queryParams['date_range_start'][0] > $dateFacetStats["min"])) ? ($min = $queryParams['date_range_start'][0]) : ($min = $dateFacetStats["min"]);?>
+    <?php (isset($queryParams['date_range_end']) && ($queryParams['date_range_end'][0]) && ($queryParams['date_range_end'][0] < $dateFacetStats["max"])) ? ($max = $queryParams['date_range_end'][0]) : ($max = $dateFacetStats["max"]);?>
+    <div class="card rounded-0 border-start-0 border-end-0">
+      <h4 class="card-header">Date</h4>
+      <form id="dateRangeFacet" class="card-body py-2" method="get" action="<?php echo $this->dateRangeFacetURL(); ?>">
+        <div class="row justify-content-between mb-4">
+          <div class="col-auto">
+            <label for="dateRangeMin" class="form-label">Min</label>
+            <input type="number" class="form-control form-control-sm" id="dateRangeMin" name="date_range_start[]" min="<?php echo $min; ?>" max="<?php echo $max; ?>">
+          </div>
+          <div class="col-auto">
+            <label for="dateRangeMax" class="form-label">Max</label>
+            <input type="number" class="form-control form-control-sm" id="dateRangeMax" name="date_range_end[]" min="<?php echo $min; ?>" max="<?php echo $max; ?>">
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <div id="date-facet-slider" data-min=<?php echo $min; ?> data-max=<?php echo $max; ?>></div>
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-auto">
+            <button type="submit" class="btn btn-secondary btn-sm">Set Date Range</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  <?php endif; ?>
+  <?php $collapse_count = 1; ?>
+  <?php foreach ($facets as $name => $facetValues): ?>
+    <?php if ($facetValues): ?>
+      <div class="card rounded-0 border-start-0 border-end-0">
+        <h4 class="card-header"><?php echo $this->facetLabel($name); ?></h4>
+        <ul class="list-group list-group-flush">
+          <?php
+          $displayFacetValues = array_slice($facetValues, 0, 5);
+          $hiddenFacetValues = array_slice($facetValues, 5);
+          ?>
+          <?php foreach ($displayFacetValues as $facetValue): ?>
+            <?php echo $this->facetLink($name, $facetValue); ?>
+          <?php endforeach; ?>
+          <?php if ($hiddenFacetValues): ?>
+            <div class="collapse hidden-facets" id="collapse-<?php echo $collapse_count; ?>">
+            <?php foreach ($hiddenFacetValues as $facetValue): ?>
+              <?php echo $this->facetLink($name, $facetValue); ?>
+            <?php endforeach; ?>
+            </div>
+            <button class="list-group-item list-group-item-action expander d-inline-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?php echo $collapse_count; ?>" aria-expanded="false" aria-controls="collapse-<?php echo $collapse_count; ?>">
+              More
+            </button>
+          <?php endif; ?>
+        </ul>
+      </div>
+    <?php endif; ?>
+    <?php $collapse_count++; ?>
+  <?php endforeach; ?>
+<?php endif; ?>

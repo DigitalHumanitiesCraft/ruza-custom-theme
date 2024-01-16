@@ -1,0 +1,50 @@
+<?php
+$translate = $this->plugin('translate');
+// Prepare the item set queries
+$ids = isset($query['item_set_id']) ? $query['item_set_id'] : [];
+if (!is_array($ids)) {
+    $ids = [$ids];
+}
+$ids = array_filter($ids);
+if (!$ids) {
+    $ids = [null];
+}
+
+if ($this->status()->isSiteRequest()) {
+    if (!$this->layout()->site->siteItemSets()) {
+        return;
+    }
+    $filterLocale = (bool) $this->siteSetting('filter_locale_values');
+    $lang = $this->lang();
+
+    $selectOptions = [
+        'disable_group_by_owner' => true,
+        'query' => ['site_id' => $this->layout()->site->id()],
+        'lang' => ($filterLocale == 1 ? $lang : null),
+        'empty_option' => 'Select Collection...'
+    ];
+} else {
+    $selectOptions = [];
+}
+?>
+<div id="item-sets" class="field removable multi-value mb-3" role="group">
+    <div class="field-meta form-label">
+        <span id="by-item-set-label" class="label"><?php echo $translate('Search by collection'); ?></span>
+    </div>
+    <div class="inputs">
+        <?php foreach ($ids as $id): ?>
+        <div class="value input-group mb-2">
+            <?php echo $this->itemSetSelect([
+                'name' => 'item_set_id[]',
+                'attributes' => [
+                    'value' => $id,
+                    'class' => 'form-select',
+                    'aria-labelledby' =>  'by-item-set-label'
+                ],
+                'options' => $selectOptions,
+            ]); ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="field-description form-text"><?php echo $translate('Searches for resources that are assigned to any of these collections.'); ?></div>
+</div>

@@ -1,0 +1,243 @@
+<?php
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+?>
+<div class="col-12 browse-preview">
+  <?php if ($this->heading) : ?>
+    <h2 class="mb-4"><?php echo $this->heading; ?></h2>
+  <?php endif; ?>
+  <form class="row g-3 mb-4" id="filterForm">
+    <div class="col-12 col-md-6">
+      <div class="filters-group"><input class="form-control search" type="search" placeholder="Suche..." id="searchInput"></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="input-group filters-group">
+        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Personen" data-bs-original-title="Filter Personen">
+          <i class="fa fa-user-circle"> </i>
+        </span>
+        <select class="form-select filter-options" id="person-choice">
+          <option value="">Alle Personen</option>
+
+          <!-- ... other options ... -->
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="input-group filters-group">
+        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Genres" data-bs-original-title="Filter Genres">
+          <i class="fa fa-music"> </i>
+        </span>
+        <select class="form-select filter-options" id="genre-choice">
+          <option value="">Alle Genres</option>
+
+          <!-- ... other options ... -->
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="input-group filters-group">
+        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Orte" data-bs-original-title="Filter Orte">
+          <i class="fas fa-map-marked-alt"></i>
+        </span>
+        <select class="form-select filter-options" id="place-choice">
+          <option value="">Alle Orte</option>
+
+          <!-- ... other options ... -->
+        </select>
+      </div>
+
+    </div>
+
+    <div class="col-12 col-md-6">
+      <div class="input-group filters-group">
+        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Themen" data-bs-original-title="Filter Themen">
+          <i class="fas fa-drum-steelpan"></i>
+        </span>
+        <select class="form-select filter-options" id="topic-choice">
+          <option value="">Alle Themen</option>
+
+          <!-- ... other options ... -->
+        </select>
+      </div>
+
+    </div>
+
+    <div class="col-12 col-md-auto">
+      <button title="Zurücksetzen" class="btn btn-outline-secondary btn-icon" type="button" onclick="resetFilters()">
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
+    <div class="col-12 col-md-auto"><span id="filterCount">2 Resultate</span><br><span id="datasetCount">25
+        Lieder gesamt</span> </div>
+  </form>
+
+  <div class="row">
+
+    <?php
+    $showThumbnail = in_array('thumbnail', $this->components);
+    $showHeading = in_array('resource-heading', $this->components);
+    $showBody = in_array('resource-body', $this->components);
+    $headingTerm = $this->siteSetting('browse_heading_property_term');
+    $bodyTerm = $this->siteSetting('browse_body_property_term');
+
+    $filterLocale = (bool) $this->siteSetting('filter_locale_values');
+    $lang = $this->lang();
+
+    foreach ($this->resources as $resource) :
+      $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]')]) : $resource->displayTitle(null, ($filterLocale ? $lang : null));
+      $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($filterLocale ? $lang : null));
+      // Fetching contributor and creator values
+      $metadata = $resource->displayValues();
+      // Fetching the URL from the foaf:page property
+      $pageUrl = $resource->value('foaf:page', ['all' => false, 'default' => null]);
+      $pageUrl = $pageUrl ? $pageUrl->uri() : null;
+
+    ?>
+      <div class="col-sm-6 col-md-4 col-lg-3 my-2 song-item">
+        <div class="card card-hover border-0 shadow-sm overflow-hidden mb-4">
+          <?php
+          // Manually create a link to the foaf:page URL if it exists
+          if ($pageUrl) {
+            echo '<a href="' . $escape($pageUrl) . '">' . $this->thumbnail($resource, 'medium', ['class' => 'card-img-top', 'alt' => $heading]) . '</a>';
+          } else {
+            echo $resource->linkRaw($this->thumbnail($resource, 'medium', ['class' => 'card-img-top', 'alt' => $heading]), null, ['class' => 'item-set-link']);
+          }
+          ?>
+          <div class="card-body">
+            <?php if ($showHeading) : ?>
+              <h3 class="card-title"><?php echo $escape($heading); ?></h3>
+            <?php endif; ?>
+
+            <?php if ($showBody) : ?>
+              <p class="card-text"><?php echo $escape($body); ?></p>
+            <?php endif; ?>
+
+            <!-- Display Metadata -->
+            <?php if ($metadata) : ?>
+              <div class="card-text"><?php echo $metadata; ?></div>
+            <?php endif; ?>
+
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+
+
+  </div>
+  <?php
+  /* if ($this->linkText) :
+    echo $this->hyperlink(
+      $this->linkText,
+      $this->url(
+        'site/resource',
+        ['controller' => $this->resourceType, 'action' => 'browse'],
+        ['query' => $this->query],
+        true
+      ),
+      ['class' => 'float-end me-5']
+    );
+  endif; */
+  ?>
+</div>
+<!-- Script for handling Filter -->
+<script>
+  // Initialize Bootstrap popovers for elements with the 'data-bs-toggle="popover"' attribute.
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  });
+
+  // Function to populate a select element with unique options extracted from specified card properties.
+  function populateSelect(selector, cardPropertySelectors) {
+    const selectElement = document.querySelector(selector); // Selects the dropdown element.
+    const options = new Set(); // Creates a set to store unique options.
+
+    // Iterates over each selector and extracts text content from matching elements, adding them to the set.
+    cardPropertySelectors.forEach(cardPropertySelector => {
+      document.querySelectorAll(cardPropertySelector).forEach(item => {
+        options.add(item.textContent.trim());
+      });
+    });
+
+    // Adds each unique option as a new option in the select element.
+    options.forEach(option => {
+      if (option) { // Checks to avoid adding empty options.
+        selectElement.add(new Option(option, option));
+      }
+    });
+  }
+
+  // Populate the select elements for 'Personen', 'Genres', and 'Orte'.
+  populateSelect('#person-choice', ['.contributor .resource-name', '.creator .resource-name']);
+  populateSelect('#genre-choice', ['.genre .resource-name']);
+  populateSelect('#place-choice', ['.spatial .resource-name']);
+
+  // Function to filter the cards based on the selected options in the dropdowns.
+  function filterCards() {
+    // Retrieves the selected values from the dropdowns.
+    const searchInput = document.querySelector('#searchInput').value.toLowerCase();
+    const selectedPerson = document.querySelector('#person-choice').value;
+    const selectedGenre = document.querySelector('#genre-choice').value;
+    const selectedPlace = document.querySelector('#place-choice').value;
+
+    // Iterates over each card and decides whether to display it based on the selected filters.
+    document.querySelectorAll('.song-item').forEach(card => {
+      const persons = [...card.querySelectorAll('.contributor .resource-name, .creator .resource-name')]
+        .map(el => el.textContent.trim());
+      const genre = card.querySelector('.genre .resource-name')?.textContent.trim();
+      const place = card.querySelector('.spatial .resource-name')?.textContent.trim();
+      const cardText = card.textContent.toLowerCase();
+
+      // Logic to determine if the current card matches the selected filters.
+      const searchMatch = !searchInput || cardText.includes(searchInput);
+      const personMatch = !selectedPerson || persons.includes(selectedPerson);
+      const genreMatch = !selectedGenre || genre === selectedGenre;
+      const placeMatch = !selectedPlace || place === selectedPlace;
+
+      // Shows or hides the card based on the filter matching.
+      if (searchMatch && personMatch && genreMatch && placeMatch) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Update the count of displayed and total cards after filtering.
+    updateCardCounts();
+  }
+
+  // Event listeners to trigger filtering when selections change.
+  document.querySelector('#searchInput').addEventListener('input', filterCards);
+  document.querySelector('#person-choice').addEventListener('change', filterCards);
+  document.querySelector('#genre-choice').addEventListener('change', filterCards);
+  document.querySelector('#place-choice').addEventListener('change', filterCards);
+
+  // Function to reset the filters and display all cards.
+  function resetFilters() {
+    // Resets the values of the dropdowns.
+    document.querySelector('#searchInput').value = '';
+    document.querySelector('#person-choice').value = '';
+    document.querySelector('#genre-choice').value = '';
+    document.querySelector('#place-choice').value = '';
+
+    // Calls filterCards to update the display of cards accordingly.
+    filterCards();
+  }
+
+  // Function to update and display the count of total and displayed cards.
+  function updateCardCounts() {
+    // Convert NodeList to Array and count the total and displayed cards.
+    const cards = Array.from(document.querySelectorAll('.song-item'));
+    const totalCards = cards.length;
+    const displayedCards = cards.filter(card => card.style.display !== 'none').length;
+
+    // Update the text content of filterCount and datasetCount elements with the respective counts.
+    document.querySelector('#filterCount').textContent = `${displayedCards} Resultate`;
+    document.querySelector('#datasetCount').textContent = `${totalCards} Lieder gesamt`;
+  }
+
+  // Initial call to display the initial count of cards.
+  updateCardCounts(); // Call this function once at the start to initialize the counts.
+</script>
