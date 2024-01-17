@@ -22,10 +22,10 @@ if ($activePage) :
 <?php endif; */ ?>
 
 <?php $this->trigger('view.show.before'); ?>
-<div class="py-3 py-md-5">
-  <div class="row justify-content-center blocks">
+<div class="row blocks py-3 py-md-5">
+
     <?php echo $this->content; ?>
-  </div>
+
 </div>
 <?php $this->trigger('view.show.after'); ?>
 <?php if ($showPagePagination) : ?>

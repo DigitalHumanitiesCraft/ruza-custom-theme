@@ -834,7 +834,7 @@ footer #fit-logo {
   padding-bottom: 3rem;
 }
 
-.getBlocks .rv {
+.item-show-getBlocks .rv {
   display: none;
 }
 
@@ -850,11 +850,28 @@ footer #fit-logo {
   margin-right: 7.5px;
 }
 
-.getBlocks .media-render.file img,
-.getBlocks .media-render.file audio {
+.item-show-getBlocks .media-embeds .media-render.file img,
+.item-show-getBlocks .media-embeds .media-render.file audio,
+.block-layout-file-attachment .media-render.file audio {
   width: 100%;
 }
 
-.getBlocks .media-embeds {
+.item-show-getBlocks .media-embeds {
   padding-bottom: 1em;
+}
+
+.blocks p {
+  font-size: 1rem;
+}
+
+/* carousel */
+/* Full screen carousel */
+.carousel,
+.carousel-item,
+.carousel-item.active {
+  height: calc(94vh - 200px);
+}
+.carousel-item img {
+  height: calc(120vh - 200px);
+  object-fit: cover;
 }
