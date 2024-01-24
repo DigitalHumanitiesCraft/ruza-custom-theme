@@ -850,6 +850,10 @@ footer #fit-logo {
   margin-right: 7.5px;
 }
 
+.song-item .resource-link img {
+  display: none;
+}
+
 .item-show-getBlocks .media-embeds .media-render.file img,
 .item-show-getBlocks .media-embeds .media-render.file audio,
 .block-layout-file-attachment .media-render.file audio {
@@ -864,14 +868,36 @@ footer #fit-logo {
   font-size: 1.5rem;
 }
 
+.caption p {
+  font-size: 1rem;
+}
+
 /* carousel */
 /* Full screen carousel */
 .carousel,
 .carousel-item,
 .carousel-item.active {
-  height: calc(94vh - 200px);
+  height: calc(97vh - 200px);
 }
 .carousel-item img {
-  height: calc(120vh - 200px);
+  height: calc(129vh - 200px);
   object-fit: cover;
+}
+
+/* Background  */
+body {
+  position: relative;
+}
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(../img/ruza-songs-music-notes.png) no-repeat center center;
+  background-size: cover;
+  opacity: 0.05;
+  z-index: -1;
+  background-attachment: fixed;
 }

@@ -1,7 +1,7 @@
 <?php
 $translate = $this->plugin('translate');
 ?>
-<div>
+<div class="list-of-pages">
     <?php
     $iterate = function ($pages) use ($translate) {
         // Sort pages alphabetically by 'text' (page name)
@@ -17,7 +17,7 @@ $translate = $this->plugin('translate');
             if (empty($pageLink)) {
                 echo '<span>' . $translate('[Missing Page]') . '</span>';
             } else {
-                echo '<span>' . $this->hyperlink($pageName, $pageLink) . '</span>';
+                echo '<span class="pageLink">' . $this->hyperlink($pageName, $pageLink) . '</span>';
             }
 
             // Add delimiter except after the last page

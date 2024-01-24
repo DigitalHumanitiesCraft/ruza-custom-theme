@@ -85,8 +85,24 @@ $escape = $this->plugin('escapeHtml');
     $filterLocale = (bool) $this->siteSetting('filter_locale_values');
     $lang = $this->lang();
 
-    foreach ($this->resources as $resource) :
+    // Step 1: Collect resources and their headings
+    $sortedResources = [];
+    foreach ($this->resources as $resource) {
       $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]')]) : $resource->displayTitle(null, ($filterLocale ? $lang : null));
+      $sortedResources[] = [
+        'resource' => $resource,
+        'heading' => $heading
+      ];
+    }
+
+    // Step 2: Sort the array based on headings
+    usort($sortedResources, function ($a, $b) {
+      return strcmp($a['heading'], $b['heading']);
+    });
+
+    foreach ($sortedResources as $sortedItem) :
+      $resource = $sortedItem['resource'];
+      $heading = $sortedItem['heading'];
       $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($filterLocale ? $lang : null));
       // Fetching contributor and creator values
       $metadata = $resource->displayValues();
@@ -173,6 +189,7 @@ $escape = $this->plugin('escapeHtml');
   populateSelect('#person-choice', ['.contributor .resource-name', '.creator .resource-name']);
   populateSelect('#genre-choice', ['.genre .resource-name']);
   populateSelect('#place-choice', ['.spatial .resource-name']);
+  populateSelect('#topic-choice', ['.topic .resource-name']);
 
   // Function to filter the cards based on the selected options in the dropdowns.
   function filterCards() {
@@ -181,23 +198,26 @@ $escape = $this->plugin('escapeHtml');
     const selectedPerson = document.querySelector('#person-choice').value;
     const selectedGenre = document.querySelector('#genre-choice').value;
     const selectedPlace = document.querySelector('#place-choice').value;
+    const selectedTopic = document.querySelector('#topic-choice').value;
 
     // Iterates over each card and decides whether to display it based on the selected filters.
     document.querySelectorAll('.song-item').forEach(card => {
-      const persons = [...card.querySelectorAll('.contributor .resource-name, .creator .resource-name')]
-        .map(el => el.textContent.trim());
-      const genre = card.querySelector('.genre .resource-name')?.textContent.trim();
-      const place = card.querySelector('.spatial .resource-name')?.textContent.trim();
+      // Retrieve all person, genre, place, and topic values from the card and store them in arrays.
+      const persons = [...card.querySelectorAll('.contributor .resource-name, .creator .resource-name')].map(el => el.textContent.trim());
+      const genres = [...card.querySelectorAll('.genre .resource-name')].map(el => el.textContent.trim());
+      const places = [...card.querySelectorAll('.spatial .resource-name')].map(el => el.textContent.trim());
+      const topics = [...card.querySelectorAll('.topic .resource-name')].map(el => el.textContent.trim());
       const cardText = card.textContent.toLowerCase();
 
       // Logic to determine if the current card matches the selected filters.
       const searchMatch = !searchInput || cardText.includes(searchInput);
-      const personMatch = !selectedPerson || persons.includes(selectedPerson);
-      const genreMatch = !selectedGenre || genre === selectedGenre;
-      const placeMatch = !selectedPlace || place === selectedPlace;
+      const personMatch = !selectedPerson || persons.some(person => person === selectedPerson);
+      const genreMatch = !selectedGenre || genres.some(genre => genre === selectedGenre);
+      const placeMatch = !selectedPlace || places.some(place => place === selectedPlace);
+      const topicMatch = !selectedTopic || topics.some(topic => topic === selectedTopic);
 
       // Shows or hides the card based on the filter matching.
-      if (searchMatch && personMatch && genreMatch && placeMatch) {
+      if (searchMatch && personMatch && genreMatch && placeMatch && topicMatch) {
         card.style.display = '';
       } else {
         card.style.display = 'none';
@@ -213,6 +233,7 @@ $escape = $this->plugin('escapeHtml');
   document.querySelector('#person-choice').addEventListener('change', filterCards);
   document.querySelector('#genre-choice').addEventListener('change', filterCards);
   document.querySelector('#place-choice').addEventListener('change', filterCards);
+  document.querySelector('#topic-choice').addEventListener('change', filterCards);
 
   // Function to reset the filters and display all cards.
   function resetFilters() {
@@ -221,6 +242,7 @@ $escape = $this->plugin('escapeHtml');
     document.querySelector('#person-choice').value = '';
     document.querySelector('#genre-choice').value = '';
     document.querySelector('#place-choice').value = '';
+    document.querySelector('#topic-choice').value = '';
 
     // Calls filterCards to update the display of cards accordingly.
     filterCards();
