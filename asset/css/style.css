@@ -897,7 +897,100 @@ body::before {
   bottom: 0;
   background: url(../img/ruza-songs-music-notes.png) no-repeat center center;
   background-size: cover;
-  opacity: 0.05;
+  opacity: 0.1;
   z-index: -1;
   background-attachment: fixed;
 }
+
+/* Card Images */
+/* Set the default opacity of the image */
+.item-set-link .card-img-top {
+  opacity: 0.6;
+  transition: opacity 0.3s ease; /* Optional: for smooth transition */
+}
+
+/* Change opacity to 1 when hovering over the image */
+.item-set-link .card-img-top:hover {
+  opacity: 1;
+}
+
+/* arty cards */
+/* Base style for all arty-cards */
+.arty-card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Card 1 with gradient (#DF5F3B to #B3472D) */
+.arty-card.card1::before {
+  background: linear-gradient(120deg, #DF5F3B, #B3472D);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: circle(150% at 80% -20%);
+  transition: clip-path 0.3s ease;
+  z-index: 0;
+}
+
+/* Card 2 with gradient (#C0CEBB to #839A8B) */
+.arty-card.card2::before {
+  background: linear-gradient(120deg, #EFDBB5, #D1A785);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: circle(150% at 80% -20%);
+  transition: clip-path 0.3s ease;
+  z-index: 0;
+}
+
+/* Card 3 with gradient (#EFDBB5 to #D1A785) */
+.arty-card.card3::before {
+  background: linear-gradient(120deg, #C0CEBB, #839A8B);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: circle(150% at 80% -20%);
+  transition: clip-path 0.3s ease;
+  z-index: 0;
+}
+
+/* Styles for card hover effect */
+.arty-card:hover::before {
+  clip-path: circle(150% at 50% 50%);
+}
+
+/* Styles for card content */
+.arty-card .card-body {
+  position: relative;
+  z-index: 1;
+}
+
+/* Styles for card text */
+.arty-card .card-title, .arty-card .card-text {
+  color: #fff;
+}
+
+/* Style for link */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Hover effects for the card */
+.arty-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
