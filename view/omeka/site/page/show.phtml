@@ -22,11 +22,25 @@ if ($activePage) :
 <?php endif; */ ?>
 
 <?php $this->trigger('view.show.before'); ?>
-<div class="row blocks py-3 py-md-5">
+<div class="blocks py-3 py-md-5">
 
     <?php echo $this->content; ?>
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let images = document.querySelectorAll('.media-render.file a img');
+    images.forEach(function(image) {
+        let anchorTitle = image.parentNode.getAttribute('title');
+        if (anchorTitle && image.getAttribute('alt') === '') {
+            image.setAttribute('alt', anchorTitle);
+        }
+        image.classList.add('img-fluid');
+    });
+});
+</script>
+
+
 <?php $this->trigger('view.show.after'); ?>
 <?php if ($showPagePagination) : ?>
   <?php echo $this->sitePagePagination(); ?>

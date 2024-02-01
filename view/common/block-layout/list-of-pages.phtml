@@ -1,6 +1,7 @@
 <?php
 $translate = $this->plugin('translate');
 ?>
+<div class="row">
 <div class="col-12 list-of-pages">
     <?php
     $iterate = function ($pages) use ($translate) {
@@ -29,4 +30,5 @@ $translate = $this->plugin('translate');
 
     $iterate($pageList);
     ?>
+</div>
 </div>

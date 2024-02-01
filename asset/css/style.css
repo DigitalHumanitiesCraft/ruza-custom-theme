@@ -27,31 +27,31 @@ b {
 }
 
 a {
-  color: #0036f9;
+  color: #bd4d30;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #002bc7;
+  color: #8a3823;
 }
 
 .btn-fit-blue {
   color: #fff;
-  background-color: #0036f9;
-  border-color: #0036f9;
+  background-color: #bd4d30;
+  border-color: #bd4d30;
 }
 
 .btn-fit-blue:hover {
   color: #fff;
   background-color: #002ed4;
-  border-color: #002bc7;
+  border-color: #8a3823;
 }
 
 .btn-check:focus + .btn-fit-blue,
 .btn-fit-blue:focus {
   color: #fff;
   background-color: #002ed4;
-  border-color: #002bc7;
+  border-color: #8a3823;
   box-shadow: 0 0 0 0.25rem rgba(38, 84, 250, 0.5);
 }
 
@@ -63,7 +63,7 @@ a:hover {
 .show > .btn-fit-blue.dropdown-toggle,
 :not(.btn-check) + .btn.btn-fit-blue:active {
   color: #fff;
-  background-color: #002bc7;
+  background-color: #8a3823;
   border-color: #0029bb;
 }
 
@@ -78,8 +78,8 @@ a:hover {
 .btn-fit-blue:disabled,
 .btn-fit-blue.disabled {
   color: #fff;
-  background-color: #0036f9;
-  border-color: #0036f9;
+  background-color: #bd4d30;
+  border-color: #bd4d30;
 }
 
 .btn-fit-green {
@@ -469,7 +469,7 @@ footer #fit-logo {
   height: 1rem;
   right: -8px;
   top: -5px;
-  background-color: #0036f9;
+  background-color: #bd4d30;
   border: 0;
   border-radius: 1rem;
   cursor: pointer;
@@ -762,13 +762,13 @@ footer #fit-logo {
 }
 
 .item.resource.show #social-share .clip-button {
-  color: #0036f9;
+  color: #bd4d30;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .item.resource.show #social-share .clip-button:focus {
-  color: #002bc7;
+  color: #8a3823;
   box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
 }
 
@@ -830,7 +830,7 @@ footer #fit-logo {
 }
 
 /* page */
-.page .row.blocks > div:not(:last-child) {
+.page .blocks > div:not(:last-child) {
   padding-bottom: 3rem;
 }
 
@@ -897,7 +897,7 @@ body::before {
   bottom: 0;
   background: url(../img/ruza-songs-music-notes.png) no-repeat center center;
   background-size: cover;
-  opacity: 0.1;
+  opacity: 0.05;
   z-index: -1;
   background-attachment: fixed;
 }
@@ -994,3 +994,27 @@ body::before {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
+/* Song page */
+.left.large.file.row {
+  margin-bottom: 1rem;
+}
+
+.item.resource.block-layout-file-attachment.text-center a{
+  text-decoration: none;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #bd4d30;
+  border-color: #bd4d30;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #8a3823;
+  border-color: #8a3823;
+}
+
+.caption.col-md-6 p {
+  padding-top: 1.5rem;
+}

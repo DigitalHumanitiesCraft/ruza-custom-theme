@@ -1,19 +1,28 @@
 <div class="<?php echo $this->alignmentClass . ' ' . $this->thumbnailType; ?> file row">
-
-    <div class="attachments col">
+    <?php
+    // Initialize a variable to check if there's any caption
+    $hasCaption = false;
+    foreach ($this->attachments as $attachment) {
+        if ($attachment->caption()) {
+            $hasCaption = true;
+            break; // Exit the loop once we find a caption
+        }
+    }
+    ?>
+    <div class="attachments <?php echo $hasCaption ? 'col-md-6' : 'col-md-12'; ?>">
         <?php foreach ($this->attachments as $attachment) : ?>
-            <div class="item resource block-layout-file-attachment">
+            <div class="item resource block-layout-file-attachment text-center">
                 <?php
                 $item = $attachment->item();
                 if ($item) :
+                    $showTitleOption = $this->showTitleOption;
+                    if ($showTitleOption == 'item_title') :
                 ?>
-                    <?php $showTitleOption = $this->showTitleOption; ?>
-                    <?php if ($showTitleOption == 'item_title') : ?>
                         <h6><?php echo $item->link($item->displayTitle()); ?></h6>
-                    <?php elseif ($showTitleOption == 'file_name') : ?>
+                <?php elseif ($showTitleOption == 'file_name') : ?>
                         <h3><?php echo $media->displayTitle(); ?></h3>
-                    <?php endif; ?>
-                    <?php
+                <?php
+                    endif;
                     $media = $attachment->media() ?: $item->primaryMedia();
                     if ($media) :
                         echo $media->render([
@@ -21,18 +30,19 @@
                             'link' => $link,
                         ]);
                     endif;
-                    ?>
-
-                <?php endif; ?>
-
-
+                endif;
+                ?>
             </div>
         <?php endforeach; ?>
     </div>
-    <?php
-    $caption = $attachment->caption();
-    if ($caption) :
-    ?>
-        <div class="caption col"><?php echo $caption; ?></div>
+    <?php if ($hasCaption) : ?>
+        <?php // Render the caption column only if there is a caption. ?>
+        <div class="caption col-md-6">
+            <?php foreach ($this->attachments as $attachment) : ?>
+                <?php if ($attachment->caption()) : ?>
+                    <?php echo $attachment->caption(); ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 </div>
