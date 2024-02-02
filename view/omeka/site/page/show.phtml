@@ -55,6 +55,34 @@ if ($activePage) :
       header.id = id;
     });
   });
+
+  // Find all '.media-render.file' elements
+  let mediaRenders = document.querySelectorAll('.media-render.file');
+
+  mediaRenders.forEach(function(mediaRender) {
+    // Check if the direct child is an 'img' element
+    if (mediaRender.querySelector('img')) {
+      // Get the parent '.center.large.file.row' element
+      let parentRow = mediaRender.closest('.center.large.file.row');
+
+      // Find the '.caption' div within the parent row
+      let captionDiv = parentRow.querySelector('.caption');
+
+      // Hide the original caption div
+      captionDiv.style.display = 'none';
+
+      // Create a new 'figcaption' element
+      let figcaption = document.createElement('figcaption');
+      figcaption.textContent = captionDiv.textContent.trim(); // Copy the text content from the original caption
+
+      // Adjust the class of the attachment div to 'col-md-12'
+      let attachmentDiv = parentRow.querySelector('.attachments');
+      attachmentDiv.className = 'col-md-12';
+
+      // Append the 'figcaption' to the '.media-render' div
+      mediaRender.appendChild(figcaption);
+    }
+  });
 </script>
 
 

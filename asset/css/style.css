@@ -830,6 +830,11 @@ footer #fit-logo {
 }
 
 /* page */
+
+.nav-link.active {
+  color: #bd4d30 !important;
+}
+
 .page .blocks > div:not(:last-child) {
   padding-bottom: 3rem;
 }
@@ -865,7 +870,7 @@ footer #fit-logo {
 }
 
 .blocks p {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .caption p {
@@ -889,7 +894,7 @@ body {
   position: relative;
 }
 body::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -926,8 +931,8 @@ body::before {
 
 /* Card 1 with gradient (#DF5F3B to #B3472D) */
 .arty-card.card1::before {
-  background: linear-gradient(120deg, #DF5F3B, #B3472D);
-  content: '';
+  background: linear-gradient(120deg, #df5f3b, #b3472d);
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -940,8 +945,8 @@ body::before {
 
 /* Card 2 with gradient (#C0CEBB to #839A8B) */
 .arty-card.card2::before {
-  background: linear-gradient(120deg, #EFDBB5, #D1A785);
-  content: '';
+  background: linear-gradient(120deg, #efdbb5, #d1a785);
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -954,8 +959,8 @@ body::before {
 
 /* Card 3 with gradient (#EFDBB5 to #D1A785) */
 .arty-card.card3::before {
-  background: linear-gradient(120deg, #C0CEBB, #839A8B);
-  content: '';
+  background: linear-gradient(120deg, #c0cebb, #839a8b);
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -978,7 +983,8 @@ body::before {
 }
 
 /* Styles for card text */
-.arty-card .card-title, .arty-card .card-text {
+.arty-card .card-title,
+.arty-card .card-text {
   color: #fff;
 }
 
@@ -999,7 +1005,7 @@ body::before {
   margin-bottom: 1rem;
 }
 
-.item.resource.block-layout-file-attachment.text-center a{
+.item.resource.block-layout-file-attachment.text-center a {
   text-decoration: none;
 }
 
@@ -1020,22 +1026,41 @@ body::before {
 }
 
 .col-md-6 .youtube iframe {
-  width: 100%!important;
-  height: 420px!important;
+  width: 100% !important;
+  height: 420px !important;
 }
 .col-md-12 .youtube iframe {
-  width: 50%!important;
-  height: 420px!important;
+  width: 50% !important;
+  height: 420px !important;
 }
 
-#table-of-contents h2{
+.page .blocks h2 {
   padding-bottom: 3rem;
 }
-#table-of-contents a{
+#table-of-contents a {
   font-size: 1.25rem;
   text-decoration: none;
 }
 #table-of-contents a:not(:last-child)::after {
   content: " · ";
   padding-left: 5px; /* Adjust spacing to your liking */
+}
+
+/* Table of contents */
+.page .blocks #table-of-contents,
+.page .blocks h2 {
+  text-align: center;
+}
+
+.welcome-page p {
+  margin: 2rem 0;
+}
+
+figcaption{
+  font-size: 0.875rem;
+  font-style: italic;
+  display: block;
+  margin: 0;
+  padding: 0.625rem;
+  text-align: center;
 }
