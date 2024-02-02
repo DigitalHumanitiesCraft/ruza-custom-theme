@@ -24,20 +24,37 @@ if ($activePage) :
 <?php $this->trigger('view.show.before'); ?>
 <div class="blocks py-3 py-md-5">
 
-    <?php echo $this->content; ?>
+  <?php echo $this->content; ?>
 
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     let images = document.querySelectorAll('.media-render.file a img');
     images.forEach(function(image) {
-        let anchorTitle = image.parentNode.getAttribute('title');
-        if (anchorTitle && image.getAttribute('alt') === '') {
-            image.setAttribute('alt', anchorTitle);
-        }
-        image.classList.add('img-fluid');
+      let anchorTitle = image.parentNode.getAttribute('title');
+      if (anchorTitle && image.getAttribute('alt') === '') {
+        image.setAttribute('alt', anchorTitle);
+      }
+      image.classList.add('img-fluid');
     });
-});
+
+    // Select all h2 elements within .page .blocks
+    const headers = document.querySelectorAll('.page .blocks h2');
+
+    headers.forEach(function(header) {
+      // Get the text of the h2 element and create a web-friendly ID
+      let id = header.textContent
+        .toLowerCase() // Convert to lowercase
+        .trim() // Trim whitespace from both sides
+        .replace(/&/g, 'and') // Replace & with 'and'
+        .replace(/[^a-z0-9]+/g, '-') // Replace spaces and special chars with dashes
+        .replace(/-+/g, '-') // Replace multiple dashes with a single dash
+        .replace(/^-|-$/g, ''); // Remove leading and trailing dashes
+
+      // Assign the ID to the h2 element
+      header.id = id;
+    });
+  });
 </script>
 
 
