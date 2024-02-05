@@ -28,62 +28,130 @@ if ($activePage) :
 
 </div>
 <script>
+  // Wait for the DOM to fully load before running the script
   document.addEventListener('DOMContentLoaded', function() {
-    let images = document.querySelectorAll('.media-render.file a img');
-    images.forEach(function(image) {
-      let anchorTitle = image.parentNode.getAttribute('title');
-      if (anchorTitle && image.getAttribute('alt') === '') {
+    // Enhance all images within '.media-render.file a img' selectors
+    document.querySelectorAll('.media-render.file a img').forEach(image => {
+      // Attempt to use the parent anchor's title as alt text if alt is missing
+      const anchorTitle = image.parentNode.getAttribute('title');
+      if (anchorTitle && !image.getAttribute('alt')) {
         image.setAttribute('alt', anchorTitle);
       }
+      // Add 'img-fluid' class for responsive images
       image.classList.add('img-fluid');
     });
 
-    // Select all h2 elements within .page .blocks
-    const headers = document.querySelectorAll('.page .blocks h2');
 
-    headers.forEach(function(header) {
-      // Get the text of the h2 element and create a web-friendly ID
-      let id = header.textContent
-        .toLowerCase() // Convert to lowercase
-        .trim() // Trim whitespace from both sides
-        .replace(/&/g, 'and') // Replace & with 'and'
-        .replace(/[^a-z0-9]+/g, '-') // Replace spaces and special chars with dashes
-        .replace(/-+/g, '-') // Replace multiple dashes with a single dash
-        .replace(/^-|-$/g, ''); // Remove leading and trailing dashes
-
-      // Assign the ID to the h2 element
-      header.id = id;
-    });
-  });
-
-  // Find all '.media-render.file' elements
-  let mediaRenders = document.querySelectorAll('.media-render.file');
-
-  mediaRenders.forEach(function(mediaRender) {
-    // Check if the direct child is an 'img' element
-    if (mediaRender.querySelector('img')) {
-      // Get the parent '.center.large.file.row' element
-      let parentRow = mediaRender.closest('.center.large.file.row');
-
-      // Find the '.caption' div within the parent row
-      let captionDiv = parentRow.querySelector('.caption');
-
-      // Hide the original caption div
-      captionDiv.style.display = 'none';
-
-      // Create a new 'figcaption' element
-      let figcaption = document.createElement('figcaption');
-      figcaption.textContent = captionDiv.textContent.trim(); // Copy the text content from the original caption
-
-      // Adjust the class of the attachment div to 'col-md-12'
-      let attachmentDiv = parentRow.querySelector('.attachments');
-      attachmentDiv.className = 'col-md-12';
-
-      // Append the 'figcaption' to the '.media-render' div
-      mediaRender.appendChild(figcaption);
+    // Check if a TOC container exists and then generate TOC for subsequent headers
+    const tocContainer = document.querySelector('.table-of-contents');
+    if (tocContainer) {
+      generateTableOfContentsForSubsequentHeaders(tocContainer);
     }
+
+    // Process media render elements for captions and adjustments
+    processMediaRenders();
+    // Transform '.page-row' and '.song-intertext' elements to new structures
+    transformElements('.page-row', 'row gx-4 gx-lg-5 justify-content-center', 'col-md-10 col-lg-8 col-xl-7');
+    transformElements('.song-intertext', 'row justify-content-center', 'col-md-10', true);
   });
+
+  // Function to generate IDs for headers and generate TOC for headers below the TOC container
+  function generateTableOfContentsForSubsequentHeaders(tocContainer) {
+    // Select all h1 and h2 elements within .page .blocks
+    const headers = document.querySelectorAll('.page .blocks h1, .page .blocks h2');
+
+    // Convert NodeList to Array to use Array methods
+    let headersArray = Array.from(headers);
+
+    // Find the index of the first header that comes after the TOC in the DOM
+    const startIndex = headersArray.findIndex(header =>
+      tocContainer.compareDocumentPosition(header) & Node.DOCUMENT_POSITION_FOLLOWING
+    );
+
+    // Filter headers to only those after the TOC container
+    if (startIndex !== -1) {
+      headersArray.slice(startIndex).forEach(header => {
+        // Check if the header is not a child of the TOC container itself
+        if (!tocContainer.contains(header)) {
+          if (!header.id) {
+            header.id = generateIdFromHeaderText(header.textContent);
+          }
+          appendToCEntry(tocContainer, header);
+        }
+      });
+    }
+  }
+
+
+  // Generates a web-friendly ID from header text
+  function generateIdFromHeaderText(text) {
+    return text.toLowerCase().trim()
+      .replace(/&/g, 'and')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
+
+  // Appends a TOC entry for a given header
+  function appendToCEntry(tocContainer, header) {
+    const tocLink = document.createElement('a');
+    tocLink.href = '#' + header.id;
+    tocLink.textContent = header.textContent;
+    tocContainer.appendChild(tocLink);
+  }
+
+  // Handles the transformation of media render elements
+  function processMediaRenders() {
+    document.querySelectorAll('.media-render.file').forEach(mediaRender => {
+      // Find the nearest '.caption' to hide it and extract its text
+      const captionDiv = mediaRender.closest('.large.file.row')?.querySelector('.caption');
+      if (mediaRender.querySelector('img') && captionDiv?.textContent.trim()) {
+        captionDiv.style.display = 'none'; // Hide the original caption
+        appendFigcaption(mediaRender, captionDiv.textContent.trim()); // Append a new figcaption
+        // Adjust the class of the parent '.attachments' div for layout purposes
+        mediaRender.closest('.attachments').className = 'col-md-12';
+      }
+    });
+  }
+
+  // Creates and appends a figcaption element
+  function appendFigcaption(mediaRender, text) {
+    const figcaption = document.createElement('figcaption');
+    figcaption.textContent = text; // Set the text content to the caption text
+    mediaRender.appendChild(figcaption); // Append the figcaption to the mediaRender element
+  }
+
+  // Transforms selected elements to a specified structure and applies classes
+  function transformElements(selector, outerClass, innerClass, applyTextCenter = false) {
+    document.querySelectorAll(selector).forEach(element => {
+      // Create the new wrapper structure with specified classes
+      const outerDiv = createElementWithClass('div', outerClass);
+      const innerDiv = createElementWithClass('div', innerClass);
+
+      // Move all child elements of the current element to the new inner div
+      while (element.firstChild) {
+        // If applying text-center class to <p> elements
+        if (applyTextCenter && element.firstChild.tagName === 'P') {
+          element.firstChild.className = 'text-center px-lg-5 mx-lg-5 mx-3';
+        }
+        innerDiv.appendChild(element.firstChild); // This operation removes the child from 'element'
+      }
+
+      // Insert the structured divs into the DOM, replacing the original element
+      outerDiv.appendChild(innerDiv);
+      element.parentNode.replaceChild(outerDiv, element);
+    });
+  }
+
+  // Utility function to create an element of a given tag with a specified class
+  function createElementWithClass(tag, className) {
+    const element = document.createElement(tag);
+    element.className = className; // Set the class name
+    return element; // Return the new element
+  }
 </script>
+
+
 
 
 <?php $this->trigger('view.show.after'); ?>
