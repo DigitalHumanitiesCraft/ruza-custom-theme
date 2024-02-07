@@ -91,11 +91,12 @@ $sortHeadings = [
         <?php endif; ?>
       <?php else: ?>
         <div class="results mb-3">
-          Showing 0 results for:
+
           <?php echo $this->searchFilters(); ?>
         </div>
         <p class="lead">
-          <?php echo $this->translate('We\'re sorry, but your search did not return any results. Please try searching again, or browsing through the items or collections.'); ?>
+          <?php echo $this->translate('Keine Items in diesem Item-Set.'); ?>
+          <?php // echo $this->resourcePageBlocks($itemSet)->getBlocks(); ?>
         </p>
       <?php endif; ?>
     </div>
