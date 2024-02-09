@@ -27,31 +27,31 @@ b {
 }
 
 a {
-  color: #bd4d30;
+  color: #002ee4;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #8a3823;
+  color: #0d02c2;
 }
 
 .btn-fit-blue {
   color: #fff;
-  background-color: #bd4d30;
-  border-color: #bd4d30;
+  background-color: #002ee4;
+  border-color: #002ee4;
 }
 
 .btn-fit-blue:hover {
   color: #fff;
   background-color: #002ed4;
-  border-color: #8a3823;
+  border-color: #0d02c2;
 }
 
 .btn-check:focus + .btn-fit-blue,
 .btn-fit-blue:focus {
   color: #fff;
   background-color: #002ed4;
-  border-color: #8a3823;
+  border-color: #0d02c2;
   box-shadow: 0 0 0 0.25rem rgba(38, 84, 250, 0.5);
 }
 
@@ -63,7 +63,7 @@ a:hover {
 .show > .btn-fit-blue.dropdown-toggle,
 :not(.btn-check) + .btn.btn-fit-blue:active {
   color: #fff;
-  background-color: #8a3823;
+  background-color: #0d02c2;
   border-color: #0029bb;
 }
 
@@ -78,8 +78,8 @@ a:hover {
 .btn-fit-blue:disabled,
 .btn-fit-blue.disabled {
   color: #fff;
-  background-color: #bd4d30;
-  border-color: #bd4d30;
+  background-color: #002ee4;
+  border-color: #002ee4;
 }
 
 .btn-fit-green {
@@ -469,7 +469,7 @@ footer #fit-logo {
   height: 1rem;
   right: -8px;
   top: -5px;
-  background-color: #bd4d30;
+  background-color: #002ee4;
   border: 0;
   border-radius: 1rem;
   cursor: pointer;
@@ -762,13 +762,13 @@ footer #fit-logo {
 }
 
 .item.resource.show #social-share .clip-button {
-  color: #bd4d30;
+  color: #002ee4;
   border-radius: 0.25rem;
   transition: color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .item.resource.show #social-share .clip-button:focus {
-  color: #8a3823;
+  color: #0d02c2;
   box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
 }
 
@@ -832,7 +832,7 @@ footer #fit-logo {
 /* page */
 
 .nav-link.active {
-  color: #bd4d30 !important;
+  color: #002ee4 !important;
 }
 
 .page .blocks > div:not(:last-child) {
@@ -902,7 +902,7 @@ body::before {
   bottom: 0;
   background: url(../img/ruza-songs-music-notes.png) no-repeat center center;
   background-size: cover;
-  opacity: 0.05;
+  opacity: 0.1;
   z-index: -1;
   background-attachment: fixed;
 }
@@ -945,7 +945,7 @@ body::before {
 
 /* Card 2 with gradient (#C0CEBB to #839A8B) */
 .arty-card.card2::before {
-  background: linear-gradient(120deg, #efdbb5, #d1a785);
+  background: linear-gradient(120deg, #b6d192, #85d198);
   content: "";
   position: absolute;
   top: 0;
@@ -959,7 +959,7 @@ body::before {
 
 /* Card 3 with gradient (#EFDBB5 to #D1A785) */
 .arty-card.card3::before {
-  background: linear-gradient(120deg, #c0cebb, #839a8b);
+  background: linear-gradient(120deg, #bbbbce, #87839a);
   content: "";
   position: absolute;
   top: 0;
@@ -1011,14 +1011,14 @@ body::before {
 
 .btn-primary {
   color: #fff;
-  background-color: #bd4d30;
-  border-color: #bd4d30;
+  background-color: #002ee4;
+  border-color: #002ee4;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #8a3823;
-  border-color: #8a3823;
+  background-color: #000a94;
+  border-color: #0d02c2;
 }
 
 .caption.col-md-6 p {
@@ -1038,7 +1038,7 @@ body::before {
   padding-bottom: 3rem;
 }
 .table-of-contents a {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   text-decoration: none;
 }
 .table-of-contents a:not(:last-child)::after {
@@ -1078,3 +1078,6 @@ blockquote p {
 .results {
   margin-bottom: 1.5rem;
 }
+ footer a {
+  text-decoration: none;
+ }
