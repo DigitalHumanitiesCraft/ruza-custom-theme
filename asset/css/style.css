@@ -882,7 +882,7 @@ footer #fit-logo {
 .carousel,
 .carousel-item,
 .carousel-item.active {
-  height: calc(97vh - 200px);
+  height: calc(100vh - 190px);
 }
 .carousel-item img {
   height: calc(129vh - 200px);
