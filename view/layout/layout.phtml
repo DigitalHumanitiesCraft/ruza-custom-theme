@@ -67,7 +67,7 @@ $userBar = $this->userBar();
 </header>
 <?php $path = $_SERVER["REQUEST_URI"];?>
 
-<? if ($path == "/s/ruzakegila/page/willkommen"): ?>
+<?php if ($path == "/s/ruzakegila/page/willkommen"): ?>
 <div class="carousel-wrapper container-fluid">
   <div class="carousel slide" data-bs-ride="carousel" id="carouselWelcomePage">
     <div class="carousel-inner">
@@ -82,7 +82,7 @@ $userBar = $this->userBar();
     <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselWelcomePage" title="Previous" type="button"><span aria-hidden="true" class="carousel-control-prev-icon">&nbsp;</span> <span class="visually-hidden">Previous</span></button><button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselWelcomePage" title="Next" type="button"><span aria-hidden="true" class="carousel-control-next-icon">&nbsp;</span> <span class="visually-hidden">Next</span></button>
   </div>
 </div>
-<? endif; ?>
+<?php endif; ?>
 
 
 <div class="container" id="content" role="main">
