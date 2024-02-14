@@ -1081,3 +1081,17 @@ blockquote p {
  footer a {
   text-decoration: none;
  }
+
+.bibliography {
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.bibliography li {
+  margin-bottom: 5px;
+}
+
+.bibliography a {
+  text-decoration: none;
+  color: #007bff;
+}
