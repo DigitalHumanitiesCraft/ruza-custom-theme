@@ -38,7 +38,7 @@ if ($activePage) :
         image.setAttribute('alt', anchorTitle);
       }
       // Add 'img-fluid' class for responsive images
-      image.classList.add('img-fluid');
+      image.classList.add('img-fluid', 'shadow');
     });
 
 
@@ -58,7 +58,7 @@ if ($activePage) :
   // Function to generate IDs for headers and generate TOC for headers below the TOC container
   function generateTableOfContentsForSubsequentHeaders(tocContainer) {
     // Select all h1 and h2 elements within .page .blocks
-    const headers = document.querySelectorAll('.page .blocks h1, .page .blocks h2');
+    const headers = document.querySelectorAll('.page .blocks h1');
 
     // Convert NodeList to Array to use Array methods
     let headersArray = Array.from(headers);

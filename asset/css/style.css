@@ -2,7 +2,7 @@
 
 body {
   font-family: "halyard-text", sans-serif;
-  font-weight: 300;
+  font-weight: 100;
 }
 
 .h1,
@@ -18,7 +18,7 @@ h4,
 h5,
 h6 {
   font-family: "halyard-display", sans-serif;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 strong,
@@ -32,7 +32,7 @@ a {
 }
 
 a:hover {
-  color: #0d02c2;
+  color: #0082a7;
 }
 
 .btn-fit-blue {
@@ -44,14 +44,14 @@ a:hover {
 .btn-fit-blue:hover {
   color: #fff;
   background-color: #002ed4;
-  border-color: #0d02c2;
+  border-color: #0082a7;
 }
 
 .btn-check:focus + .btn-fit-blue,
 .btn-fit-blue:focus {
   color: #fff;
   background-color: #002ed4;
-  border-color: #0d02c2;
+  border-color: #0082a7;
   box-shadow: 0 0 0 0.25rem rgba(38, 84, 250, 0.5);
 }
 
@@ -63,7 +63,7 @@ a:hover {
 .show > .btn-fit-blue.dropdown-toggle,
 :not(.btn-check) + .btn.btn-fit-blue:active {
   color: #fff;
-  background-color: #0d02c2;
+  background-color: #0082a7;
   border-color: #0029bb;
 }
 
@@ -182,7 +182,7 @@ a:hover {
 }
 
 .navbar-brand img {
-  height: 50px;
+  height: 17px;
 }
 
 header .logo img {
@@ -768,7 +768,7 @@ footer #fit-logo {
 }
 
 .item.resource.show #social-share .clip-button:focus {
-  color: #0d02c2;
+  color: #0082a7;
   box-shadow: 0 0 0 0.25rem rgb(49 132 253 / 50%);
 }
 
@@ -833,6 +833,14 @@ footer #fit-logo {
 
 .nav-link.active {
   color: #002ee4 !important;
+}
+
+.nav-link:hover{
+  color: #002ee4 !important;
+}
+
+.nav-link{
+  font-size: 1.5em;
 }
 
 .page .blocks > div:not(:last-child) {
@@ -1018,7 +1026,7 @@ body::before {
 .btn-primary:hover {
   color: #fff;
   background-color: #000a94;
-  border-color: #0d02c2;
+  border-color: #0082a7;
 }
 
 .caption.col-md-6 p {
@@ -1037,6 +1045,8 @@ body::before {
 .page .blocks h2 {
   padding-bottom: 3rem;
 }
+
+/* Table of contents */
 .table-of-contents a {
   font-size: 1.5rem;
   text-decoration: none;
@@ -1045,8 +1055,11 @@ body::before {
   content: " · ";
   padding-left: 5px; /* Adjust spacing to your liking */
 }
+.pageLink a{
+  text-decoration: none;
+  font-size: 1.3rem;
+}
 
-/* Table of contents */
 .page .blocks .table-of-contents,
 .page .blocks h2,
 .page .blocks h1 {
@@ -1082,6 +1095,10 @@ blockquote p {
   text-decoration: none;
  }
 
+ footer {
+  background-color: #B8B8CB;
+ }
+
 .bibliography {
   font-size: 0.85rem;
   margin-bottom: 20px;
@@ -1094,4 +1111,8 @@ blockquote p {
 .bibliography a {
   text-decoration: none;
   color: #007bff;
+}
+
+.metadata-header h1{
+  font-size: 3rem;
 }
