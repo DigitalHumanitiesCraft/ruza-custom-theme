@@ -835,11 +835,11 @@ footer #fit-logo {
   color: #002ee4 !important;
 }
 
-.nav-link:hover{
+.nav-link:hover {
   color: #002ee4 !important;
 }
 
-.nav-link{
+.nav-link {
   font-size: 1.5em;
 }
 
@@ -1055,7 +1055,7 @@ body::before {
   content: " · ";
   padding-left: 5px; /* Adjust spacing to your liking */
 }
-.pageLink a{
+.pageLink a {
   text-decoration: none;
   font-size: 1.3rem;
 }
@@ -1091,13 +1091,13 @@ blockquote p {
 .results {
   margin-bottom: 1.5rem;
 }
- footer a {
+footer a {
   text-decoration: none;
- }
+}
 
- footer {
-  background-color: #B8B8CB;
- }
+footer {
+  background-color: #b8b8cb;
+}
 
 .bibliography {
   font-size: 0.85rem;
@@ -1113,6 +1113,15 @@ blockquote p {
   color: #007bff;
 }
 
-.metadata-header h1{
+.metadata-header h1 {
   font-size: 3rem;
+}
+
+/* Song lyrics */
+.table td,
+.table th {
+  border: none !important;
+}
+td {
+  width: 200px;
 }
