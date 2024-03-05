@@ -1050,8 +1050,8 @@ body::before {
   max-width: 800px;
 }
 
-.page .blocks h2 {
-  padding-bottom: 3rem;
+.page .blocks h1, .page .blocks h2 {
+  margin-bottom: 1.5rem;
 }
 
 /* Table of contents */
