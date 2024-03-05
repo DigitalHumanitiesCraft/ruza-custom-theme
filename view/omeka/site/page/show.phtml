@@ -102,17 +102,41 @@ if ($activePage) :
 
   // Handles the transformation of media render elements
   function processMediaRenders() {
-    document.querySelectorAll('.media-render.file').forEach(mediaRender => {
-      // Find the nearest '.caption' to hide it and extract its text
+    document.querySelectorAll('.media-render').forEach(mediaRender => {
+      // Add Bootstrap classes for flex layout
+      mediaRender.classList.add('d-flex', 'flex-column', 'align-items-center');
+
+      const iframes = mediaRender.querySelectorAll('iframe');
+      iframes.forEach(iframe => {
+        // Remove width, height attributes, and frameborder
+        iframe.removeAttribute('width');
+        iframe.removeAttribute('height');
+        iframe.removeAttribute('frameborder');
+        // Remove inline styles
+        iframe.removeAttribute('style');
+
+        // Check if the iframe is wrapped in a <p> tag
+        if (iframe.parentNode.tagName === 'P') {
+          const p = iframe.parentNode;
+          mediaRender.insertBefore(iframe, p); // Move iframe up before the <p>
+          p.remove(); // Remove the <p> tag
+        }
+      });
+
+      // Process captions if necessary
       const captionDiv = mediaRender.closest('.large.file.row')?.querySelector('.caption');
-      if (mediaRender.querySelector('img') && captionDiv?.textContent.trim()) {
+      if ((mediaRender.querySelector('img') || iframes.length > 0) && captionDiv?.textContent.trim()) {
         captionDiv.style.display = 'none'; // Hide the original caption
         appendFigcaption(mediaRender, captionDiv.textContent.trim()); // Append a new figcaption
         // Adjust the class of the parent '.attachments' div for layout purposes
-        mediaRender.closest('.attachments').className = 'col-md-12';
+        const attachmentsDiv = mediaRender.closest('.attachments');
+        if (attachmentsDiv) {
+          attachmentsDiv.className = 'col-md-12';
+        }
       }
     });
   }
+
 
   // Creates and appends a figcaption element
   function appendFigcaption(mediaRender, text) {

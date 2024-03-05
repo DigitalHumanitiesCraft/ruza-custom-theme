@@ -1033,13 +1033,21 @@ body::before {
   padding-top: 1.5rem;
 }
 
-.col-md-6 .youtube iframe {
-  width: 100% !important;
-  height: 420px !important;
+.col-md-12 .media-render {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
 }
-.col-md-12 .youtube iframe {
-  width: 50% !important;
-  height: 420px !important;
+
+.col-md-12 .media-render iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.media-render figcaption {
+  width: 100%;
+  max-width: 800px;
 }
 
 .page .blocks h2 {
@@ -1111,6 +1119,10 @@ footer {
 .bibliography a {
   text-decoration: none;
   color: #007bff;
+}
+
+.bibliography-main {
+  font-size: 1.25rem;
 }
 
 .metadata-header h1 {
