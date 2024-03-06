@@ -1048,6 +1048,7 @@ body::before {
 .media-render figcaption {
   width: 100%;
   max-width: 800px;
+  font-style: normal;
 }
 
 .page .blocks h1, .page .blocks h2 {
