@@ -1089,10 +1089,12 @@ figcaption {
 }
 
 blockquote p {
-  font-size: 1.5rem !important;
   font-style: italic;
   text-align: center;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
+
 .blockquote-footer {
   text-align: center;
 }

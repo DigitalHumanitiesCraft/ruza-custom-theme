@@ -41,6 +41,7 @@ if ($activePage) :
       image.classList.add('img-fluid', 'shadow');
     });
 
+    lazyLoadMedia(); // Add lazy loading to images and iframes
 
     // Check if a TOC container exists and then generate TOC for subsequent headers
     const tocContainer = document.querySelector('.table-of-contents');
@@ -172,6 +173,21 @@ if ($activePage) :
     const element = document.createElement(tag);
     element.className = className; // Set the class name
     return element; // Return the new element
+  }
+
+  // Function to add lazy loading to images and iframes
+  function lazyLoadMedia() {
+    // Select all img elements not inside a carousel-item div
+    const images = document.querySelectorAll('img:not(.carousel-item img)');
+    images.forEach(img => {
+      img.setAttribute('loading', 'lazy');
+    });
+
+    // Select all iframe elements
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      iframe.setAttribute('loading', 'lazy');
+    });
   }
 </script>
 
