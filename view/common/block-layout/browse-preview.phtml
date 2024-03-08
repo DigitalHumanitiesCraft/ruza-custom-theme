@@ -3,148 +3,161 @@ $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
 ?>
 <div class="row">
-<div class="col-12 browse-preview">
-  <?php if ($this->heading) : ?>
-    <h2 class="mb-4"><?php echo $this->heading; ?></h2>
-  <?php endif; ?>
-  <form class="row g-3 mb-4" id="filterForm">
-    <div class="col-12 col-md-6">
-      <div class="filters-group"><input class="form-control search" type="search" placeholder="Suche..." id="searchInput"></div>
-    </div>
-    <div class="col-12 col-md-6">
-      <div class="input-group filters-group">
-        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Personen" data-bs-original-title="Filter Personen">
-          <i class="fa fa-user-circle"> </i>
-        </span>
-        <select class="form-select filter-options" id="person-choice">
-          <option value="">Alle Personen</option>
-
-          <!-- ... other options ... -->
-        </select>
+  <div class="col-12 browse-preview">
+    <?php if ($this->heading) : ?>
+      <h2 class="mb-4"><?php echo $this->heading; ?></h2>
+    <?php endif; ?>
+    <form class="row g-3 mb-4" id="filterForm">
+      <div class="col-12 col-md-6">
+        <div class="filters-group"><input class="form-control search" type="search" placeholder="Suche..." id="searchInput"></div>
       </div>
-    </div>
+      <div class="col-12 col-md-6">
+        <div class="input-group filters-group">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Person:
+- Gewährsperson
+- Sänger:in
+- Musiker:in
+- Ensemble" style="cursor:help;" aria-label="Filter Personen" data-bs-original-title="Filter Personen">
+            <i class="fa fa-user-circle"> </i>
+          </span>
+          <select class="form-select filter-options" id="person-choice">
+            <option value="">Alle Personen</option>
 
-    <div class="col-12 col-md-6">
-      <div class="input-group filters-group">
-        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Genres" data-bs-original-title="Filter Genres">
-          <i class="fa fa-music"> </i>
-        </span>
-        <select class="form-select filter-options" id="genre-choice">
-          <option value="">Alle Genres</option>
-
-          <!-- ... other options ... -->
-        </select>
-      </div>
-    </div>
-
-    <div class="col-12 col-md-6">
-      <div class="input-group filters-group">
-        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Orte" data-bs-original-title="Filter Orte">
-          <i class="fas fa-map-marked-alt"></i>
-        </span>
-        <select class="form-select filter-options" id="place-choice">
-          <option value="">Alle Orte</option>
-
-          <!-- ... other options ... -->
-        </select>
-      </div>
-
-    </div>
-
-    <div class="col-12 col-md-6">
-      <div class="input-group filters-group">
-        <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Hilfetext ..." style="cursor:help;" aria-label="Filter Themen" data-bs-original-title="Filter Themen">
-          <i class="fas fa-drum-steelpan"></i>
-        </span>
-        <select class="form-select filter-options" id="topic-choice">
-          <option value="">Alle Themen</option>
-
-          <!-- ... other options ... -->
-        </select>
-      </div>
-
-    </div>
-
-    <div class="col-12 col-md-auto">
-      <button title="Zurücksetzen" class="btn btn-outline-secondary btn-icon" type="button" onclick="resetFilters()">
-        <i class="fas fa-sync-alt"></i>
-      </button>
-    </div>
-    <div class="col-12 col-md-auto"><span id="filterCount">2 Resultate</span><br><span id="datasetCount">25
-        Lieder gesamt</span> </div>
-  </form>
-
-  <div class="row">
-
-    <?php
-    $showThumbnail = in_array('thumbnail', $this->components);
-    $showHeading = in_array('resource-heading', $this->components);
-    $showBody = in_array('resource-body', $this->components);
-    $headingTerm = $this->siteSetting('browse_heading_property_term');
-    $bodyTerm = $this->siteSetting('browse_body_property_term');
-
-    $filterLocale = (bool) $this->siteSetting('filter_locale_values');
-    $lang = $this->lang();
-
-    // Step 1: Collect resources and their headings
-    $sortedResources = [];
-    foreach ($this->resources as $resource) {
-      $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]')]) : $resource->displayTitle(null, ($filterLocale ? $lang : null));
-      $sortedResources[] = [
-        'resource' => $resource,
-        'heading' => $heading
-      ];
-    }
-
-    // Step 2: Sort the array based on headings
-    usort($sortedResources, function ($a, $b) {
-      return strcmp($a['heading'], $b['heading']);
-    });
-
-    foreach ($sortedResources as $sortedItem) :
-      $resource = $sortedItem['resource'];
-      $heading = $sortedItem['heading'];
-      $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($filterLocale ? $lang : null));
-      // Fetching contributor and creator values
-      $metadata = $resource->displayValues();
-      // Fetching the URL from the foaf:page property
-      $pageUrl = $resource->value('foaf:page', ['all' => false, 'default' => null]);
-      $pageUrl = $pageUrl ? $pageUrl->uri() : null;
-
-    ?>
-      <div class="col-sm-6 col-md-4 col-lg-3 my-2 song-item">
-        <div class="card card-hover border-0 shadow-sm overflow-hidden mb-4 h-100">
-          <?php
-          // Manually create a link to the foaf:page URL if it exists
-          if ($pageUrl) {
-            echo '<a class="item-set-link" href="' . $escape($pageUrl) . '">' . $this->thumbnail($resource, 'medium', ['class' => 'card-img-top', 'alt' => $heading]) . '</a>';
-          } else {
-            echo $resource->linkRaw($this->thumbnail($resource, 'medium', ['class' => 'card-img-top', 'alt' => $heading]), null, ['class' => 'item-set-link']);
-          }
-          ?>
-          <div class="card-body">
-            <?php if ($showHeading) : ?>
-              <h3 class="card-title"><?php echo $escape($heading); ?></h3>
-            <?php endif; ?>
-
-            <?php if ($showBody) : ?>
-              <p class="card-text"><?php echo $escape($body); ?></p>
-            <?php endif; ?>
-
-            <!-- Display Metadata -->
-            <?php if ($metadata) : ?>
-              <div class="card-text"><?php echo $metadata; ?></div>
-            <?php endif; ?>
-
-          </div>
+            <!-- ... other options ... -->
+          </select>
         </div>
       </div>
-    <?php endforeach; ?>
+
+      <div class="col-12 col-md-6">
+        <div class="input-group filters-group">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Genre:
+- Langsame Lieder (loke gila)
+- Tanzlieder (khelimaske gila)
+- Neue Lieder (neve gila)" style="cursor:help;" aria-label="Filter Genres" data-bs-original-title="Filter Genres">
+            <i class="fa fa-music"> </i>
+          </span>
+          <select class="form-select filter-options" id="genre-choice">
+            <option value="">Alle Genres</option>
+
+            <!-- ... other options ... -->
+          </select>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="input-group filters-group">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Ort:
+- Aufnahmeort
+- Auftrittsort" style="cursor:help;" aria-label="Filter Orte" data-bs-original-title="Filter Orte">
+            <i class="fas fa-map-marked-alt"></i>
+          </span>
+          <select class="form-select filter-options" id="place-choice">
+            <option value="">Alle Orte</option>
+
+            <!-- ... other options ... -->
+          </select>
+        </div>
+
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="input-group filters-group">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Themen:
+- Lied über zwischemenschliche Beziehungen
+- Klagelied
+- politisches Lied
+- Gefängnislied" style="cursor:help;" aria-label="Filter Themen" data-bs-original-title="Filter Themen">
+            <i class="fas fa-drum-steelpan"></i>
+          </span>
+          <select class="form-select filter-options" id="topic-choice">
+            <option value="">Alle Themen</option>
+
+            <!-- ... other options ... -->
+          </select>
+        </div>
+
+      </div>
+
+      <div class="col-12 col-md-auto">
+        <button title="Zurücksetzen" class="btn btn-outline-secondary btn-icon" type="button" onclick="resetFilters()">
+          <i class="fas fa-sync-alt"></i>
+        </button>
+      </div>
+      <div class="col-12 col-md-auto"><span id="filterCount">2 Resultate</span><br><span id="datasetCount">25
+          Lieder gesamt</span> </div>
+    </form>
+
+    <div class="row">
+
+      <?php
+      $showThumbnail = in_array('thumbnail', $this->components);
+      $showHeading = in_array('resource-heading', $this->components);
+      $showBody = in_array('resource-body', $this->components);
+      $headingTerm = $this->siteSetting('browse_heading_property_term');
+      $bodyTerm = $this->siteSetting('browse_body_property_term');
+
+      $filterLocale = (bool) $this->siteSetting('filter_locale_values');
+      $lang = $this->lang();
+
+      // Step 1: Collect resources and their headings
+      $sortedResources = [];
+      foreach ($this->resources as $resource) {
+        $heading = $headingTerm ? $resource->value($headingTerm, ['default' => $translate('[Untitled]')]) : $resource->displayTitle(null, ($filterLocale ? $lang : null));
+        $sortedResources[] = [
+          'resource' => $resource,
+          'heading' => $heading
+        ];
+      }
+
+      // Step 2: Sort the array based on headings
+      usort($sortedResources, function ($a, $b) {
+        return strcmp($a['heading'], $b['heading']);
+      });
+
+      foreach ($sortedResources as $sortedItem) :
+        $resource = $sortedItem['resource'];
+        $heading = $sortedItem['heading'];
+        $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($filterLocale ? $lang : null));
+        // Fetching contributor and creator values
+        $metadata = $resource->displayValues();
+        // Fetching the URL from the foaf:page property
+        $pageUrl = $resource->value('foaf:page', ['all' => false, 'default' => null]);
+        $pageUrl = $pageUrl ? $pageUrl->uri() : null;
+
+      ?>
+        <div class="col-sm-6 col-md-4 col-lg-3 my-2 song-item">
+          <div class="card card-hover border-0 shadow-sm overflow-hidden mb-4 h-100">
+            <?php
+            // Manually create a link to the foaf:page URL if it exists
+            if ($pageUrl) {
+              echo '<a class="item-set-link" href="' . $escape($pageUrl) . '">' . $this->thumbnail($resource, 'medium', ['class' => 'card-img-top', 'alt' => $heading]) . '</a>';
+            } else {
+              echo $resource->linkRaw($this->thumbnail($resource, 'medium', ['class' => 'card-img-top', 'alt' => $heading]), null, ['class' => 'item-set-link']);
+            }
+            ?>
+            <div class="card-body">
+              <?php if ($showHeading) : ?>
+                <h3 class="card-title"><?php echo $escape($heading); ?></h3>
+              <?php endif; ?>
+
+              <?php if ($showBody) : ?>
+                <p class="card-text"><?php echo $escape($body); ?></p>
+              <?php endif; ?>
+
+              <!-- Display Metadata -->
+              <?php if ($metadata) : ?>
+                <div class="card-text"><?php echo $metadata; ?></div>
+              <?php endif; ?>
+
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
 
 
-  </div>
-  <?php
-  /* if ($this->linkText) :
+    </div>
+    <?php
+    /* if ($this->linkText) :
     echo $this->hyperlink(
       $this->linkText,
       $this->url(
@@ -156,8 +169,8 @@ $escape = $this->plugin('escapeHtml');
       ['class' => 'float-end me-5']
     );
   endif; */
-  ?>
-</div>
+    ?>
+  </div>
 </div>
 <!-- Script for handling Filter -->
 <script>
