@@ -1081,11 +1081,16 @@ body::before {
 
 figcaption {
   font-size: 0.875rem;
-  font-style: italic;
   display: block;
   margin: 0;
   padding: 0.625rem;
   text-align: center;
+}
+
+figcaption p{
+  font-size: 0.875rem!important;
+  margin: 0;
+  padding: 0;
 }
 
 blockquote p {

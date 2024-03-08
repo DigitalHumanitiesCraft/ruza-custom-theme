@@ -116,6 +116,9 @@ if ($activePage) :
         // Remove inline styles
         iframe.removeAttribute('style');
 
+        // Add 'shadow' class for shadow effect
+        iframe.classList.add('shadow');
+
         // Check if the iframe is wrapped in a <p> tag
         if (iframe.parentNode.tagName === 'P') {
           const p = iframe.parentNode;
@@ -124,11 +127,26 @@ if ($activePage) :
         }
       });
 
+      const audios = mediaRender.querySelectorAll('audio');
+      audios.forEach(audio => {
+        // Assuming the immediate parent of the audio tag is the div you want to target
+        const parentDiv = audio.parentNode;
+
+        // Check if the parent is indeed a div to avoid errors
+        if (parentDiv.tagName === 'DIV') {
+          // Add 'shadow' class for shadow effect
+          parentDiv.classList.add('shadow', 'rounded');
+
+          // Apply CSS background-color
+          parentDiv.style.backgroundColor = '#F1F3F4';
+        }
+      });
+
       // Process captions if necessary
       const captionDiv = mediaRender.closest('.large.file.row')?.querySelector('.caption');
-      if ((mediaRender.querySelector('img') || iframes.length > 0) && captionDiv?.textContent.trim()) {
+      if ((mediaRender.querySelector('img') || iframes.length > 0) && captionDiv && captionDiv.innerHTML.trim()) {
         captionDiv.style.display = 'none'; // Hide the original caption
-        appendFigcaption(mediaRender, captionDiv.textContent.trim()); // Append a new figcaption
+        appendFigcaption(mediaRender, captionDiv.innerHTML.trim()); // Append a new figcaption with HTML content
         // Adjust the class of the parent '.attachments' div for layout purposes
         const attachmentsDiv = mediaRender.closest('.attachments');
         if (attachmentsDiv) {
@@ -139,10 +157,10 @@ if ($activePage) :
   }
 
 
-  // Creates and appends a figcaption element
-  function appendFigcaption(mediaRender, text) {
+  // Creates and appends a figcaption element with HTML content
+  function appendFigcaption(mediaRender, htmlContent) {
     const figcaption = document.createElement('figcaption');
-    figcaption.textContent = text; // Set the text content to the caption text
+    figcaption.innerHTML = htmlContent; // Set the inner HTML to the passed HTML content
     mediaRender.appendChild(figcaption); // Append the figcaption to the mediaRender element
   }
 
