@@ -1039,7 +1039,7 @@ body::before {
   margin: auto;
 }
 
-.col-md-12 .media-render iframe {
+.col-md-12 .media-render iframe, .col-md-12 .media-render video {
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;

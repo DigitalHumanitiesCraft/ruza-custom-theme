@@ -127,6 +127,18 @@ if ($activePage) :
         }
       });
 
+      const videos = mediaRender.querySelectorAll('video');
+      videos.forEach(video => {
+      // Add 'shadow' class for shadow effect
+      video.classList.add('shadow');
+       // Check if the iframe is wrapped in a <p> tag
+       if (video.parentNode.tagName === 'P') {
+          const p = video.parentNode;
+          mediaRender.insertBefore(video, p); // Move iframe up before the <p>
+          p.remove(); // Remove the <p> tag
+        }
+      });
+
       const audios = mediaRender.querySelectorAll('audio');
       audios.forEach(audio => {
         // Assuming the immediate parent of the audio tag is the div you want to target
@@ -142,11 +154,17 @@ if ($activePage) :
         }
       });
 
-      // Process captions if necessary
+      // Determine if we should keep or replace the caption
+      const shouldKeepOriginalCaption = audios.length > 0;
       const captionDiv = mediaRender.closest('.large.file.row')?.querySelector('.caption');
-      if ((mediaRender.querySelector('img') || iframes.length > 0) && captionDiv && captionDiv.innerHTML.trim()) {
-        captionDiv.style.display = 'none'; // Hide the original caption
-        appendFigcaption(mediaRender, captionDiv.innerHTML.trim()); // Append a new figcaption with HTML content
+      if (!shouldKeepOriginalCaption) {
+
+        if (captionDiv && captionDiv.innerHTML.trim()) {
+          captionDiv.style.display = 'none'; // Hide the original caption
+          appendFigcaption(mediaRender, captionDiv.innerHTML.trim()); // Append a new figcaption with HTML content
+        }
+
+
         // Adjust the class of the parent '.attachments' div for layout purposes
         const attachmentsDiv = mediaRender.closest('.attachments');
         if (attachmentsDiv) {
