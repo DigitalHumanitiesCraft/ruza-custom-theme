@@ -129,10 +129,10 @@ if ($activePage) :
 
       const videos = mediaRender.querySelectorAll('video');
       videos.forEach(video => {
-      // Add 'shadow' class for shadow effect
-      video.classList.add('shadow');
-       // Check if the iframe is wrapped in a <p> tag
-       if (video.parentNode.tagName === 'P') {
+        // Add 'shadow' class for shadow effect
+        video.classList.add('shadow');
+        // Check if the iframe is wrapped in a <p> tag
+        if (video.parentNode.tagName === 'P') {
           const p = video.parentNode;
           mediaRender.insertBefore(video, p); // Move iframe up before the <p>
           p.remove(); // Remove the <p> tag
@@ -214,7 +214,8 @@ if ($activePage) :
   // Function to add lazy loading to images and iframes
   function lazyLoadMedia() {
     // Select all img elements not inside a carousel-item div
-    const images = document.querySelectorAll('img:not(.carousel-item img)');
+    const images = document.querySelectorAll('img:not(.carousel-item img):not(.logo img)');
+
     images.forEach(img => {
       img.setAttribute('loading', 'lazy');
     });
