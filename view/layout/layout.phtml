@@ -54,7 +54,7 @@ $userBar = $this->userBar();
     <div class="container-fluid">
       <a class="navbar-brand  d-md-none" href="<?php echo $site->url(); ?>">
         <h1 class="h5 d-inline">Ružake gila</h1>
-        <img  src="<?php echo $this->assetUrl('img/siluette-ruza-micro-sm.png'); ?>" title="Home" alt="Ruzake Gila Logo">
+        <img src="<?php echo $this->assetUrl('img/siluette-ruza-micro-sm.png'); ?>" title="Home" alt="Ruzake Gila Logo">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -65,23 +65,23 @@ $userBar = $this->userBar();
     </div>
   </nav>
 </header>
-<?php $path = $_SERVER["REQUEST_URI"];?>
+<?php $path = $_SERVER["REQUEST_URI"]; ?>
 
-<?php if ($path == "/s/ruzakegila/page/willkommen"): ?>
-<div class="carousel-wrapper container-fluid">
-  <div class="carousel slide" data-bs-ride="carousel" id="carouselWelcomePage">
-    <div class="carousel-inner">
-      <div class="carousel-item active"><a href="/s/ruzakegila/item/372" target="_blank" title="1993 - Donauinsel - © Mehmet Emir"><img alt="Donauinsel - 1" class="d-block w-100" draggable="true" src="<?php echo $this->assetUrl('img/start-1.webp'); ?>"/></a></div>
+<?php if ($path == "/s/ruzakegila/page/willkommen") : ?>
+  <div class="carousel-wrapper container-fluid">
+    <div class="carousel slide" data-bs-ride="carousel" id="carouselWelcomePage">
+      <div class="carousel-inner">
+        <div class="carousel-item active"><a href="/s/ruzakegila/item/372" target="_blank" title="1993 - Donauinsel - © Mehmet Emir"><img alt="Donauinsel - 1" class="d-block w-100" draggable="true" src="<?php echo $this->assetUrl('img/start-1.webp'); ?>" /></a></div>
 
-      <div class="carousel-item"><a href="/s/ruzakegila/item/476" target="_blank" title="1991 - Amerlinghaus - © Gerhard Maurer"><img alt="Amerlinghaus - 2" class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-2.webp'); ?>" /> </a></div>
+        <div class="carousel-item"><a href="/s/ruzakegila/item/476" target="_blank" title="1991 - Amerlinghaus - © Gerhard Maurer"><img alt="Amerlinghaus - 2" class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-2.webp'); ?>" /> </a></div>
 
-      <div class="carousel-item"><a href="/s/ruzakegila/item/370" target="_blank" title="1993 - Donauinsel - © Mehmet Emir"><img alt="Donauinsel - 3 " class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-3.webp'); ?>" /> </a></div>
+        <div class="carousel-item"><a href="/s/ruzakegila/item/370" target="_blank" title="1993 - Donauinsel - © Mehmet Emir"><img alt="Donauinsel - 3 " class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-3.webp'); ?>" /> </a></div>
 
-      <div class="carousel-item"><a href="/s/ruzakegila/item/362" target="_blank" title="1991 - Amerlinghaus - © Gerhard Maurer"><img alt="Amerlinghaus - 4" class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-4.webp'); ?>" /> </a></div>
+        <div class="carousel-item"><a href="/s/ruzakegila/item/362" target="_blank" title="1991 - Amerlinghaus - © Gerhard Maurer"><img alt="Amerlinghaus - 4" class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-4.webp'); ?>" /> </a></div>
+      </div>
+      <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselWelcomePage" title="Previous" type="button"><span aria-hidden="true" class="carousel-control-prev-icon">&nbsp;</span> <span class="visually-hidden">Previous</span></button><button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselWelcomePage" title="Next" type="button"><span aria-hidden="true" class="carousel-control-next-icon">&nbsp;</span> <span class="visually-hidden">Next</span></button>
     </div>
-    <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselWelcomePage" title="Previous" type="button"><span aria-hidden="true" class="carousel-control-prev-icon">&nbsp;</span> <span class="visually-hidden">Previous</span></button><button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselWelcomePage" title="Next" type="button"><span aria-hidden="true" class="carousel-control-next-icon">&nbsp;</span> <span class="visually-hidden">Next</span></button>
   </div>
-</div>
 <?php endif; ?>
 
 
@@ -120,6 +120,29 @@ $userBar = $this->userBar();
     </div>
   </div>
 </footer>
+<button id="upButton" title="Go to top" class="shadow" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
+  </svg></button>
 </body>
+<script>
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = function() {
+    scrollFunction()
+  };
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      document.getElementById("upButton").style.display = "block";
+    } else {
+      document.getElementById("upButton").style.display = "none";
+    }
+  }
+
+  // When the user clicks on the button, scroll to the top of the document
+  document.getElementById("upButton").onclick = function() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+</script>
 
 </html>

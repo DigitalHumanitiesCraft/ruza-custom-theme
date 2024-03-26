@@ -1039,7 +1039,8 @@ body::before {
   margin: auto;
 }
 
-.col-md-12 .media-render iframe, .col-md-12 .media-render video {
+.col-md-12 .media-render iframe,
+.col-md-12 .media-render video {
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
@@ -1051,7 +1052,8 @@ body::before {
   font-style: normal;
 }
 
-.page .blocks h1, .page .blocks h2 {
+.page .blocks h1,
+.page .blocks h2 {
   margin-bottom: 1.5rem;
 }
 
@@ -1087,8 +1089,8 @@ figcaption {
   text-align: center;
 }
 
-figcaption p{
-  font-size: 0.875rem!important;
+figcaption p {
+  font-size: 0.875rem !important;
   margin: 0;
   padding: 0;
 }
@@ -1143,4 +1145,24 @@ footer {
 }
 td {
   width: 200px;
+}
+
+/* UP */
+#upButton {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 10px;
+}
+
+#upButton:hover {
+  color: #fff;
+  background-color: #000a94;
+  border-color: #0082a7;
 }
