@@ -143,6 +143,20 @@ $userBar = $this->userBar();
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
+
+  // Create a new Date object
+  const today = new Date();
+
+  // Get the day, month, and year from the date object
+  const day = today.getDate(); // Day of the month
+  const month = today.getMonth() + 1; // Month (0-11, thus adding 1 to get 1-12)
+  const year = today.getFullYear(); // Full year
+
+  // Construct the date string in D.M.YYYY format
+  const dateString = `${day}.${month}.${year}`;
+
+  // Display the date string in the div with id="current-date"
+  document.getElementById("current-date").textContent = dateString;
 </script>
 
 </html>
