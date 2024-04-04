@@ -182,11 +182,11 @@ a:hover {
 }
 
 .navbar-brand img {
-  height: 17px;
+  height: 40px;
 }
 
 header .logo img {
-  max-height: 100px;
+  max-height: 140px;
   max-width: 100%;
 }
 
@@ -211,6 +211,19 @@ header .logo img {
 /* footer  */
 footer #fit-logo {
   height: 25px;
+}
+
+#ruzake-logo-bottom {
+  max-width: 100%;
+  max-height: 200px; /* Example height less than 400px for small screens */
+}
+
+@media (min-width: 768px) {
+  /* This targets screens wider than 768px - md screens and up */
+  #ruzake-logo-bottom {
+    max-width: 100%;
+    max-height: 400px; /* This will set the height to 400px on md screens and larger */
+  }
 }
 
 /* Search  */
