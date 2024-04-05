@@ -215,15 +215,7 @@ footer #fit-logo {
 
 #ruzake-logo-bottom {
   max-width: 100%;
-  max-height: 200px; /* Example height less than 400px for small screens */
-}
-
-@media (min-width: 768px) {
-  /* This targets screens wider than 768px - md screens and up */
-  #ruzake-logo-bottom {
-    max-width: 100%;
-    max-height: 400px; /* This will set the height to 400px on md screens and larger */
-  }
+  max-height: 200px;
 }
 
 /* Search  */
