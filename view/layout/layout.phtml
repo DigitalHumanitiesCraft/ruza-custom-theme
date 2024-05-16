@@ -135,6 +135,7 @@ $userBar = $this->userBar();
     <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
   </svg></button>
 </body>
+<script src="<?php echo $this->assetUrl('js/translate.js'); ?>"></script>
 <script>
   // When the user scrolls down 20px from the top of the document, show the button
   window.onscroll = function() {
@@ -166,8 +167,13 @@ $userBar = $this->userBar();
   // Construct the date string in D.M.YYYY format
   const dateString = `${day}.${month}.${year}`;
 
-  // Display the date string in the div with id="current-date"
-  document.getElementById("current-date").textContent = dateString;
+  // Get the element with the ID "current-date"
+  var currentDateElement = document.getElementById("current-date");
+
+  // Check if the element exists
+  if (currentDateElement) {
+    currentDateElement.textContent = dateString;
+  }
 </script>
 
 </html>
