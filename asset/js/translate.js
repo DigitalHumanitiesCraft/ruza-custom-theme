@@ -1,6 +1,6 @@
 async function fetchTranslations() {
   try {
-    const response = await fetch("/themes/ruza/asset/js/translations.json");
+    const response = await fetch("/themes/ruza-custom-theme/asset/js/translations.json");
     const data = await response.json();
     return data;
   } catch (error) {
@@ -48,3 +48,5 @@ const language = detectLanguage();
 if (language) {
   window.onload = () => translatePage(language);
 }
+
+//just a testcomment to see if git push is working
