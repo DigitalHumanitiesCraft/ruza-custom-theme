@@ -50,3 +50,5 @@ if (language) {
 }
 
 //just a testcomment to see if git push is working
+
+//another comment to see if the cronjob every hour works:)
