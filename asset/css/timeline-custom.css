@@ -1,0 +1,195 @@
+#timeline-embed {
+  width: 100%;
+  height: 800px;
+}
+
+#timeline-embed .tl-media-item.tl-media-audio {
+  width: 80%; /* Set the desired width */
+}
+
+/* Custom CSS for the timeline flags */
+#timeline-embed
+  .tl-timeline
+  .tl-timegroup
+  .tl-timegroup-highlight
+  .tl-timegroup-time
+  .tl-timegroup-time-content
+  .tl-timemarker-content {
+  background: none; /* Remove default background */
+  padding: 0;
+}
+#timeline-embed
+  .tl-timeline
+  .tl-timegroup
+  .tl-timegroup-highlight
+  .tl-timegroup-time
+  .tl-timegroup-time-content
+  .tl-timemarker-content
+  .tl-icon {
+  display: none; /* Hide the default icon */
+}
+#timeline-embed
+  .tl-timeline
+  .tl-timegroup
+  .tl-timegroup-highlight
+  .tl-timegroup-time
+  .tl-timegroup-time-content
+  .tl-timemarker-content
+  img {
+  display: block;
+  width: 100%; /* Adjust width as needed */
+  height: auto;
+}
+
+/* Change text color to black for both next and previous navigation elements */
+.tl-slidenav-content-container,
+.tl-slidenav-content-container * {
+  color: #b40f46 !important;
+  text-shadow: none !important;
+}
+
+/* Styles for next navigation */
+.tl-slidenav-next .tl-slidenav-description,
+.tl-slidenav-previous .tl-slidenav-description {
+  opacity: 0.4;
+}
+.tl-slidenav-next:hover .tl-slidenav-description,
+.tl-slidenav-previous:hover .tl-slidenav-description {
+  opacity: 0.8;
+}
+.tl-slidenav-next .tl-slidenav-title,
+.tl-slidenav-previous .tl-slidenav-title {
+  opacity: 0.5;
+}
+.tl-slidenav-next:hover .tl-slidenav-title,
+.tl-slidenav-previous:hover .tl-slidenav-title {
+  opacity: 1;
+}
+
+.tl-timeline {
+  font-family: "halyard-text", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3em;
+}
+.tl-timeline h1,
+.tl-timeline h2,
+.tl-timeline h3,
+.tl-timeline h4,
+.tl-timeline h5,
+.tl-timeline h6 {
+  font-family: "halyard-text", sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 46px;
+}
+.tl-timeline h2.tl-headline-title {
+  font-size: 58px;
+  line-height: 58px;
+}
+.tl-timeline p {
+  font-family: "halyard-text", sans-serif;
+  font-size: 16px;
+  line-height: 1.3em;
+}
+.tl-timeline ul {
+  font-family: "halyard-text", sans-serif;
+}
+.tl-timeline .tl-media .tl-media-wikipedia h4 a,
+.tl-timeline .tl-media h4,
+.tl-timeline .tl-media h4 a {
+  font-family: "halyard-text", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+}
+.tl-timeline .tl-caption,
+.tl-timeline .tl-credit {
+  font-family: "halyard-text", sans-serif;
+}
+.tl-timeline .vcard {
+  font-family: "halyard-text", sans-serif;
+  font-weight: normal !important;
+}
+.tl-timeline .tl-slidenav-next,
+.tl-timeline .tl-slidenav-previous,
+.tl-timeline .tl-message,
+.tl-timeline .tl-timegroup-message {
+  font-family: "halyard-text", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.tl-timeline .tl-slidenav-next .tl-slidenav-title,
+.tl-timeline .tl-slidenav-previous .tl-slidenav-title,
+.tl-timeline .tl-message .tl-slidenav-title,
+.tl-timeline .tl-timegroup-message .tl-slidenav-title {
+  line-height: 1.3em !important;
+}
+.tl-timeline .tl-headline-date,
+.tl-timeline h3.tl-headline-date {
+  font-family: "halyard-text", sans-serif;
+  font-weight: normal !important;
+  text-transform: uppercase !important;
+}
+.tl-timeline .tl-headline-date small,
+.tl-timeline h3.tl-headline-date small {
+  font-weight: normal !important;
+}
+.tl-timeline .tl-timenav-slider {
+  font-family: "halyard-text", sans-serif;
+  font-weight: 700;
+}
+.tl-timeline .tl-timenav-slider h2.tl-headline {
+  font-family: "halyard-text", sans-serif;
+  font-weight: 700;
+  text-transform: none;
+}
+.tl-timeline .tl-timenav-slider .tl-timeaxis {
+  font-family: "halyard-text", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.tl-timeline .tl-menubar {
+  font-family: "halyard-text", sans-serif;
+}
+.tl-timeline blockquote,
+.tl-timeline blockquote p {
+  font-family: "halyard-text", sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.3;
+}
+input[type="text"].editor-headline {
+  font-family: "halyard-text", sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 46px;
+  line-height: 46px;
+}
+.tl-timeline .tl-timenav-slider .tl-timeaxis {
+  font-weight: normal;
+}
+
+/* Long Text */
+.truncate {
+    max-height: 190px; /* Example height */
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    position: relative;
+  }
+  .truncate.show-more {
+    max-height: 1000px;
+  }
+  .truncate::after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #F9FAF7;
+    padding-left: 5px;
+    display: block;
+  }
+  .truncate.show-more::after {
+    content: '';
+  }

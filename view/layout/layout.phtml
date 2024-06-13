@@ -6,10 +6,12 @@ $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1')
 $this->headTitle($site->title())->setSeparator(' · ');
 $this->headLink(['rel' => 'icon', 'type' => 'image/png', 'href' => $this->assetUrl('img/favicon.png')]);
 $this->headLink(['rel' => 'icon', 'type' => 'image/svg+xml', 'href' => $this->assetUrl('img/favicon.svg')], 'PREPEND')
+  ->prependStylesheet('https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css', 'screen', null)
   ->prependStylesheet($this->assetUrl('css/style.css'))
   ->prependStylesheet('https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.css', 'screen', null, ['integrity' => 'sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==', 'crossorigin' => 'anonymous'])
   ->prependStylesheet('https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', 'screen', null, ['integrity' => 'sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=', 'crossorigin' => 'anonymous'])
   ->prependStylesheet('https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css', 'screen', null, ['integrity' => 'sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU', 'crossorigin' => 'anonymous']);
+
 $this->headScript()
   ->prependFile($this->assetUrl('js/advanced-search.js', 'Omeka'))
   ->prependFile($this->assetUrl('js/theme.js'))
@@ -18,7 +20,8 @@ $this->headScript()
   ->prependFile('https://unpkg.com/infinite-scroll@4.0.1/dist/infinite-scroll.pkgd.min.js', 'text/javascript')
   ->prependFile('https://cdn.jsdelivr.net/npm/corejs-typeahead@1.3.1/dist/typeahead.bundle.min.js', 'text/javascript', ['integrity' => 'sha256-xZuy7z/QR1H5FKCYUbRDj4yvcyMEyVIg4iQUhs8MI+w=', 'crossorigin' => 'anonymous'])
   ->prependFile('https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js', 'text/javascript', ['integrity' => 'sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ', 'crossorigin' => 'anonymous'])
-  ->prependFile('https://code.jquery.com/jquery-3.6.0.min.js', 'text/javascript', ['integrity' => 'sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=', 'crossorigin' => 'anonymous']);
+  ->prependFile('https://code.jquery.com/jquery-3.6.0.min.js', 'text/javascript', ['integrity' => 'sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=', 'crossorigin' => 'anonymous'])
+  ->prependFile('https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js', 'text/javascript');
 $this->trigger('view.layout');
 $userBar = $this->userBar();
 ?>
@@ -126,7 +129,7 @@ $userBar = $this->userBar();
           |
           <a href="https://doi.org/10.55776/Z352">https://doi.org/10.55776/Z352</a>
           |
-          <a  href="mailto:ruzakegila@mdw.ac.at">ruzakegila@mdw.ac.at</a>
+          <a href="mailto:ruzakegila@mdw.ac.at">ruzakegila@mdw.ac.at</a>
         </p>
         <p class="mb-0"><a href="https://github.com/DigitalHumanitiesCraft/ruza-custom-theme">Theme</a> by <a href="https://dhcraft.org">DH Craft</a></p>
       </div>
