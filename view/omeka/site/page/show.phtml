@@ -27,60 +27,6 @@ if ($activePage) :
   <?php echo $this->content; ?>
 
 </div>
-<script type="text/javascript">
-  // Update content class
-  const content = document.getElementById("content");
-  if (content?.classList.contains("container")) {
-    content.classList.replace("container", "container-fluid");
-  }
-
-  // Remove specific classes from blocks
-  const blocks = document.querySelector(".blocks.py-3.py-md-5");
-  if (blocks) {
-    blocks.classList.remove("blocks", "py-3", "py-md-5");
-  }
-
-  // Function to scroll to the timeline
-  function scrollToTimeline() {
-    document.getElementById("timeline-embed")?.scrollIntoView({
-      behavior: "smooth"
-    });
-  }
-
-  // Timeline configuration
-  const options = {
-    initial_zoom: 1,
-    language: "de",
-    default_bg_color: {
-      r: 249,
-      g: 250,
-      b: 247
-    },
-  };
-
-  // Initialize timeline and add event listeners
-  const timeline = new TL.Timeline(
-    "timeline-embed",
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9RxgAkgQ2JY1B4rQgYYyPmw1_VUXh4nAqBmCN0S2B2q86dU_S-9DjtyJreSkykhXc0TedE4-U49p3/pubhtml",
-    options
-  );
-
-  timeline.on("loaded", () => {
-    scrollToTimeline();
-
-    const readMoreLink = document.querySelector(".read-more");
-    readMoreLink?.addEventListener("click", (e) => {
-      e.preventDefault();
-      const truncateDiv = document.querySelector(".truncate");
-      truncateDiv?.classList.toggle("show-more");
-      readMoreLink.textContent = truncateDiv?.classList.contains("show-more") ? "Show Less" : "Read More";
-    });
-
-    document.querySelectorAll(".tl-text-content .modal").forEach(modal => {
-      document.body.appendChild(modal);
-    });
-  });
-</script>
 
 <script>
   // Wait for the DOM to fully load before running the script
