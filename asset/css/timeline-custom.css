@@ -173,23 +173,40 @@ input[type="text"].editor-headline {
 
 /* Long Text */
 .truncate {
-    max-height: 190px; /* Example height */
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-    position: relative;
-  }
-  .truncate.show-more {
-    max-height: 1000px;
-  }
-  .truncate::after {
-    content: '...';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: #F9FAF7;
-    padding-left: 5px;
-    display: block;
-  }
-  .truncate.show-more::after {
-    content: '';
-  }
+  max-height: 127px; /* Example height */
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  position: relative;
+}
+.truncate.show-more {
+  max-height: 1000px;
+}
+.truncate::after {
+  content: "...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #f9faf7;
+  padding-left: 5px;
+  display: block;
+}
+.truncate.show-more::after {
+  content: "";
+}
+
+.tl-text-content audio,
+.modal-body audio {
+  width: 100%;
+}
+
+.modal-body p,
+.modal-body img,
+.modal-body a {
+  margin-bottom: 1rem;
+}
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
