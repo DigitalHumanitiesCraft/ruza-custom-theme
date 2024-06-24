@@ -205,8 +205,13 @@ input[type="text"].editor-headline {
   margin-bottom: 1rem;
 }
 .modal-body img {
+  max-height: 80vh;
   max-width: 100%;
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+div.tl-timegroup-message {
+  color: black !important;
 }
