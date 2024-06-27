@@ -44,7 +44,7 @@
 /* Change text color to black for both next and previous navigation elements */
 .tl-slidenav-content-container,
 .tl-slidenav-content-container * {
-  color: #b40f46 !important;
+  color: white !important;
   text-shadow: none !important;
 }
 
@@ -171,29 +171,6 @@ input[type="text"].editor-headline {
   font-weight: normal;
 }
 
-/* Long Text */
-.truncate {
-  max-height: 127px; /* Example height */
-  overflow: hidden;
-  transition: max-height 0.5s ease;
-  position: relative;
-}
-.truncate.show-more {
-  max-height: 1000px;
-}
-.truncate::after {
-  content: "...";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #f9faf7;
-  padding-left: 5px;
-  display: block;
-}
-.truncate.show-more::after {
-  content: "";
-}
-
 .tl-text-content audio,
 .modal-body audio {
   width: 100%;
@@ -214,4 +191,23 @@ input[type="text"].editor-headline {
 
 div.tl-timegroup-message {
   color: black !important;
+}
+
+#timeline-embed > div.tl-timenav > div:nth-child(4){
+  background-color: rgba(182, 209, 145, 0.5);
+}
+
+/* Select the second .tl-timegroup element */
+#timeline-embed > div.tl-timenav > div:nth-child(5) {
+  background-color: rgba(151, 148, 169, 0.5);
+}
+
+/* Select the third .tl-timegroup element */
+#timeline-embed > div.tl-timenav > div:nth-child(6) {
+  background-color: rgba(191, 78, 49, 0.5);
+}
+
+/* Select the fourth .tl-timegroup element */
+#timeline-embed > div.tl-timenav > div:nth-child(7) {
+  background-color: rgba(180, 15, 70, 0.5);
 }
