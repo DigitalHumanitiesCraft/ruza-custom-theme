@@ -1,10 +1,578 @@
 {
-    "Alle Genres": {
-        "en": "All Genres",
-        "rom": "Sa o žanro"
-    },
-    "Alle Themen": {
-        "en": "All Topics",
-        "rom": "Sa e teme"
-    }
+  "Alle Genres": {
+    "en": "All Genres"
+  },
+  "Alle Themen": {
+    "en": "All Topics"
+  },
+  "Gitarre": {
+    "en": "Guitar"
+  },
+  "Liedaufnahme während eines Geburtstagsfeier von Ruža Nikolić-Lakatos": {
+    "en": "Recording during Ruža Nikolić-Lakatos' birthday party"
+  },
+  "Inhaltsverzeichnis ": {
+    "en": "Table of Contents"
+  },
+  "Aufnahme": {
+    "en": "Recording"
+  },
+  "Die Familie Nikolić mit Mozes F. Heinschink (rechts)": {
+    "en": "The Nikolić family with Mozes F. Heinschink (right)"
+  },
+  "Österreichische Akademie der Wissenschaften - Phonogrammarchiv": {
+    "en": "Austrian Academy of Sciences - Phonogrammarchiv"
+  },
+  "Sammlung Heinschink": {
+    "en": "Collection Heinschink"
+  },
+  "Mišo Nikolić mit Sohn Martin": {
+    "en": "Mišo Nikolić with son Martin"
+  },
+  "Familie Nikolić": {
+    "en": "Nikolić family"
+  },
+  "Ruža Nikolić-Lakatos um 1960": {
+    "en": "Ruža Nikolić-Lakatos around 1960"
+  },
+  "Gesang": {
+    "en": "Vocals"
+  },
+  "Bruder von Ruža Nikolić-Lakatos": {
+    "en": "Ruža Nikolić-Lakatos' brother"
+  },
+  "Mutter von Ruža Nikolić-Lakatos": {
+    "en": "Ruža Nikolić-Lakatos' mother"
+  },
+  "langsame Lieder": {
+    "en": "Slow songs"
+  },
+  "Institut für Volksmusikforschung und Ethnomusikologie": {
+    "en": "Department of Folk Music Reseach and Ethnomusicology"
+  },
+  "Archiv": {
+    "en": "Archive"
+  },
+  "Haus der Familie Nikolić": {
+    "en": "Nikolić family home"
+  },
+  "Wien": {
+    "en": "Vienna"
+  },
+  "Mišo Nikolić und Ruža Nikolić-Lakatos mit Familie und Freunden": {
+    "en": "Mišo Nikolić and Ruža Nikolić-Lakatos with family and friends"
+  },
+  "Manuela Nikolić über den öffentlichen Aufführungskontext": {
+    "en": "Manuela Nikolić on the public performance context"
+  },
+  "Kommentar": {
+    "en": "Commentary"
+  },
+  "Tochter von Ruža Nikolić-Lakatos und Mišo Nikolić": {
+    "en": "Ruža Nikolić-Lakatos' and Mišo Nikolić' daughter"
+  },
+  "mdw – Universität für Musik und darstellende Kunst Wien": {
+    "en": "University of Music and Performing Arts Vienna"
+  },
+  "Ruža Nikolić-Lakatos über das Singen für Nicht-Roma": {
+    "en": "Ruža Nikolić-Lakatos on singing for non-Roma"
+  },
+  "Ausschnitt aus dem Interview mit Ruža Nikolić-Lakatos für die Sendung Nr. 31 von Radio Romano Centro": {
+    "en": "Interview excerpt with Ruža Nikolić-Lakatos for the broadcast Nr. 31 by Radio Romano Centro"
+  },
+  "Manuela Nikolić über Hauptmotiv Umgarnen": {
+    "en": "Manuela Nikolić on the motif of wooing"
+  },
+  "Ruža Nikolić-Lakatos über Gefängnislieder": {
+    "en": "Ruža Nikolić-Lakatos on prison songs"
+  },
+  "Interview mit Maria Walcher": {
+    "en": "Interview with Maria Walcher"
+  },
+  "Sprecherin": {
+    "en": "Speaker"
+  },
+  "Zitierempfehlung anzeigen": {
+    "en": "Display citation recommendation"
+  },
+  "Gitarre, Bass, Arrangement": {
+    "en": "Guitar, bass, arrangement"
+  },
+  "Neue Lieder": {
+    "en": "New songs"
+  },
+  "Lied über zwischenmenschliche Beziehungen (Liebe und Gesellschaft)": {
+    "en": "Songs about interpersonal relationships (love and society)"
+  },
+  "Violine": {
+    "en": "Violin"
+  },
+  "Klagelied": {
+    "en": "Lament"
+  },
+  "Gefängnislied": {
+    "en": "Prison song"
+  },
+  "Roma-Hymne": {
+    "en": "Romani anthem"
+  },
+  "politisches Lied": {
+    "en": "Political song"
+  },
+  "Schlangenlied": {
+    "en": "Snake song"
+  },
+  "Tanzlieder": {
+    "en": "Dance songs"
+  },
+  "langsame Lieder (Tischlieder)": {
+    "en": "Slow songs (table songs)"
+  },
+  "Ruža Nikolić-Lakatos über Wichtigkeit der alten Lieder in ihrem Leben": {
+    "en": "Ruža Nikolić-Lakatos on the importance of old songs in her life"
+  },
+  "Ruža Nikolić-Lakatos über die langsame Lieder": {
+    "en": "Ruža Nikolić-Lakatos on the slow songs"
+  },
+  "Manuela Nikolić über Tischlieder": {
+    "en": "Manuela Nikolić on the table songs"
+  },
+  "Kommentar (Video)": {
+    "en": "Commentary (video)"
+  },
+  "Ceija Stojka und Ruža Nikolić-Lakatos bei Mozes Heinschinks Geburtstagsfest": {
+    "en": "Ceija Stojka and Ruža Nikolić-Lakatos at Mozes Heinschinks' birthday party"
+  },
+  "Nachbearbeitung": {
+    "en": "Editing"
+  },
+  "Franz Schuberts Geburtshaus": {
+    "en": "Franz Schuberts' birthplace"
+  },
+  "Ruža Nikolić-Lakatos über den Liedprozess der neve gila": {
+    "en": "Ruža Nikolić-Lakatos on the neve gila's song process "
+  },
+  "Manuela Nikolić über neve gila": {
+    "en": "Manuela Nikolić on neve gila"
+  },
+  "neues Lied": {
+    "en": "New song"
+  },
+  "Thema": {
+    "en": "Theme"
+  },
+  "Liedaufnahme während eines Auftritts im Interkulttheater": {
+    "en": "Song recording during a performance at the Interkulttheater"
+  },
+  "Romanes": {
+    "en": "Romani"
+  },
+  "Transkription": {
+    "en": "Transcription"
+  },
+  "Satz": {
+    "en": "Music engraving"
+  },
+  "musikalische Transkription": {
+    "en": "Musical transcription"
+  },
+  "musikalische Transkription: Ando foro me gelem": {
+    "en": "Musical transcription: Ando foro me gelem"
+  },
+  "Gitarre, Bass, Arrangement, Aufnahme": {
+    "en": "Guitar, bass, arrangement, recording"
+  },
+  "Ando for me gelem (roma dancefloor) von der CD Ruzsa shej": {
+    "en": "Ando for me gelem (roma dancefloor) from the CD Ruzsa shej"
+  },
+  "Anmoderation Ursula Hemetek: Ando foro me gelem": {
+    "en": "Presentation Ursula Hemetek: Ando foro me gelem"
+  },
+  "Moderation": {
+    "en": "Presentation "
+  },
+  "Handschrift:": {
+    "en": "Manuscript"
+  },
+  "Handschrift zum Liedtext": {
+    "en": "Manuscript to the lyrics"
+  },
+  "Materialien Manuela Nikolić": {
+    "en": "Materials Manuela Nikolić"
+  },
+  "Aufnahme, YouTube:": {
+    "en": "Recording, YouTube"
+  },
+  "Musik:": {
+    "en": "Music"
+  },
+  "eingebettetes YouTube-Video": {
+    "en": "embedded YouTube video"
+  },
+  "Liedaufnahme während eines Auftritts im Amerlinghaus": {
+    "en": "Song recording during a performance at the Amerlinghaus"
+  },
+  "musikalische Transkription: Ando tunjariko": {
+    "en": "Musical transcription: Ando tunjariko"
+  },
+  "Kommentar von Manuela Nikolić zu Ando tunjariko": {
+    "en": "Comment by Manuela Nikolić on Ando tunjariko"
+  },
+  "Photographie:": {
+    "en": "Photo"
+  },
+  "während eines Auftritts im Amerlinghaus 1991": {
+    "en": "duringa performance at the Amerlinghaus 1991"
+  },
+  "musikalische Transkription: Bikjindan ma pe lovende": {
+    "en": "Musical transcription: Bikjindan ma pe lovende"
+  },
+  "Gitarre, Bass:": {
+    "en": "Guitar, bass"
+  },
+  "Bikjindan ma pe lovende mit Moša Šišić": {
+    "en": "Bikjindan ma pe lovende with Moša Šišić"
+  },
+  "Liedaufnahme": {
+    "en": "Song recording "
+  },
+  "Anmoderation Ursula Hemetek: Bikjindan ma pe lovende": {
+    "en": "Presentation Ursula Hemetek: Bikjindan ma pe lovende"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos und Mišo Nikolić zu Bikjindan ma pe lovende": {
+    "en": "Comment by Ruža Nikolić-Lakatos and Mišo Nikolić on Bikjindan ma pe lovende"
+  },
+  "musikalische Tranksription: Či kamel ma e Romni": {
+    "en": "Musical transcription: Či kamel ma e Romni"
+  },
+  "Tanzlied": {
+    "en": "Dance song"
+  },
+  "musikalische Transkription Dikh ta koj šej": {
+    "en": "Musical transcription: Dikh ta koj šej"
+  },
+  "Version von \"Dikh ta koj šej\" auf der CD E trin worbi": {
+    "en": "Version of \"Dikh ta koj šej\" on the CD E trin worbi"
+  },
+  "Kommentar Manuela Nikolić zu Dikh ta koj šej": {
+    "en": "Comment by Manuela Nikolić on Dikh ta koj šej"
+  },
+  "Mitschnitt von der Roma-Wallfahrt in Mariazell (2001)": {
+    "en": "Recording of the Roma pilgrimage in Mariazell (2001)"
+  },
+  "langsames Lied": {
+    "en": "Slow song"
+  },
+  "musikalische Transkription: E briga, e briga": {
+    "en": "Musical transcription: E briga, e briga"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu E briga, e briga": {
+    "en": "Comment by Ruža Nikolić-Lakatos on E briga, e briga"
+  },
+  "Kommentar, Aufnahme": {
+    "en": "Commentary, recording"
+  },
+  "Gestaltung:": {
+    "en": "Production"
+  },
+  "Interview, Lieder mit Instrumentalbegleitung, gesendet auf Radio 1476/ORF am 07.05.2000": {
+    "en": "Interview, songs with instrumental accompaniment, broadcast on Radio 1476/ORF on 07.05.2000"
+  },
+  "Deutsch, Romanes": {
+    "en": "German, Romani"
+  },
+  "Romano Centro - Verein für Roma": {
+    "en": "Romano Centro - Association for Roma"
+  },
+  "Liedaufnahme während eines Auftritts in Mitterdorf": {
+    "en": "Song recording during a performance in Mitterdorf"
+  },
+  "musikalische Transkription: Gelem, gelem": {
+    "en": "Musical transcription: Gelem, gelem"
+  },
+  "Gitarre, Gesang:": {
+    "en": "Guitar, vocals"
+  },
+  "Violine, Gesang:": {
+    "en": "Violin, vocals"
+  },
+  "Gelem, gelem mit Pišti Horvath": {
+    "en": "Gelem, gelem with Pišti Horvath"
+  },
+  "Gelem, gelem mit Pera Petrović": {
+    "en": "Gelem, gelem with Pera Petrović"
+  },
+  "Aufnahme im Rahmen der Veranstaltung \"Die andere Hymne\"": {
+    "en": "Recording during the event \"Die andere Hymne\""
+  },
+  "Fernsehbeitrag Minet: Gelem, gelem": {
+    "en": "TV report Minet: Gelem, gelem"
+  },
+  "Auschnitt eines Fernsehbeitrags von \"Minet - Das Minderheitenmagazin\"": {
+    "en": "Excerpt from the TV report \"Minet - Das Minderheitenmagazin\""
+  },
+  "Foto": {
+    "en": "Photo"
+  },
+  "abgebildete Personen:": {
+    "en": "people shown in the picture:"
+  },
+  "Sohn von Ruža Nikolić-Lakatos und Mišo Nikolić": {
+    "en": "Ruža Nikolić-Lakatos' and Mišo Nikolić' son"
+  },
+  "musikalische Transkription: Kadi gjili so gjilabav": {
+    "en": "Musical transcription: Kadi gjili so gjilabav"
+  },
+  "Kodo phende sa le Roma mit Kadi gjili (Mišo Nikolić)": {
+    "en": "Kodo phende sa le Roma with Kadi gjili (Mišo Nikolić)"
+  },
+  "Liedaufnahme: Kodo phende als Einleitung für Kadi gjili": {
+    "en": "Song recording: Kodo phende as introduction for Kadi gjili"
+  },
+  "Besprechung des Auftrittskonzepts (1)": {
+    "en": "Discussion of the presentation concept (1)"
+  },
+  "Besprechung des Auftrittskonzepts (2)": {
+    "en": "Discussion of the presentation concept (2)"
+  },
+  "60. Geburtstag Ursula Hemetek": {
+    "en": "Ursula Hemetek's 60th birthday "
+  },
+  "Brückenlied": {
+    "en": "Bridge song"
+  },
+  "Liedaufnahme während eines Besuches im Haus der Familie Nikolić": {
+    "en": "Song recording during a visit to the Nikolić family home"
+  },
+  "musikalische Transkritpion: Kana e loli mol pav": {
+    "en": "Musical transcription: Kana e loli mol pav"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos und Mišo Nikolić zu Kana e loli mol pav": {
+    "en": "Commentary by Ruža Nikolić-Lakatos and Mišo Nikolić on Kana e loli mol pav"
+  },
+  "Regie:": {
+    "en": "Directed by:"
+  },
+  "Kamera:": {
+    "en": "Camera:"
+  },
+  "Ausschnitt aus dem Film \"Ihr werdet uns nie verstehen\" (1988)": {
+    "en": "Excerpt from the Movie  \"Ihr werdet uns nie verstehen\" / \"You Will Never Understand Us\" (1988)"
+  },
+  "ORF Produktion: 1988F05225": {
+    "en": "ORF Production: 1988F05225"
+  },
+  "musikalische Transkription: Kutka tele po fojovo": {
+    "en": "Musical transcription: Kutka tele po fojovo"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu Kutka tele po fojovo": {
+    "en": "Comment by Ruža Nikolić-Lakatos on Kutka tele po fojovo"
+  },
+  "Perkussion, Aufnahme:": {
+    "en": "Percussions, recording:"
+  },
+  "musikalische Transkription: Loli sas i paradiča": {
+    "en": "Musical Transcription: Loli sas i paradiča"
+  },
+  "Loli sas i paradiča (Perkussion)": {
+    "en": "Loli sas i paradiča (Percussion)"
+  },
+  "Gesang, Perkussion:": {
+    "en": "Vocals, percussions:"
+  },
+  "Liedaufnahme mit dazugetrommelter Perkussion": {
+    "en": "Song recording with accompanying percussion"
+  },
+  "Loli sas i paradiča mit dem Pišti-Horvath-Ensemble": {
+    "en": "Loli sas i paradiča with the Pišti-Horvath ensemble"
+  },
+  "Liedaufnahme während eines Auftritts im Interkulttheater mit dem Pišti-Horvath-Ensemble": {
+    "en": "Song recording during a performance at the Interkulttheater with the Pišti-Horvath-Ensemble"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu Loli sas i paradiča": {
+    "en": "Comment by Ruža Nikolić-Lakatos on Loli sas i paradiča"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu Loli sas i paradiča (2)": {
+    "en": "Comment by Ruža Nikolić-Lakatos on Loli sas i paradiča (2)"
+  },
+  "Aufnahme während einer Veranstaltung an der mdw - Universität für Musik und darstellende Kunst Wien": {
+    "en": "Recording during an event at the University of Music and Performing Arts Vienna"
+  },
+  "Photographie, Nachbearbeitung:": {
+    "en": "Photo, editing"
+  },
+  "im Rahmen der Veranstaltungsreihe \"Roma - Mythos und Wirklichkeit\"": {
+    "en": "as part of the event series \"Roma - Mythos und Wirklichkeit\""
+  },
+  "Ruža Nikolić-Lakatos mit dem Pišti-Horvath-Ensemble": {
+    "en": "Ruža Nikolić-Lakatos with the Pišti-Horvath-Ensemble"
+  },
+  "musikalische Transkription: Nasvali sim, mamo": {
+    "en": "Musical transcription: Nasvali sim, mamo"
+  },
+  "Kommentar von Mozes Heinschink zu Nasvali sim, mamo": {
+    "en": "Comment by Mozes Heinschink on Nasvali sim, mamo"
+  },
+  "Kommentar im Rahmen eines Feldforschungsinterviews für Ružake gila": {
+    "en": "Commentary as part of a field research interview for Ružake gila"
+  },
+  "Nasvali sim, mamo (70. Geburtstag Mozes F. Heinschink)": {
+    "en": "Nasvali sim, mamo (Mozes F. Heinschink's 70th birthday)"
+  },
+  "Aufnahme während einer Feier anlässlich des 70. Geburtstags von Mozes F. Heinschink": {
+    "en": "Recording during a party on the occasion of Mozes F. Heinschink's 70th birthday"
+  },
+  "musikalische Transkription: Opre phirdem": {
+    "en": "Musical transcription: Opre phirdem"
+  },
+  "Anmoderation Ursula Hemetek: Opre phirdem": {
+    "en": "Presentation Ursula Hemetek: Opre phirdem"
+  },
+  "ORF - Österreichischer Rundfunk": {
+    "en": "ORF - The Austrian Broadcasting Corporation"
+  },
+  "Ausschnitt aus der ORF Produktion \"Heimat, fremde Heimat\" (1997)": {
+    "en": "Excerpt from the ORF production \"Heimat, fremde Heimat\" (1997)"
+  },
+  "musikalische Transkription: Opre šute aba mange": {
+    "en": "Musical transcription: Opre šute aba mange"
+  },
+  "Gesang, Kommentare:": {
+    "en": "Vocals, comments:"
+  },
+  "Verwandte von Ruža Nikolić-Lakatos": {
+    "en": "Ruža Nikolić-Lakatos' relatives"
+  },
+  "Liedaufnahme während eines Lovara-Festes": {
+    "en": "Song recording during a Lovari party"
+  },
+  "Anmoderation Ursula Hemetek: Opre šute aba mange": {
+    "en": "Presentation Ursula Hemetek: Opre šute aba mange"
+  },
+  "Oberwarter Lied": {
+    "en": "Oberwart Song"
+  },
+  "Liedaufnahme anlässlich des Attentats in Oberwart 1995 bei einem Besuch im Haus der Familie Nikolić": {
+    "en": "Song recording on the occasion of the attack in Oberwart in 1995 during a visit to the Nikolić family home"
+  },
+  "musikalische Transkription: Phurde bajval phurde": {
+    "en": "Musical transcription: Phurde bajval phurde"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu Phurde bajval phurde": {
+    "en": "Comment by Ruža Nikolić-Lakatos on Phurde bajval phurde"
+  },
+  "Kommentar Ursula Hemetek zu Phurde bajval purde": {
+    "en": "Comment by Ursula Hemetek on Phurde bajval purde"
+  },
+  "ORF: Oberwarter-Lied": {
+    "en": "ORF: Oberwart song"
+  },
+  "Ausschnitt aus der ORF-Produktion \"Kultura: Roma\"": {
+    "en": "Excerpt from the ORF production \"Kultura: Roma\""
+  },
+  "gemeinfrei": {
+    "en": "public domain"
+  },
+  "Pressekonferenz der Initiative Minderheiten zum Attentat von Oberwart 1995": {
+    "en": "Press conference on the Oberwart attack by the Initiative Minderheiten 1995"
+  },
+  "von links nach rechts : Terezija Stoisits, André Heller, Lena Rothstein (sitzend); Ruza Nikolic-Lakatos (stehend)": {
+    "en": "from left to right : Terezija Stoisits, André Heller, Lena Rothstein (sitting); Ruza Nikolic-Lakatos (standing)"
+  },
+  "musikalische Transkription: Phurdel bajval phurdel": {
+    "en": "Musical transcription: Phurdel bajval phurdel"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu Phurdel bajval phurdel": {
+    "en": "Comment by Ruža Nikolić-Lakatos on Phurdel bajval phurdel"
+  },
+  "Anmoderation Ursula Hemetek: Phurdel bajval phurdel": {
+    "en": "Presentation Ursula Hemetek: Phurdel bajval phurdel"
+  },
+  "musikalische Transkription: Po motori bešlem": {
+    "en": "Musical transcription: Po motori bešlem"
+  },
+  "Bass, Gitarren:": {
+    "en": "Bass, guitars"
+  },
+  "Liedaufnahme im Rahmen der Veranstaltungsreihe \"Roma - Mythos und Wirklichkeit\" in der Österreichischen Nationalbibliothek": {
+    "en": "Song recording as part of the event series \"Roma - Mythos und Wirklichkeit\" at the Austrian National Library"
+  },
+  "Foto während der Veranstaltung \"Roma: Literatur aus Ungarn\" im Rahmen von \"Roma - Mythos und Wirklichkeit\"": {
+    "en": "Photo during the event \"Roma: Literatur aus Ungarn\" as part of \"Roma - Mythos und Wirklichkeit\""
+  },
+  "von links nach rechts: Mischa Nikolić, Sascha Nikolić (sitzend), Ruža Nikolić-Lakatos (singend), Joszéf Holdosi, Florentin Groll (sitzend)": {
+    "en": "from left to right: Mischa Nikolić, Sascha Nikolić (sitting), Ruža Nikolić-Lakatos (singing), Joszéf Holdosi, Florentin Groll (sitting)"
+  },
+  "musikalische Transkription: Puter avri, šeje, i zeleno kapuva": {
+    "en": "Musical transcription: Puter avri, šeje, i zeleno kapuva"
+  },
+  "Puter avri, šeje, i zeleno kapuva (70. Geburtstag Mozes F. Heinschink)": {
+    "en": "Puter avri, šeje, i zeleno kapuva (Mozes F. Heinschink's 70th birthday)"
+  },
+  "musikalische Transkription: Šej kurve": {
+    "en": "Musical transcription: Šej kurve"
+  },
+  "Šej kurve (bei Lovara-Fest 1993)": {
+    "en": "Šej kurve (Lovari party 1993)"
+  },
+  "musikalische Transkription: Šunen, šunen, Romalen": {
+    "en": "Musical transcription: Šunen, šunen, Romalen"
+  },
+  "Kommentar von Manulea Nikolić zu Šunen, šunen, Romalen": {
+    "en": "Comment by Manulea Nikolić on Šunen, šunen, Romalen"
+  },
+  "musikalische Transkription: Tela veš o baro": {
+    "en": "Musical transcription: Tela veš o baro"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos und Mišo Nikolić zu Tela veš o baro": {
+    "en": "Comment by Ruža Nikolić-Lakatos and Mišo Nikolić on Tela veš o baro"
+  },
+  "Anmoderation Ursula Hemetek: Tela veš o baro": {
+    "en": "Presentation Ursula Hemetek: Tela veš o baro"
+  },
+  "Aufnahme während eines Geburtstagsfest von Dieter Berner": {
+    "en": "Shot during Dieter Berner's birthday party"
+  },
+  "musikalische Transkription: Tu gelan-tar a lumasa": {
+    "en": "Musical transcription: Tu gelan-tar a lumasa"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos und Mišo Nikolić zu Tu gelan-tar a lumasa": {
+    "en": "Comment by Ruža Nikolić-Lakatos and Mišo Nikolić on Tu gelan-tar a lumasa"
+  },
+  "Anmoderation Ursula Hemetek: Tu gelan-tar a lumasa": {
+    "en": "Presentation Ursula Hemetek: Tu gelan-tar a lumasa"
+  },
+  "Liedaufnahme während eines Konzerts im Interkulttheater": {
+    "en": "Song recording during a concert at the Interkulttheater"
+  },
+  "musikalische Transkription: Tunjariko sas": {
+    "en": "Musical transcription: Tunjariko sas"
+  },
+  "Kommentar von Mišo Nikolić zu Tunjariko sas": {
+    "en": "Comment by Mišo Nikolić on Tunjariko sas"
+  },
+  "musikalische Transkription: Žo-tar mange, žo-tar": {
+    "en": "Musical transcription: Žo-tar mange, žo-tar"
+  },
+  "Kommentar von Ruža Nikolić-Lakatos zu Žo-tar mange, žo-tar": {
+    "en": "Comment by Ruža Nikolić-Lakatos on Žo-tar mange, žo-tar"
+  },
+  "musikalische Transkription: Žukarav les vov": {
+    "en": "Musical transcription: Žukarav les vov"
+  },
+  "Kommentar von Manuela Nikolić zu Žukarav les vov": {
+    "en": "Comment by Manuela Nikolić on Žukarav les vov"
+  },
+  "Aufnahme nach einem Feldforschungsinterview": {
+    "en": "Recording after a field research interview"
+  },
+  "von links nach rechts: Eva Leick, Ursula Hemetek, Manulea Nikolić": {
+    "en": "from left to right: Eva Leick, Ursula Hemetek, Manulea Nikolić"
+  },
+  "Feldforschung mit Manuela Nikolić": {
+    "en": "Field research with Manuela Nikolić"
+  },
+  "Interview mit Ursula Hemetek über ihren langjährigen Forschungsprozess mit Ruža Nikolić-Lakatos": {
+    "en": "Interview with Ursula Hemetek about her long-term research process with Ruža Nikolić-Lakatos"
+  }
 }
