@@ -120,9 +120,20 @@ $escape = $this->plugin('escapeHtml');
         $body = $bodyTerm ? $resource->value($bodyTerm) : $resource->displayDescription(null, ($filterLocale ? $lang : null));
         // Fetching contributor and creator values
         $metadata = $resource->displayValues();
-        // Fetching the URL from the foaf:page property
+        // Determine the path
+        $path = $_SERVER['REQUEST_URI'];
+
+        // Set the initial pageUrl from the foaf:page property
         $pageUrl = $resource->value('foaf:page', ['all' => false, 'default' => null]);
         $pageUrl = $pageUrl ? $pageUrl->uri() : null;
+
+        // Check the path and modify pageUrl if necessary
+        if (strpos($path, 'ruzakegila-en') !== false) {
+          // Change pageUrl to contain 'ruzakegila-en'
+          if ($pageUrl) {
+            $pageUrl = str_replace('ruzakegila', 'ruzakegila-en', $pageUrl);
+          }
+        }
 
       ?>
         <div class="col-sm-6 col-md-4 col-lg-3 my-2 song-item">
