@@ -1,3 +1,31 @@
+// Trie data structure for efficient string matching
+class TrieNode {
+  constructor() {
+    this.children = new Map();
+    this.isEndOfWord = false;
+    this.translation = null;
+  }
+}
+
+class Trie {
+  constructor() {
+    this.root = new TrieNode();
+  }
+
+  insert(word, translation) {
+    let node = this.root;
+    for (const char of word) {
+      if (!node.children.has(char)) {
+        node.children.set(char, new TrieNode());
+      }
+      node = node.children.get(char);
+    }
+    node.isEndOfWord = true;
+    node.translation = translation;
+  }
+}
+
+// Function to fetch translations from JSON file
 async function fetchTranslations() {
   try {
     const response = await fetch(
@@ -10,39 +38,83 @@ async function fetchTranslations() {
   }
 }
 
-function replaceText(content, translations, lang) {
-  // Sort keys by length in descending order to replace longer phrases first
-  const sortedKeys = Object.keys(translations).sort(
-    (a, b) => b.length - a.length
-  );
-
-  sortedKeys.forEach((key) => {
-    const translation = translations[key][lang];
-    if (translation) {
-      // Create a regex that matches the whole word or phrase
-      const regex = new RegExp(`\\b${escapeRegExp(key)}\\b`, "gi");
-      content = content.replace(regex, translation);
+// Function to build Trie from translations
+function buildTrie(translations, lang) {
+  const trie = new Trie();
+  for (const [key, value] of Object.entries(translations)) {
+    if (value[lang]) {
+      trie.insert(key.toLowerCase(), value[lang]);
     }
-  });
-
-  return content;
+  }
+  return trie;
 }
 
-// Helper function to escape special characters in regex
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+// Improved replaceText function using Trie for efficient matching
+function replaceText(content, trie, lang) {
+  const words = content.split(/(\s+)/);
+  const result = [];
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (/\s+/.test(word)) {
+      result.push(word);
+      continue;
+    }
+
+    let node = trie.root;
+    let j = i;
+    let longestMatch = null;
+    let longestMatchIndex = i;
+
+    while (j < words.length && node) {
+      const currentWord = words[j].toLowerCase();
+      for (const char of currentWord) {
+        if (!node.children.has(char)) {
+          break;
+        }
+        node = node.children.get(char);
+        if (node.isEndOfWord) {
+          longestMatch = node.translation;
+          longestMatchIndex = j;
+        }
+      }
+      if (node && node.children.size > 0) {
+        j++;
+      } else {
+        break;
+      }
+    }
+
+    if (longestMatch) {
+      result.push(longestMatch);
+      i = longestMatchIndex;
+    } else {
+      result.push(word);
+    }
+  }
+
+  return result.join("");
 }
 
+// Improved translatePage function
 async function translatePage(lang) {
   const translations = await fetchTranslations();
   if (!translations) return;
 
-  // Get the entire HTML content of the body
-  let content = document.body.innerHTML;
-  // Replace text in the content
-  content = replaceText(content, translations, lang);
-  // Apply the translated content back to the body
-  document.body.innerHTML = content;
+  const trie = buildTrie(translations, lang);
+
+  // Get all text nodes in the body
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+
+  let node;
+  while ((node = walker.nextNode())) {
+    node.textContent = replaceText(node.textContent, trie, lang);
+  }
 }
 
 // Function to extract language from URL
@@ -56,7 +128,7 @@ function detectLanguage() {
   return null; // Default or no translation
 }
 
-// Set up translation based on detected language
+// Main execution
 const language = detectLanguage();
 if (language) {
   // Use DOMContentLoaded to ensure translation is applied as soon as possible
