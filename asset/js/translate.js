@@ -1,6 +1,8 @@
 async function fetchTranslations() {
   try {
-    const response = await fetch("/themes/ruza-custom-theme/asset/js/translations.json");
+    const response = await fetch(
+      "/themes/ruza-custom-theme/asset/js/translations.json"
+    );
     const data = await response.json();
     return data;
   } catch (error) {
@@ -8,28 +10,32 @@ async function fetchTranslations() {
   }
 }
 
-function replaceText(node, translations, lang) {
-  if (node.nodeType === Node.TEXT_NODE) {
-    let text = node.textContent;
-    Object.keys(translations).forEach((key) => {
-      const translation = translations[key][lang];
-      if (translation && text.includes(key)) {
-        text = text.replace(new RegExp(key, "g"), translation);
-      }
-    });
-    node.textContent = text;
-  } else if (node.nodeType === Node.ELEMENT_NODE) {
-    node.childNodes.forEach((child) => replaceText(child, translations, lang));
-  }
+function replaceText(content, translations, lang) {
+  // Sort keys by length in descending order to replace longer phrases first
+  const sortedKeys = Object.keys(translations).sort(
+    (a, b) => b.length - a.length
+  );
+
+  sortedKeys.forEach((key) => {
+    const translation = translations[key][lang];
+    if (translation) {
+      const regex = new RegExp(key, "g");
+      content = content.replace(regex, translation);
+    }
+  });
+  return content;
 }
 
-function translatePage(lang) {
-  fetchTranslations().then((translations) => {
-    if (!translations) return;
-    document.querySelectorAll("body, body *").forEach((element) => {
-      replaceText(element, translations, lang);
-    });
-  });
+async function translatePage(lang) {
+  const translations = await fetchTranslations();
+  if (!translations) return;
+
+  // Get the entire HTML content of the body
+  let content = document.body.innerHTML;
+  // Replace text in the content
+  content = replaceText(content, translations, lang);
+  // Apply the translated content back to the body
+  document.body.innerHTML = content;
 }
 
 // Function to extract language from URL
@@ -46,9 +52,8 @@ function detectLanguage() {
 // Set up translation based on detected language
 const language = detectLanguage();
 if (language) {
-  window.onload = () => translatePage(language);
+  // Use DOMContentLoaded to ensure translation is applied as soon as possible
+  document.addEventListener("DOMContentLoaded", () => {
+    translatePage(language);
+  });
 }
-
-//just a testcomment to see if git push is working
-
-//another comment to see if the cronjob every hour works:)
