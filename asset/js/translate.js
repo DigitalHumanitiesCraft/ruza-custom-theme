@@ -19,11 +19,18 @@ function replaceText(content, translations, lang) {
   sortedKeys.forEach((key) => {
     const translation = translations[key][lang];
     if (translation) {
-      const regex = new RegExp(key, "g");
+      // Create a regex that matches the whole word or phrase
+      const regex = new RegExp(`\\b${escapeRegExp(key)}\\b`, "gi");
       content = content.replace(regex, translation);
     }
   });
+
   return content;
+}
+
+// Helper function to escape special characters in regex
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 async function translatePage(lang) {
