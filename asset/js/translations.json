@@ -191,7 +191,7 @@
   "Moderation": {
     "en": "Presentation "
   },
-  "Handschrift:": {
+  "Handschrift": {
     "en": "Manuscript"
   },
   "Handschrift zum Liedtext": {
@@ -200,10 +200,10 @@
   "Materialien Manuela Nikolić": {
     "en": "Materials Manuela Nikolić"
   },
-  "Aufnahme, YouTube:": {
+  "Aufnahme, YouTube": {
     "en": "Recording, YouTube"
   },
-  "Musik:": {
+  "Musik": {
     "en": "Music"
   },
   "eingebettetes YouTube-Video": {
@@ -218,8 +218,8 @@
   "Kommentar von Manuela Nikolić zu Ando tunjariko": {
     "en": "Comment by Manuela Nikolić on Ando tunjariko"
   },
-  "Photographie:": {
-    "en": "Photo:"
+  "Photographie": {
+    "en": "Photo"
   },
   "während eines Auftritts im Amerlinghaus 1991": {
     "en": "duringa performance at the Amerlinghaus 1991"
@@ -227,7 +227,7 @@
   "musikalische Transkription: Bikjindan ma pe lovende": {
     "en": "Musical transcription: Bikjindan ma pe lovende"
   },
-  "Gitarre, Bass:": {
+  "Gitarre, Bass": {
     "en": "Guitar, bass"
   },
   "Bikjindan ma pe lovende mit Moša Šišić": {
@@ -272,7 +272,7 @@
   "Kommentar, Aufnahme": {
     "en": "Commentary, recording"
   },
-  "Gestaltung:": {
+  "Gestaltung": {
     "en": "Production"
   },
   "Interview, Lieder mit Instrumentalbegleitung, gesendet auf Radio 1476/ORF am 07.05.2000": {
@@ -290,10 +290,10 @@
   "musikalische Transkription: Gelem, gelem": {
     "en": "Musical transcription: Gelem, gelem"
   },
-  "Gitarre, Gesang:": {
+  "Gitarre, Gesang": {
     "en": "Guitar, vocals"
   },
-  "Violine, Gesang:": {
+  "Violine, Gesang": {
     "en": "Violin, vocals"
   },
   "Gelem, gelem mit Pišti Horvath": {
@@ -314,8 +314,8 @@
   "Foto": {
     "en": "Photo"
   },
-  "abgebildete Personen:": {
-    "en": "people shown in the picture:"
+  "abgebildete Personen": {
+    "en": "people shown in the picture"
   },
   "Sohn von Ruža Nikolić-Lakatos und Mišo Nikolić": {
     "en": "Ruža Nikolić-Lakatos' and Mišo Nikolić' son"
@@ -350,11 +350,11 @@
   "Kommentar von Ruža Nikolić-Lakatos und Mišo Nikolić zu Kana e loli mol pav": {
     "en": "Commentary by Ruža Nikolić-Lakatos and Mišo Nikolić on Kana e loli mol pav"
   },
-  "Regie:": {
-    "en": "Directed by:"
+  "Regie": {
+    "en": "Directed by"
   },
-  "Kamera:": {
-    "en": "Camera:"
+  "Kamera": {
+    "en": "Camera"
   },
   "Ausschnitt aus dem Film \"Ihr werdet uns nie verstehen\" (1988)": {
     "en": "Excerpt from the Movie  \"Ihr werdet uns nie verstehen\" / \"You Will Never Understand Us\" (1988)"
@@ -368,8 +368,8 @@
   "Kommentar von Ruža Nikolić-Lakatos zu Kutka tele po fojovo": {
     "en": "Comment by Ruža Nikolić-Lakatos on Kutka tele po fojovo"
   },
-  "Perkussion, Aufnahme:": {
-    "en": "Percussions, recording:"
+  "Perkussion, Aufnahme": {
+    "en": "Percussions, recording"
   },
   "musikalische Transkription: Loli sas i paradiča": {
     "en": "Musical Transcription: Loli sas i paradiča"
@@ -377,8 +377,8 @@
   "Loli sas i paradiča (Perkussion)": {
     "en": "Loli sas i paradiča (Percussion)"
   },
-  "Gesang, Perkussion:": {
-    "en": "Vocals, percussions:"
+  "Gesang, Perkussion": {
+    "en": "Vocals, percussions"
   },
   "Liedaufnahme mit dazugetrommelter Perkussion": {
     "en": "Song recording with accompanying percussion"
@@ -398,7 +398,7 @@
   "Aufnahme während einer Veranstaltung an der mdw - Universität für Musik und darstellende Kunst Wien": {
     "en": "Recording during an event at the University of Music and Performing Arts Vienna"
   },
-  "Photographie, Nachbearbeitung:": {
+  "Photographie, Nachbearbeitung": {
     "en": "Photo, editing"
   },
   "im Rahmen der Veranstaltungsreihe \"Roma - Mythos und Wirklichkeit\"": {
@@ -437,8 +437,8 @@
   "musikalische Transkription: Opre šute aba mange": {
     "en": "Musical transcription: Opre šute aba mange"
   },
-  "Gesang, Kommentare:": {
-    "en": "Vocals, comments:"
+  "Gesang, Kommentare": {
+    "en": "Vocals, comments"
   },
   "Verwandte von Ruža Nikolić-Lakatos": {
     "en": "Ruža Nikolić-Lakatos' relatives"
@@ -491,7 +491,7 @@
   "musikalische Transkription: Po motori bešlem": {
     "en": "Musical transcription: Po motori bešlem"
   },
-  "Bass, Gitarren:": {
+  "Bass, Gitarren": {
     "en": "Bass, guitars"
   },
   "Liedaufnahme im Rahmen der Veranstaltungsreihe \"Roma - Mythos und Wirklichkeit\" in der Österreichischen Nationalbibliothek": {
@@ -575,11 +575,14 @@
   "Interview mit Ursula Hemetek über ihren langjährigen Forschungsprozess mit Ruža Nikolić-Lakatos": {
     "en": "Interview with Ursula Hemetek about her long-term research process with Ruža Nikolić-Lakatos"
   },
+  "": {
+    "en": ""
+  },
   "unbekannt": {
     "en": "unknown"
   },
-  "Bitte zitieren Sie diese Seite wie folgt:": {
-    "en": "Please cite this page as follows:"
+  "Bitte zitieren Sie diese Seite wie folgt": {
+    "en": "Please cite this page as follows"
   },
   "Ballade": {
     "en": "ballad"
@@ -604,5 +607,14 @@
   },
   "Oberwarter-Lied": {
     "en": "Oberwart song"
+  },
+  "Resultat(e)": {
+    "en": "result(s)"
+  },
+  "Lieder gesamt": {
+    "en": "songs total"
+  },
+  "zuletzt besucht am": {
+    "en": "last visited on"
   }
 }

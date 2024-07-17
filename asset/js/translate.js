@@ -1,31 +1,27 @@
+function updateLinksForLanguage(lang) {
+  if (lang !== "en") return; // Only modify links if the language is 'en'
+
+  const links = document.querySelectorAll('a[href*="/ruzakegila/"]');
+  links.forEach((link) => {
+    link.href = link.href.replace("/ruzakegila/", "/ruzakegila-en/");
+  });
+}
+
+// Fetch translations and cache them
+let cachedTranslations = null;
 async function fetchTranslations() {
+  if (cachedTranslations) return cachedTranslations;
+
   try {
     const response = await fetch(
       "/themes/ruza-custom-theme/asset/js/translations.json"
     );
     const data = await response.json();
+    cachedTranslations = data;
     return data;
   } catch (error) {
     console.error("Failed to fetch translations:", error);
   }
-}
-
-function replaceText(content, translations, lang) {
-  // Sort keys by length in descending order to replace longer phrases first
-  const sortedKeys = Object.keys(translations).sort(
-    (a, b) => b.length - a.length
-  );
-
-  sortedKeys.forEach((key) => {
-    const translation = translations[key][lang];
-    if (translation) {
-      // Create a regex that matches the whole word or phrase
-      const regex = new RegExp(`\\b${escapeRegExp(key)}\\b`, "gi");
-      content = content.replace(regex, translation);
-    }
-  });
-
-  return content;
 }
 
 // Helper function to escape special characters in regex
@@ -33,16 +29,62 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+// Function to replace text nodes only if they have no child nodes
+function replaceTextNode(node, translations, lang) {
+  if (!node.nodeValue.trim()) return;
+
+  const text = node.nodeValue;
+  if (!text) return;
+
+  // Sort keys by length in descending order to replace longer phrases first
+  const sortedKeys = Object.keys(translations).sort(
+    (a, b) => b.length - a.length
+  );
+
+  let newText = text;
+  sortedKeys.forEach((key) => {
+    const translation = translations[key][lang];
+    if (translation) {
+      const regex = new RegExp(`\\b${escapeRegExp(key)}\\b`, "gi");
+      newText = newText.replace(regex, translation);
+    }
+  });
+
+  if (newText !== text) {
+    node.nodeValue = newText;
+  }
+}
+
+// Function to process only text nodes without child nodes
+function replaceTextContent(element, translations, lang) {
+  const walker = document.createTreeWalker(
+    element,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode: (node) => {
+        // Only accept text nodes without child nodes
+        return node.parentNode.childNodes.length === 1
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
+    },
+    false
+  );
+
+  let node;
+  while ((node = walker.nextNode())) {
+    replaceTextNode(node, translations, lang);
+  }
+}
+
 async function translatePage(lang) {
   const translations = await fetchTranslations();
   if (!translations) return;
 
-  // Get the entire HTML content of the body
-  let content = document.body.innerHTML;
   // Replace text in the content
-  content = replaceText(content, translations, lang);
-  // Apply the translated content back to the body
-  document.body.innerHTML = content;
+  replaceTextContent(document.body, translations, lang);
+  // Update all links on the page
+  updateLinksForLanguage(lang);
 }
 
 // Function to extract language from URL
