@@ -71,6 +71,9 @@
   "Tochter von Ruža Nikolić-Lakatos und Mišo Nikolić": {
     "en": "Ruža Nikolić-Lakatos' and Mišo Nikolić' daughter"
   },
+  "Deutsch": {
+    "en": "German"
+  },
   "mdw – Universität für Musik und darstellende Kunst Wien": {
     "en": "University of Music and Performing Arts Vienna"
   },
@@ -280,9 +283,6 @@
   },
   "Deutsch, Romanes": {
     "en": "German, Romani"
-  },
-  "Deutsch": {
-    "en": "German"
   },
   "Romano Centro - Verein für Roma": {
     "en": "Romano Centro - Association for Roma"
@@ -620,7 +620,7 @@
   "zuletzt besucht am": {
     "en": "last visited on"
   },
-  "mehr": {
-    "en": "more"
+  "Mehr": {
+    "en": "More"
   }
 }
