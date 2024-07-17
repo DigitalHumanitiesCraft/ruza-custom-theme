@@ -45,7 +45,8 @@ function replaceTextNode(node, translations, lang) {
   sortedKeys.forEach((key) => {
     const translation = translations[key][lang];
     if (translation) {
-      const regex = new RegExp(`\\b${escapeRegExp(key)}\\b`, "gi");
+      const regex = new RegExp(escapeRegExp(key), "gi");
+
       newText = newText.replace(regex, translation);
     }
   });
