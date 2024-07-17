@@ -7,7 +7,6 @@ function updateLinksForLanguage(lang) {
   });
 }
 
-// Fetch translations and cache them
 let cachedTranslations = null;
 async function fetchTranslations() {
   if (cachedTranslations) return cachedTranslations;
@@ -21,22 +20,29 @@ async function fetchTranslations() {
     return data;
   } catch (error) {
     console.error("Failed to fetch translations:", error);
+    return {}; // Return an empty object in case of failure
   }
 }
 
-// Helper function to escape special characters in regex
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-// Function to replace text nodes only if they have no child nodes
+function isURL(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 function replaceTextNode(node, translations, lang) {
   if (!node.nodeValue.trim()) return;
 
   const text = node.nodeValue;
-  if (!text) return;
+  if (!text || isURL(text)) return; // Skip URL-like text
 
-  // Sort keys by length in descending order to replace longer phrases first
   const sortedKeys = Object.keys(translations).sort(
     (a, b) => b.length - a.length
   );
@@ -45,8 +51,7 @@ function replaceTextNode(node, translations, lang) {
   sortedKeys.forEach((key) => {
     const translation = translations[key][lang];
     if (translation) {
-      const regex = new RegExp(escapeRegExp(key), "gi");
-
+      const regex = new RegExp(`(${escapeRegExp(key)})`, "gi");
       newText = newText.replace(regex, translation);
     }
   });
@@ -56,14 +61,29 @@ function replaceTextNode(node, translations, lang) {
   }
 }
 
-// Function to process only text nodes without child nodes
 function replaceTextContent(element, translations, lang) {
   const walker = document.createTreeWalker(
     element,
     NodeFilter.SHOW_TEXT,
     {
       acceptNode: (node) => {
-        // Only accept text nodes without child nodes
+        // Skip elements with specific classes and URL-like text nodes
+        if (
+          isURL(node.nodeValue) ||
+          node.parentNode.closest(".page-row, .song-intertext")
+        ) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        // Allow text nodes within <details> elements
+        if (
+          node.parentNode.tagName === "DETAILS" ||
+          node.parentNode.closest("details")
+        ) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+
+        // Only accept text nodes without child nodes for other elements
         return node.parentNode.childNodes.length === 1
           ? NodeFilter.FILTER_ACCEPT
           : NodeFilter.FILTER_REJECT;
@@ -82,13 +102,10 @@ async function translatePage(lang) {
   const translations = await fetchTranslations();
   if (!translations) return;
 
-  // Replace text in the content
   replaceTextContent(document.body, translations, lang);
-  // Update all links on the page
   updateLinksForLanguage(lang);
 }
 
-// Function to extract language from URL
 function detectLanguage() {
   const url = window.location.href;
   if (url.includes("ruzakegila-en")) {
@@ -99,10 +116,8 @@ function detectLanguage() {
   return null; // Default or no translation
 }
 
-// Set up translation based on detected language
 const language = detectLanguage();
 if (language) {
-  // Use DOMContentLoaded to ensure translation is applied as soon as possible
   document.addEventListener("DOMContentLoaded", () => {
     translatePage(language);
   });

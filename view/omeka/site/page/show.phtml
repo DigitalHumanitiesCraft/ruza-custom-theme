@@ -53,8 +53,8 @@ if ($activePage) :
     // Process media render elements for captions and adjustments
     processMediaRenders();
     // Transform '.page-row' and '.song-intertext' elements to new structures
-    transformElements('.page-row', 'row gx-4 gx-lg-5 justify-content-center', 'col-md-10 col-lg-8 col-xl-7');
-    transformElements('.song-intertext', 'row justify-content-center', 'col-md-10', true);
+    transformElements('.page-row', 'page-row row gx-4 gx-lg-5 justify-content-center', 'col-md-10 col-lg-8 col-xl-7');
+    transformElements('.song-intertext', 'song-intertext row justify-content-center', 'col-md-10', true);
   });
 
   // Function to generate IDs for headers and generate TOC for headers below the TOC container
