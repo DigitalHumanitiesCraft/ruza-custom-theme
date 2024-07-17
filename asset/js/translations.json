@@ -8,15 +8,6 @@
   "Gitarre": {
     "en": "Guitar"
   },
-  "von": {
-    "en": "by"
-  },
-  "und": {
-    "en": "and"
-  },
-  "zu": {
-    "en": "on"
-  },
   "Liedaufnahme während eines Geburtstagsfeier von Ruža Nikolić-Lakatos": {
     "en": "Recording during Ruža Nikolić-Lakatos' birthday party"
   },
@@ -111,7 +102,7 @@
     "en": "New songs"
   },
   "Lied über zwischenmenschliche Beziehungen (Liebe und Gesellschaft)": {
-    "en": "Songs about interpersonal relationships (love and society)"
+    "en": "Song about interpersonal relationships (love and society)"
   },
   "Violine": {
     "en": "Violin"
@@ -183,7 +174,7 @@
     "en": "Music engraving"
   },
   "musikalische Transkription": {
-    "en": "Musical transcription"
+    "en": ""
   },
   "musikalische Transkription: Ando foro me gelem": {
     "en": "Musical transcription: Ando foro me gelem"
@@ -228,7 +219,7 @@
     "en": "Comment by Manuela Nikolić on Ando tunjariko"
   },
   "Photographie:": {
-    "en": "Photo"
+    "en": "Photo:"
   },
   "während eines Auftritts im Amerlinghaus 1991": {
     "en": "duringa performance at the Amerlinghaus 1991"
@@ -583,5 +574,35 @@
   },
   "Interview mit Ursula Hemetek über ihren langjährigen Forschungsprozess mit Ruža Nikolić-Lakatos": {
     "en": "Interview with Ursula Hemetek about her long-term research process with Ruža Nikolić-Lakatos"
+  },
+  "unbekannt": {
+    "en": "unknown"
+  },
+  "Bitte zitieren Sie diese Seite wie folgt:": {
+    "en": "Please cite this page as follows:"
+  },
+  "Ballade": {
+    "en": "ballad"
+  },
+  "Oberwart Denkmal": {
+    "en": "Memorial in Oberwart"
+  },
+  "Handschrift Tela veš o baro": {
+    "en": "Manuscript Tela veš o baro"
+  },
+  "Handschrift ": {
+    "en": "Manuscript"
+  },
+  "Liedaufnahme während eines Auftritts an der mdw - Universität für Musik und darstellende Kunst Wien": {
+    "en": "Song recording during a performance at the University of Music and Performing Arts Vienna"
+  },
+  "Alle Personen": {
+    "en": "All people"
+  },
+  "Alle Orte": {
+    "en": "All locations"
+  },
+  "Oberwarter-Lied": {
+    "en": "Oberwart song"
   }
 }
