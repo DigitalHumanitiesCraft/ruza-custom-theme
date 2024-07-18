@@ -90,28 +90,60 @@ function updateLinks() {
   });
 }
 
+async function translateAttributes(element) {
+  const attributesToTranslate = ['alt', 'title', 'placeholder', 'aria-label'];
+
+  for (let attr of attributesToTranslate) {
+    if (element.hasAttribute(attr)) {
+      element.setAttribute(attr, await translateToEnglish(element.getAttribute(attr)));
+    }
+  }
+}
+
+async function translateSelectOptions(selectElement) {
+  for (let option of selectElement.options) {
+    option.text = await translateToEnglish(option.text);
+    option.value = await translateToEnglish(option.value);
+  }
+}
+
 async function translatePage() {
+  // Translate text nodes
   const walker = document.createTreeWalker(
     document.body,
     NodeFilter.SHOW_TEXT,
     {
-      acceptNode: function (node) {
-        return shouldTranslateElement(node.parentElement)
-          ? NodeFilter.FILTER_ACCEPT
-          : NodeFilter.FILTER_REJECT;
-      },
+      acceptNode: function(node) {
+        return shouldTranslateElement(node.parentElement) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
     }
   );
 
   let textNode;
-  while ((textNode = walker.nextNode())) {
+  while (textNode = walker.nextNode()) {
     if (textNode.nodeValue.trim()) {
       textNode.nodeValue = await translateToEnglish(textNode.nodeValue);
     }
   }
 
-   // Call updateLinks after translation
-   updateLinks();
+  // Translate attributes
+  const elements = document.body.getElementsByTagName('*');
+  for (let element of elements) {
+    if (shouldTranslateElement(element)) {
+      await translateAttributes(element);
+    }
+  }
+
+  // Translate select options
+  const selectElements = document.querySelectorAll('select.form-select.filter-options');
+  for (let select of selectElements) {
+    if (shouldTranslateElement(select)) {
+      await translateSelectOptions(select);
+    }
+  }
+
+  // Update links
+  updateLinks();
 }
 
 // Check URL and initiate translation if needed
