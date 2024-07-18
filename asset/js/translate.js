@@ -56,16 +56,18 @@ async function translateToEnglish(germanText) {
 
 function shouldTranslateElement(element) {
   // Check if the element or its ancestors have the excluded classes
-  if (element.closest('.page-row, .song-intertext')) {
+  if (element.closest(".page-row, .song-intertext")) {
     // Exception 1: Allow translation for <a> tags with text "Mehr" and class "btn"
-    if (element.tagName === 'A' &&
-        element.classList.contains('btn') &&
-        element.textContent.trim() === 'Mehr') {
+    if (
+      element.tagName === "A" &&
+      element.classList.contains("btn") &&
+      element.textContent.trim() === "Mehr"
+    ) {
       return true;
     }
 
     // Exception 2: Allow translation for <details> elements and their descendants
-    if (element.closest('details')) {
+    if (element.closest("details")) {
       return true;
     }
 
@@ -77,13 +79,12 @@ function shouldTranslateElement(element) {
   return true;
 }
 
-
 function updateLinks() {
-  const links = document.querySelectorAll('a');
-  const englishPath = '/s/ruzakegila-en/';
-  const germanPath = '/s/ruzakegila/';
+  const links = document.querySelectorAll("a");
+  const englishPath = "/s/ruzakegila-en/";
+  const germanPath = "/s/ruzakegila/";
 
-  links.forEach(link => {
+  links.forEach((link) => {
     if (link.href.includes(germanPath)) {
       link.href = link.href.replace(germanPath, englishPath);
     }
@@ -91,11 +92,14 @@ function updateLinks() {
 }
 
 async function translateAttributes(element) {
-  const attributesToTranslate = ['alt', 'title', 'placeholder', 'aria-label'];
+  const attributesToTranslate = ["alt", "title", "placeholder", "aria-label"];
 
   for (let attr of attributesToTranslate) {
     if (element.hasAttribute(attr)) {
-      element.setAttribute(attr, await translateToEnglish(element.getAttribute(attr)));
+      element.setAttribute(
+        attr,
+        await translateToEnglish(element.getAttribute(attr))
+      );
     }
   }
 }
@@ -113,21 +117,23 @@ async function translatePage() {
     document.body,
     NodeFilter.SHOW_TEXT,
     {
-      acceptNode: function(node) {
-        return shouldTranslateElement(node.parentElement) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-      }
+      acceptNode: function (node) {
+        return shouldTranslateElement(node.parentElement)
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
     }
   );
 
   let textNode;
-  while (textNode = walker.nextNode()) {
+  while ((textNode = walker.nextNode())) {
     if (textNode.nodeValue.trim()) {
       textNode.nodeValue = await translateToEnglish(textNode.nodeValue);
     }
   }
 
   // Translate attributes
-  const elements = document.body.getElementsByTagName('*');
+  const elements = document.body.getElementsByTagName("*");
   for (let element of elements) {
     if (shouldTranslateElement(element)) {
       await translateAttributes(element);
@@ -135,7 +141,9 @@ async function translatePage() {
   }
 
   // Translate select options
-  const selectElements = document.querySelectorAll('select.form-select.filter-options');
+  const selectElements = document.querySelectorAll(
+    "select.form-select.filter-options"
+  );
   for (let select of selectElements) {
     if (shouldTranslateElement(select)) {
       await translateSelectOptions(select);
