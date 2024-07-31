@@ -27,6 +27,7 @@ $userBar = $this->userBar();
 ?>
 <?php echo $this->doctype(); ?>
 <?php echo $this->htmlElement('html'); ?>
+<?php $path = $_SERVER["REQUEST_URI"]; ?>
 
 <head>
 
@@ -43,6 +44,13 @@ $userBar = $this->userBar();
 </a>
 <?php echo $userBar; ?>
 <header>
+  <div class="position-fixed top-0 start-0 p-3" style="z-index:1000;">
+    <div class="language-picker">
+      <a href="/s/ruzakegila/page/willkommen" class="text-dark text-decoration-none me-2 <?php echo $path == '/s/ruzakegila/page/willkommen' ? 'fw-bold' : ''; ?>">DE</a>
+      <span>|</span>
+      <a href="/s/ruzakegila-en/page/willkommen" class="text-dark text-decoration-none ms-2 <?php echo $path == '/s/ruzakegila-en/page/willkommen' ? 'fw-bold' : ''; ?>">EN</a>
+    </div>
+  </div>
   <div class="container pt-4 pb-2 d-none d-md-block">
     <div class="row justify-content-center">
       <div class="col-auto">
@@ -68,7 +76,7 @@ $userBar = $this->userBar();
     </div>
   </nav>
 </header>
-<?php $path = $_SERVER["REQUEST_URI"]; ?>
+
 
 <?php if ($path == "/s/ruzakegila/page/willkommen" || $path == "/s/ruzakegila-en/page/willkommen") : ?>
   <div class="carousel-wrapper container-fluid">
@@ -181,4 +189,5 @@ $userBar = $this->userBar();
   }
 </script>
 <script src="<?php echo $this->assetUrl('js/translate.js'); ?>"></script>
+
 </html>
