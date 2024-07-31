@@ -80,7 +80,7 @@ function shouldTranslateElement(element) {
 }
 
 function updateLinks() {
-  const links = document.querySelectorAll("a");
+  const links = document.querySelectorAll("a:not(.language-picker a)");
   const englishPath = "/s/ruzakegila-en/";
   const germanPath = "/s/ruzakegila/";
 
