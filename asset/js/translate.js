@@ -75,6 +75,14 @@ function shouldTranslateElement(element) {
     return false;
   }
 
+  // Exclude translation for a span with the text "Walter Deutsch"
+  if (
+    element.tagName === "SPAN" &&
+    element.textContent.trim() === "Walter Deutsch"
+  ) {
+    return false;
+  }
+
   // Translate elements not within excluded classes
   return true;
 }
