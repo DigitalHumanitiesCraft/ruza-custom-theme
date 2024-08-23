@@ -9,7 +9,7 @@ $escape = $this->plugin('escapeHtml');
     <?php if (!$this->navigation()->accept($page)) {
       continue;
     } ?>
-    <?php /* @var $page Laminas\Navigation\Page\Mvc */?>
+    <?php /* @var $page Laminas\Navigation\Page\Mvc */ ?>
     <?php $hasChildren = $page->hasPages() ?>
     <?php if (!$hasChildren): ?>
       <li class="nav-item">
@@ -27,7 +27,7 @@ $escape = $this->plugin('escapeHtml');
         }
       }
       if ($access):
-        ?>
+      ?>
         <li class="nav-item dropdown">
           <?php $idName = str_replace(' ', '', $this->escapeHtml($this->translate($page->getLabel(), $this->navigation($container)->getTranslatorTextDomain()))); ?>
           <a class="nav-link text-dark dropdown-toggle" id="<?php echo $idName; ?>" href="#" role="button"
@@ -40,6 +40,13 @@ $escape = $this->plugin('escapeHtml');
       <?php endif; ?>
     <?php endif ?>
   <?php endforeach ?>
+  <div class="nav-item">
+    <div class="nav-link language-picker d-md-none">
+      <a href="/s/ruzakegila/page/willkommen" class="text-dark text-decoration-none me-2">DE</a>
+      <span>|</span>
+      <a href="/s/ruzakegila-en/page/willkommen" class="text-dark text-decoration-none ms-2">EN</a>
+    </div>
+  </div>
   <li class="nav-item">
     <button class="nav-link text-dark border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#searchModal"
       aria-label="Search">
