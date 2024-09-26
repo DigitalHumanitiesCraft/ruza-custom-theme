@@ -28,7 +28,7 @@ async function translateToEnglish(germanText) {
     (a, b) => b.length - a.length
   );
 
-  let result = germanText;
+  const translatedParts = [];
 
   for (const key of sortedKeys) {
     // Escape the key for use in regex
@@ -45,13 +45,30 @@ async function translateToEnglish(germanText) {
       "gi"
     );
 
-    result = result.replace(regex, (match, prefix) => {
-      // Preserve the prefix (space or punctuation) and add the translation
-      return prefix + translations[key].en;
+    germanText = germanText.replace(regex, (match, prefix, offset) => {
+      // Check if this part has already been translated
+      for (const part of translatedParts) {
+        if (offset >= part.start && offset < part.end) {
+          return match; // Skip translation if already translated
+        }
+      }
+
+      // If not translated, perform the translation
+      const translation = prefix + translations[key].en;
+
+      // Mark this portion as translated
+      translatedParts.push({
+        start: offset,
+        end: offset + match.length,
+        original: match,
+        translated: translation,
+      });
+
+      return translation;
     });
   }
 
-  return result;
+  return germanText;
 }
 
 function shouldTranslateElement(element) {
