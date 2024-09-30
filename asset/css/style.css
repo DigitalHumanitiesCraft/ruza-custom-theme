@@ -1171,3 +1171,72 @@ td {
   background-color: #000a94;
   border-color: #0082a7;
 }
+
+/* PLAY BUTTON */
+.play-button {
+  background-color: transparent; /* Semi-transparent background */
+  border: none;
+  color: rgba(249, 250, 247, 0.5);
+  font-size: 100px; /* Large play button */
+  z-index: 1000; /* Ensure it's above the carousel */
+}
+.play-button:hover {
+  color: black;
+}
+
+/* Audio Player Custom window */
+.custom-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 500px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.window-header {
+  padding: 10px;
+  background-color: #f8f9fa;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-title {
+  margin: 0;
+}
+
+.minimize-btn {
+  background: transparent
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='9' width='12' height='2' fill='%23000'/%3E%3C/svg%3E")
+    center / 1em auto no-repeat;
+}
+.restore-icon {
+  position: fixed;
+  top: 30px;
+  left: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 5px 10px;
+  z-index: 1001; /* Higher than the window's z-index */
+}
+
+.restore-icon svg {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
