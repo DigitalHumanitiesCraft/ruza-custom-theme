@@ -1240,3 +1240,47 @@ td {
     transform: scale(1);
   }
 }
+
+/* gallery */
+.browse-thumbnail {
+  width: 100%; /* Ensures that images take the full width of the container */
+  height: auto; /* Keeps the aspect ratio intact */
+  object-fit: cover; /* Makes sure the images fill the container properly */
+}
+
+.masonry-item-container {
+  width: calc(
+    16.66% - 20px
+  ); /* Adjust percentage based on the number of columns */
+  margin: 10px; /* Add margin to create space between items */
+}
+
+/* Responsive: 5 columns on larger tablets (>= 1200px) */
+@media (max-width: 1200px) {
+  .masonry-item-container {
+    width: calc(20% - 20px); /* 5 columns */
+  }
+}
+
+/* Responsive: 4 columns on medium screens (>= 992px) */
+@media (max-width: 992px) {
+  .masonry-item-container {
+    width: calc(25% - 20px); /* 4 columns */
+  }
+}
+
+/* Responsive: 3 columns on smaller tablets and larger phones (>= 768px) */
+@media (max-width: 768px) {
+  .masonry-item-container {
+    width: calc(33.33% - 20px); /* 3 columns */
+  }
+}
+
+/* Responsive: 2 columns on small phones (>= 576px) */
+@media (max-width: 576px) {
+  .masonry-item-container {
+    width: calc(50% - 20px); /* 2 columns */
+  }
+}
+
+
