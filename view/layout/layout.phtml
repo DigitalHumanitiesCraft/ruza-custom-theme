@@ -51,9 +51,9 @@ $userBar = $this->userBar();
 <header>
   <div class="position-absolute top-0 start-0 p-3" style="z-index:1000;">
     <div class="language-picker d-none d-md-block">
-      <a href="/s/ruzakegila/page/willkommen" class="text-dark text-decoration-none me-2 <?php echo $path == '/s/ruzakegila/page/willkommen' ? 'fw-bold' : ''; ?>">DE</a>
+      <a href="/s/ruzakegila/page/willkommen" class="text-dark text-decoration-none me-2 <?php echo strpos($path, '/s/ruzakegila/') !== false ? 'fw-bold' : ''; ?>">DE</a>
       <span>|</span>
-      <a href="/s/ruzakegila-en/page/willkommen" class="text-dark text-decoration-none ms-2 <?php echo $path == '/s/ruzakegila-en/page/willkommen' ? 'fw-bold' : ''; ?>">EN</a>
+      <a href="/s/ruzakegila-en/page/willkommen" class="text-dark text-decoration-none ms-2 <?php echo strpos($path, '/s/ruzakegila-en/') !== false ? 'fw-bold' : ''; ?>">EN</a>
     </div>
   </div>
   <div class="container pt-4 pb-2 d-none d-md-block">

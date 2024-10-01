@@ -42,15 +42,16 @@ $sortHeadings = [
 $path = $_SERVER['REQUEST_URI'];
 
 // Check if the path ends with "337"
-if (preg_match('/\/337$/', $path)) {
+if (preg_match('/\/337(\?.*)?$/', $path)) {
   // New code block for URLs ending with "337"
 
   // The new masonry grid layout logic
 ?>
-  <div class="masonry-grid my-5" id="browse-container">
+  <div class="masonry-grid my-5" id="masonry-browse-container">
     <?php
     $headingTerm = $this->siteSetting('browse_heading_property_term');
     $bodyTerm = $this->siteSetting('browse_body_property_term');
+    $items = $this->api()->search('items', ['item_set_id' => $itemSet->id(), 'per_page' => 0])->getContent(); // Load all items for the item set
     foreach ($items as $item):
       $heading = $headingTerm ? $item->value($headingTerm, ['default' => $translate('[Untitled]'), 'lang' => ($filterLocale ? [$lang, ''] : null)]) : $item->displayTitle(null, ($filterLocale ? [$lang, ''] : null));
     ?>
@@ -236,19 +237,15 @@ if (preg_match('/\/337$/', $path)) {
         <?php endforeach; ?>
       </div>
     </div>
+    <?php $this->trigger('view.browse.after'); ?>
+    <div class="container pb-5">
+      <div class="row justify-content-center pagination-row">
+        <div class="col-auto">
+          <?php echo $this->pagination(); ?>
+        </div>
+      </div>
+    </div>
   <?php endif; ?>
 <?php
 }
 ?>
-
-
-<?php if ($totalResults > 0): ?>
-  <?php $this->trigger('view.browse.after'); ?>
-  <div class="container pb-5">
-    <div class="row justify-content-center pagination-row">
-      <div class="col-auto">
-        <?php echo $this->pagination(); ?>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
