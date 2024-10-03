@@ -12,8 +12,21 @@ $escape = $this->plugin('escapeHtml');
     <?php /* @var $page Laminas\Navigation\Page\Mvc */ ?>
     <?php $hasChildren = $page->hasPages() ?>
     <?php if (!$hasChildren): ?>
+
+      <?php
+      // Fetch the request URI and check if it ends with /337
+      $path = $_SERVER['REQUEST_URI'];
+      $isPath337 = preg_match('/\/337(\?.*)?$/', $path);
+      ?>
+
       <li class="nav-item">
-        <a class="nav-link text-dark <?php echo $page->isActive() ? 'active' : ''; ?>" <?php echo $page->isActive() ? 'aria-current="page"' : ''; ?> href="<?php echo $page->getHref() ?>">
+        <a class="nav-link text-dark<?php
+                                    // Add 'active' class inline to prevent line breaks
+                                    echo ($page->isActive() || ($isPath337 && $page->getHref() == '/337')) ? ' active' : ''; ?>"
+          <?php
+          // Add 'aria-current' inline to prevent formatting issues
+          echo ($page->isActive() || ($isPath337 && $page->getHref() == '/337')) ? ' aria-current="page"' : ''; ?>
+          href="<?php echo $page->getHref(); ?>">
           <?php echo $this->escapeHtml($this->translate($page->getLabel(), $this->navigation($container)->getTranslatorTextDomain())); ?>
         </a>
       </li>

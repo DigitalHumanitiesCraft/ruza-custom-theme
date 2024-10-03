@@ -95,9 +95,57 @@ $userBar = $this->userBar();
 
         <div class="carousel-item"><a href="/s/ruzakegila/item/362" target="_blank" title="1991 - Amerlinghaus - © Gerhard Maurer"><img alt="Amerlinghaus - 4" class="d-block w-100" draggable="false" src="<?php echo $this->assetUrl('img/start-4.webp'); ?>" /> </a></div>
       </div>
+      <!-- Audio player button -->
+      <button aria-label="Play Audio" class="play-button position-absolute top-50 start-50 translate-middle" id="playButton"><i class="far fa-play-circle"></i></button>
+      <!-- Carousel controls -->
       <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselWelcomePage" title="Previous" type="button"><span aria-hidden="true" class="carousel-control-prev-icon">&nbsp;</span> <span class="visually-hidden">Previous</span></button><button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselWelcomePage" title="Next" type="button"><span aria-hidden="true" class="carousel-control-next-icon">&nbsp;</span> <span class="visually-hidden">Next</span></button>
     </div>
   </div>
+  <!-- Audio Player -->
+  <div class="custom-window" id="audioPlayerWindow" style="display: none;">
+    <div class="window-header">
+      <h5 class="window-title">Audio Player</h5>
+      <div class="window-controls d-flex gap-2"><button aria-label="Minimize" class="btn-close minimize-btn" type="button"></button><button aria-label="Close" class="btn-close close-btn" type="button"></button></div>
+    </div>
+    <div class="window-body">
+      <div id="audioPlayerContainer">
+        <audio controls="" id="audioPlayer" style="width: 100%;">Your browser does not support the audio element.</audio>
+
+        <ul class="list-group mt-3" id="songList">
+          <li class="list-group-item d-flex justify-content-between align-items-center"><span class="song-title">E briga, e briga (1992)</span>
+
+            <div><button class="me-3 btn btn-sm btn-outline-primary play-btn" data-url="https://ruzakegila.mdw.ac.at/files/original/4261d0f886bcdbf1e9525aa8dce97b0789198a73.mp3"><i class="fas fa-play"></i></button><a class="btn btn-sm btn-outline-secondary" href="https://ruzakegila.mdw.ac.at/s/ruzakegila/item/127" target="_blank"><i class="fas fa-info-circle" title="Metadata Info"></i></a></div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"><span class="song-title">Loli sas i paradica (1993)</span>
+            <div><button class="me-3 btn btn-sm btn-outline-primary play-btn" data-url="https://ruzakegila.mdw.ac.at/download/files/original/12849e86de66916e3e0d2ba2f2c0f116f261b756.mp3"><i class="fas fa-play"></i></button><a class="btn btn-sm btn-outline-secondary" href="https://ruzakegila.mdw.ac.at/s/ruzakegila/item/165" target="_blank"><i class="fas fa-info-circle" title="Metadata Info"></i></a></div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center"><span class="song-title">Amerikaki (Gypsy Family)</span>
+            <div><button class="me-3 btn btn-sm btn-outline-primary play-btn" data-url="https://ruzakegila.mdw.ac.at/download/files/original/64fee4d1f348dc8a9f2cf3d5e4671f8ee39704cc.mp3"><i class="fas fa-play"></i></button><a class="btn btn-sm btn-outline-secondary" href="https://ruzakegila.mdw.ac.at/s/ruzakegila/item/90" target="_blank"><i class="fas fa-info-circle" title="Metadata Info"></i></a></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Icon that will be used to restore the window when minimized -->
+  <div class="restore-icon" id="restoreIcon" style="display:none;"><svg fill="#000000" height="30px" id="Layer_1" style="enable-background:new 0 0 122.88 121.61" version="1.1" viewbox="0 -0.63 122.88 122.88" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <style type="text/css">
+        .st0 {
+          fill-rule: evenodd;
+          clip-rule: evenodd;
+        }
+      </style>
+      <g>
+        <path class="st0" d="M73.12,0H88.6v5.17c38.74,8.87,43.17,27.47,20.7,56.79c2.39-29.09-0.54-35.33-20.7-36.68v73.54
+        c0.04,0.39,0.05,0.78,0.05,1.18c0,9.56-10.03,19.04-22.4,21.18c-12.37,2.14-22.4-3.88-22.4-13.44c0-13.04,17.91-24.36,29.26-20.37
+        L73.12,0L73.12,0z M5.69,73.78C2.55,73.78,0,71.23,0,68.09c0-3.14,2.55-5.69,5.69-5.69h47.63c3.14,0,5.69,2.55,5.69,5.69
+        c0,3.14-2.55,5.69-5.69,5.69H5.69L5.69,73.78z M5.69,46.14C2.55,46.14,0,43.59,0,40.44c0-3.14,2.55-5.69,5.69-5.69h47.63
+        c3.14,0,5.69,2.55,5.69,5.69c0,3.14-2.55,5.69-5.69,5.69H5.69L5.69,46.14z M5.69,18.5C2.55,18.5,0,15.95,0,12.8
+        c0-3.14,2.55-5.69,5.69-5.69h47.63c3.14,0,5.69,2.55,5.69,5.69c0,3.14-2.55,5.69-5.69,5.69H5.69L5.69,18.5z"></path>
+      </g>
+    </svg>
+  </div>
+  <script src="/themes/ruza-custom-theme/asset/js/audioplayer.js"></script>
 <?php endif; ?>
 
 
