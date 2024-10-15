@@ -418,6 +418,7 @@ footer #fit-logo {
 #browse-container .abstract {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -557,6 +558,7 @@ footer #fit-logo {
   #browse-container.grid .item-title {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -564,6 +566,7 @@ footer #fit-logo {
   #browse-container.grid .contributors {
     display: -webkit-box;
     -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -1074,6 +1077,9 @@ body::before {
 .pageLink a {
   text-decoration: none;
   font-size: 1.3rem;
+}
+.page-row a {
+  text-decoration: none;
 }
 
 .page .blocks .table-of-contents,
