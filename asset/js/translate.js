@@ -117,7 +117,15 @@ function updateLinks() {
 }
 
 async function translateAttributes(element) {
-  const attributesToTranslate = ["alt", "title", "placeholder", "aria-label"];
+  const attributesToTranslate = [
+    "alt",
+    "title",
+    "placeholder",
+    "aria-label",
+    "data-bs-content",
+    "data-bs-title",
+    "data-bs-original-title",
+  ];
 
   for (let attr of attributesToTranslate) {
     if (element.hasAttribute(attr)) {
@@ -177,6 +185,8 @@ async function translatePage() {
 
   // Update links
   updateLinks();
+  // Dispatch event when translations are complete
+  document.dispatchEvent(new CustomEvent('translationsComplete'));
 }
 
 // Check URL and initiate translation if needed

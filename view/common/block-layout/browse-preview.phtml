@@ -13,11 +13,7 @@ $escape = $this->plugin('escapeHtml');
       </div>
       <div class="col-12 col-md-6">
         <div class="input-group filters-group">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Person:
-- Gewährsperson
-- Sänger:in
-- Musiker:in
-- Ensemble" style="cursor:help;" aria-label="Filter Personen" data-bs-original-title="Filter Personen">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-html="true" data-bs-content="Person: <br> - Gewährsperson <br> - Sänger:in <br> - Musiker:in <br> - Ensemble" style="cursor:help;" aria-label="Filter Personen" data-bs-original-title="Filter Personen">
             <i class="fa fa-user-circle"> </i>
           </span>
           <select class="form-select filter-options" id="person-choice">
@@ -30,10 +26,7 @@ $escape = $this->plugin('escapeHtml');
 
       <div class="col-12 col-md-6">
         <div class="input-group filters-group">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Genre:
-- Langsame Lieder (loke gila)
-- Tanzlieder (khelimaske gila)
-- Neue Lieder (neve gila)" style="cursor:help;" aria-label="Filter Genres" data-bs-original-title="Filter Genres">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-html="true" data-bs-content="Genre: <br> - Langsame Lieder (loke gila) <br> - Tanzlieder (khelimaske gila) <br> - Neue Lieder (neve gila)" style="cursor:help;" aria-label="Filter Genres" data-bs-original-title="Filter Genres">
             <i class="fa fa-music"> </i>
           </span>
           <select class="form-select filter-options" id="genre-choice">
@@ -46,9 +39,7 @@ $escape = $this->plugin('escapeHtml');
 
       <div class="col-12 col-md-6">
         <div class="input-group filters-group">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Ort:
-- Aufnahmeort
-- Auftrittsort" style="cursor:help;" aria-label="Filter Orte" data-bs-original-title="Filter Orte">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Ort: <br> - Aufnahmeort <br> - Auftrittsort" style="cursor:help;" aria-label="Filter Orte" data-bs-original-title="Filter Orte">
             <i class="fas fa-map-marked-alt"></i>
           </span>
           <select class="form-select filter-options" id="place-choice">
@@ -62,11 +53,7 @@ $escape = $this->plugin('escapeHtml');
 
       <div class="col-12 col-md-6">
         <div class="input-group filters-group">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-content="Themen:
-- Lied über zwischemenschliche Beziehungen
-- Klagelied
-- politisches Lied
-- Gefängnislied" style="cursor:help;" aria-label="Filter Themen" data-bs-original-title="Filter Themen">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" data-bs-html="true" data-bs-content="Themen: <br> - Lied über zwischemenschliche Beziehungen <br> - Klagelied <br> - politisches Lied <br> - Gefängnislied" style="cursor:help;" aria-label="Filter Themen" data-bs-original-title="Filter Themen">
             <i class="fas fa-drum-steelpan"></i>
           </span>
           <select class="form-select filter-options" id="topic-choice">
@@ -177,11 +164,30 @@ $escape = $this->plugin('escapeHtml');
 </div>
 <!-- Script for handling Filter -->
 <script>
-  // Initialize Bootstrap popovers for elements with the 'data-bs-toggle="popover"' attribute.
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  // Keep track of whether we're on English version
+  const isEnglishVersion = window.location.href.includes("ruzakegila-en");
+
+  // Initialize Bootstrap popovers - this is your original popover initialization
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
   var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
   });
+
+  // If we're on English version, reinitialize popovers after translation
+  if (isEnglishVersion) {
+    document.addEventListener('translationsComplete', function() {
+      // Dispose existing popovers
+      popoverList.forEach(function(popover) {
+        popover.dispose();
+      });
+
+      // Reinitialize popovers
+      popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+      popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+      });
+    });
+  }
 
   // Function to populate a select element with unique options extracted from specified card properties.
   function populateSelect(selector, cardPropertySelectors) {

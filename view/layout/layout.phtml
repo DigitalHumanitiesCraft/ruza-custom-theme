@@ -41,21 +41,144 @@ $userBar = $this->userBar();
   <?php echo $this->headLink(); ?>
   <?php echo $this->headStyle(); ?>
   <?php echo $this->headScript(); ?>
+  <style>
+    #global-spinner.active {
+      display: block !important;
+    }
+  </style>
+  <script>
+    (function() {
+      let activeRequests = 0;
+      let spinner = null;
+
+      function getSpinner() {
+        if (!spinner) {
+          spinner = document.getElementById('global-spinner');
+        }
+        return spinner;
+      }
+
+      function showSpinner() {
+        activeRequests++;
+        const spinner = getSpinner();
+        if (spinner) {
+          spinner.classList.add('active');
+        }
+      }
+
+      function hideSpinner() {
+        activeRequests--;
+        if (activeRequests <= 0) {
+          activeRequests = 0;
+          const spinner = getSpinner();
+          if (spinner) {
+            spinner.classList.remove('active');
+          }
+        }
+      }
+
+      // Handle initial page load
+      window.addEventListener('load', function() {
+        hideSpinner();
+      });
+
+      // Set up global AJAX/Fetch listener once DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        // Intercept all fetch requests
+        const originalFetch = window.fetch;
+        window.fetch = function() {
+          showSpinner();
+          return originalFetch.apply(this, arguments)
+            .then(response => {
+              hideSpinner();
+              return response;
+            })
+            .catch(error => {
+              hideSpinner();
+              throw error;
+            });
+        };
+
+        // Intercept all XMLHttpRequest requests
+        const originalXHR = window.XMLHttpRequest;
+        window.XMLHttpRequest = function() {
+          const xhr = new originalXHR();
+          xhr.addEventListener('loadstart', showSpinner);
+          xhr.addEventListener('loadend', hideSpinner);
+          return xhr;
+        };
+
+        // Handle navigation clicks
+        const languageLinks = document.querySelectorAll('.language-picker a');
+
+        function navigateWithSpinner(url) {
+          showSpinner();
+          window.location.href = url;
+        }
+
+        // Set up language switcher
+        languageLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetLang = this.getAttribute('data-lang');
+            const currentPath = window.location.pathname;
+
+            let newPath;
+            if (targetLang === 'en') {
+              newPath = currentPath.replace('/s/ruzakegila/', '/s/ruzakegila-en/');
+            } else {
+              newPath = currentPath.replace('/s/ruzakegila-en/', '/s/ruzakegila/');
+            }
+
+            navigateWithSpinner(newPath);
+          });
+        });
+
+        // Handle all internal navigation
+        document.addEventListener('click', function(e) {
+          const link = e.target.closest('a');
+          if (link &&
+            link.href &&
+            link.href.startsWith(window.location.origin) &&
+            !link.hasAttribute('data-no-spinner') &&
+            !link.closest('.language-picker')) {
+
+            e.preventDefault();
+            navigateWithSpinner(link.href);
+          }
+        });
+      });
+
+      // Show spinner immediately for initial page load
+      showSpinner();
+    })();
+  </script>
 </head>
 
 <?php echo $this->htmlElement('body')->appendAttribute('class', ''); ?>
 <a class="visually-hidden-focusable" href="#content">
   <?php echo $this->translate('Skip to main content'); ?>
 </a>
+<!-- Spinner -->
+<div id="global-spinner" class="position-fixed top-0 start-0 w-100 h-100 active"
+  style="z-index: 9999; background: rgba(255, 255, 255, 0.8); display: none;">
+  <div class="position-absolute top-50 start-50 translate-middle text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="mt-2">Loading...</div>
+  </div>
+</div>
 <?php echo $userBar; ?>
 <header>
   <div class="position-absolute top-0 start-0 p-3" style="z-index:1000;">
     <div class="language-picker d-none d-md-block">
-      <a href="/s/ruzakegila/page/willkommen" class="text-dark text-decoration-none me-2 <?php echo strpos($path, '/s/ruzakegila/') !== false ? 'fw-bold' : ''; ?>">DE</a>
+      <a href="/s/ruzakegila/page/willkommen" data-lang="de" class="text-dark text-decoration-none me-2 <?php echo strpos($path, '/s/ruzakegila/') !== false ? 'fw-bold' : ''; ?>">DE</a>
       <span>|</span>
-      <a href="/s/ruzakegila-en/page/willkommen" class="text-dark text-decoration-none ms-2 <?php echo strpos($path, '/s/ruzakegila-en/') !== false ? 'fw-bold' : ''; ?>">EN</a>
+      <a href="/s/ruzakegila-en/page/willkommen" data-lang="en" class="text-dark text-decoration-none ms-2 <?php echo strpos($path, '/s/ruzakegila-en/') !== false ? 'fw-bold' : ''; ?>">EN</a>
     </div>
   </div>
+
   <div class="container pt-4 pb-2 d-none d-md-block">
     <div class="row justify-content-center">
       <div class="col-auto">
