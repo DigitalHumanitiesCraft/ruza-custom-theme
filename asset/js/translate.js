@@ -186,12 +186,17 @@ async function translatePage() {
   // Update links
   updateLinks();
   // Dispatch event when translations are complete
-  document.dispatchEvent(new CustomEvent('translationsComplete'));
+  document.dispatchEvent(new CustomEvent("translationsComplete"));
 }
 
 // Check URL and initiate translation if needed
 function checkUrlAndTranslate() {
   const url = window.location.href;
+  //Change HTML lang attribute based on the URL
+  document.documentElement.setAttribute(
+    "lang",
+    url.includes("ruzakegila-en") ? "en" : "de"
+  );
   if (url.includes("ruzakegila-en")) {
     translatePage();
   }
