@@ -134,7 +134,6 @@ $userBar = $this->userBar();
           });
         });
 
-        // Handle all internal navigation
         document.addEventListener('click', function(e) {
           const link = e.target.closest('a');
           if (link &&
@@ -142,6 +141,15 @@ $userBar = $this->userBar();
             link.href.startsWith(window.location.origin) &&
             !link.hasAttribute('data-no-spinner') &&
             !link.closest('.language-picker')) {
+
+            // New condition: Check if it's just a hash link
+            const isHashLink = link.href.includes('#') &&
+              new URL(link.href).pathname === window.location.pathname;
+
+            if (isHashLink) {
+              // Let the default browser behavior handle hash links
+              return;
+            }
 
             e.preventDefault();
             navigateWithSpinner(link.href);
