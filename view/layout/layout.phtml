@@ -308,12 +308,27 @@ $userBar = $this->userBar();
           <img class="mx-3" src="<?php echo $this->assetUrl('img/ph-archiv-logo.png'); ?>" alt="Phonogrammarchiv Logo" id="ph-archiv-logo" height="100">
         </a>
 
-        <!-- <p class="small">
-          <?php echo date("Y"); ?> mdw – Universität für Musik und darstellende Kunst Wien
-          <br>Anton-von-Webern-Platz 1
-          <br>1030 Wien
-          <br>E-Mail: <a href="mailto:mmrc@mdw.ac.at">mmrc@mdw.ac.at</a>
-        </p> -->
+        <details class="mt-3">
+          <summary>
+            <?php
+            if (strpos($path, '/s/ruzakegila/') !== false) {
+              echo "Zitierempfehlung für die digitale Ausstellung:";
+            } elseif (strpos($path, '/s/ruzakegila-en/') !== false) {
+              echo "Citation recommendation for the digital exhibition:";
+            }
+            ?>
+          </summary>
+          <div class="mt-3">
+            <p class="fs-6">
+              <?php
+              if (strpos($path, '/s/ruzakegila/') !== false) {
+                echo "Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. <i>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</i>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien.";
+              } elseif (strpos($path, '/s/ruzakegila-en/') !== false) {
+                echo "Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. <i>Ružake Gila (Ruža's Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</i>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna.";
+              }
+              ?> <a href="https://doi.org/10.21939/23dv-v776">https://doi.org/10.21939/23dv-v776</a>.</p>
+          </div>
+        </details>
         <p class="mt-3">
           <a href="https://www.mdw.ac.at/datenschutz/">Datenschutzerklärung</a>
           |
