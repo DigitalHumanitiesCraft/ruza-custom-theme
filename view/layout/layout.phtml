@@ -372,9 +372,9 @@ $userBar = $this->userBar();
   const today = new Date();
 
   // Get the day, month, and year from the date object
-  const day = today.getDate(); // Day of the month
-  const month = today.getMonth() + 1; // Month (0-11, thus adding 1 to get 1-12)
-  const year = today.getFullYear(); // Full year
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
 
   // Construct the date string in D.M.YYYY format
   const dateString = `${day}.${month}.${year}`;
@@ -386,6 +386,45 @@ $userBar = $this->userBar();
   if (currentDateElement) {
     currentDateElement.textContent = dateString;
   }
+
+  // Function to update the citation elements
+  function updateCitation() {
+    const isEnglish = window.location.href.includes('/ruzakegila-en/');
+
+    // 1. Update summary text
+    const summaryElement = document.querySelector('div.blocks details summary');
+    if (summaryElement) {
+      summaryElement.textContent = isEnglish ?
+        'Citation recommendation for the current page' :
+        'Zitierempfehlung für die aktuelle Seite';
+    }
+
+    // 2. Remove the first paragraph
+    const firstParagraph = document.querySelector('div.blocks details div p.mb-0.fs-6');
+    if (firstParagraph) {
+      firstParagraph.remove();
+    }
+
+    // 3. Update citation text based on language
+    const citationParagraph = document.querySelector('div.blocks details div p.fs-6');
+    if (citationParagraph) {
+      const germanCitation = 'Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. <em>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</em>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien';
+
+      const englishCitation = 'Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. <em>Ružake Gila (Ruža\'s Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</em>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna';
+
+      const newText = citationParagraph.innerHTML
+        .replace(
+          'Music and Minorities Research Center',
+          isEnglish ? englishCitation : germanCitation
+        )
+        .replace(', <em>Ružake gila</em>', '');
+
+      citationParagraph.innerHTML = newText;
+    }
+  }
+
+  // Call the function when the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', updateCitation);
 </script>
 <script src="<?php echo $this->assetUrl('js/translate.js'); ?>"></script>
 
