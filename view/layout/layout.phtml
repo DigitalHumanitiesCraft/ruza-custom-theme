@@ -395,20 +395,29 @@ $userBar = $this->userBar();
     const citationParagraph = document.querySelector('div.blocks details div p:nth-child(2)');
 
     if (citationParagraph) {
-      // Extract the current page title using regex
-      // This will find anything between 'Center, "' and the next '"'
-      const titleMatch = citationParagraph.innerHTML.match(/Center, "([^"]+)"/);
-      // Extract the DOI (everything after the last /)
-      const doiMatch = citationParagraph.innerHTML.match(/doi\.org\/([^"]+)/);
+      // First try to find a span with class 'title'
+      const titleSpan = citationParagraph.querySelector('.title');
+      let pageTitle;
 
-      if (titleMatch && doiMatch) {
-        const pageTitle = titleMatch[1]; // The captured title
-        const doi = `doi.org/${doiMatch[1]}`; // The full DOI
+      if (titleSpan) {
+        // If span.title exists, use its content
+        pageTitle = titleSpan.textContent;
+      } else {
+        // Otherwise use regex to find title between Center, " and "
+        const titleMatch = citationParagraph.innerHTML.match(/Center, "([^"]+)"/);
+        pageTitle = titleMatch ? titleMatch[1] : '';
+      }
+
+      // Get the DOI link element directly
+      const doiLink = citationParagraph.querySelector('a');
+
+      if (pageTitle && doiLink) {
+        const doiHtml = doiLink.outerHTML; // This gets the complete <a> tag with href and content
 
         // Create new citation text based on language
-        const germanCitation = `Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. "${pageTitle}." <em>In</em> <em>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</em>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien. ${doi}`;
+        const germanCitation = `Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. "${pageTitle}." In <em>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</em>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien, ${doiHtml}. Zuletzt besucht am <span id="current-date">${dateString}</span>`;
 
-        const englishCitation = `Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. "${pageTitle}." <em>In</em> <em>Ružake Gila (Ruža's Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</em>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna. ${doi}`;
+        const englishCitation = `Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. "${pageTitle}." In <em>Ružake Gila (Ruža's Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</em>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna, ${doiHtml}. Last accessed on <span id="current-date">${dateString}</span>`;
 
         // Update the paragraph content
         citationParagraph.innerHTML = isEnglish ? englishCitation : germanCitation;
@@ -429,9 +438,6 @@ $userBar = $this->userBar();
       firstParagraph.remove();
     }
   }
-
-  // Call the function when the DOM is fully loaded
-  document.addEventListener('DOMContentLoaded', updateCitation);
 
   // Call the function when the DOM is fully loaded
   document.addEventListener('DOMContentLoaded', updateCitation);
