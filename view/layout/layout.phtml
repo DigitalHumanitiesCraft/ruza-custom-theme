@@ -391,7 +391,31 @@ $userBar = $this->userBar();
   function updateCitation() {
     const isEnglish = window.location.href.includes('/ruzakegila-en/');
 
-    // 1. Update summary text
+    // Find the citation paragraph (the second p element in the details)
+    const citationParagraph = document.querySelector('div.blocks details div p:nth-child(2)');
+
+    if (citationParagraph) {
+      // Extract the current page title using regex
+      // This will find anything between 'Center, "' and the next '"'
+      const titleMatch = citationParagraph.innerHTML.match(/Center, "([^"]+)"/);
+      // Extract the DOI (everything after the last /)
+      const doiMatch = citationParagraph.innerHTML.match(/doi\.org\/([^"]+)/);
+
+      if (titleMatch && doiMatch) {
+        const pageTitle = titleMatch[1]; // The captured title
+        const doi = `doi.org/${doiMatch[1]}`; // The full DOI
+
+        // Create new citation text based on language
+        const germanCitation = `Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. "${pageTitle}." <em>In</em> <em>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</em>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien. ${doi}`;
+
+        const englishCitation = `Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. "${pageTitle}." <em>In</em> <em>Ružake Gila (Ruža's Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</em>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna. ${doi}`;
+
+        // Update the paragraph content
+        citationParagraph.innerHTML = isEnglish ? englishCitation : germanCitation;
+      }
+    }
+
+    // Update summary text
     const summaryElement = document.querySelector('div.blocks details summary');
     if (summaryElement) {
       summaryElement.textContent = isEnglish ?
@@ -399,29 +423,15 @@ $userBar = $this->userBar();
         'Zitierempfehlung für die aktuelle Seite';
     }
 
-    // 2. Remove the first paragraph
-    const firstParagraph = document.querySelector('div.blocks details div p.mb-0.fs-6');
-    if (firstParagraph) {
+    // Remove the first paragraph if it exists
+    const firstParagraph = document.querySelector('div.blocks details div p:first-child');
+    if (firstParagraph && firstParagraph.classList.contains('mb-0')) {
       firstParagraph.remove();
     }
-
-    // 3. Update citation text based on language
-    const citationParagraph = document.querySelector('div.blocks details div p.fs-6');
-    if (citationParagraph) {
-      const germanCitation = 'Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. <em>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</em>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien';
-
-      const englishCitation = 'Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. <em>Ružake Gila (Ruža\'s Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</em>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna';
-
-      const newText = citationParagraph.innerHTML
-        .replace(
-          'Music and Minorities Research Center',
-          isEnglish ? englishCitation : germanCitation
-        )
-        .replace(', <em>Ružake gila</em>', '');
-
-      citationParagraph.innerHTML = newText;
-    }
   }
+
+  // Call the function when the DOM is fully loaded
+  document.addEventListener('DOMContentLoaded', updateCitation);
 
   // Call the function when the DOM is fully loaded
   document.addEventListener('DOMContentLoaded', updateCitation);
