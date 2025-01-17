@@ -442,7 +442,7 @@ $userBar = $this->userBar();
   // Call the function when the DOM is fully loaded
   document.addEventListener('DOMContentLoaded', updateCitation);
 </script>
-<script src="<?php echo $this->assetUrl('js/translate.js'); ?>"></script>
+<!-- Nachor tranlsation.js bug (slowed down anchor jumping) -->
 <script>
   // Anchor Navigation Enhancement
   (function() {
@@ -481,5 +481,7 @@ $userBar = $this->userBar();
     }
   })();
 </script>
+<script src="<?php echo $this->assetUrl('js/translate.js'); ?>"></script>
+
 
 </html>
