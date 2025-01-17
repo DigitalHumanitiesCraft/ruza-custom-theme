@@ -443,5 +443,43 @@ $userBar = $this->userBar();
   document.addEventListener('DOMContentLoaded', updateCitation);
 </script>
 <script src="<?php echo $this->assetUrl('js/translate.js'); ?>"></script>
+<script>
+  // Anchor Navigation Enhancement
+  (function() {
+    let isScrolling = false;
+
+    function handleAnchorClick(e) {
+      if (e.target.tagName === 'A' && e.target.hash && e.target.origin === window.location.origin) {
+        e.preventDefault();
+        isScrolling = true;
+
+        const targetId = e.target.hash.slice(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+
+        setTimeout(() => {
+          isScrolling = false;
+        }, 100);
+      }
+    }
+
+    // Make isScrolling available to other scripts
+    window.isAnchorScrolling = () => isScrolling;
+
+    // Add click handler after DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('click', handleAnchorClick);
+      });
+    } else {
+      document.addEventListener('click', handleAnchorClick);
+    }
+  })();
+</script>
 
 </html>

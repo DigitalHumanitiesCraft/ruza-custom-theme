@@ -72,6 +72,9 @@ async function translateToEnglish(germanText) {
 }
 
 function shouldTranslateElement(element) {
+  // um anchor delay zu verhindern
+  if (window.isAnchorScrolling()) return false;
+
   // Check if the element or its ancestors have the excluded classes
   if (element.closest(".page-row, .song-intertext")) {
     // Exception 1: Allow translation for <a> tags with text "Mehr" and class "btn"
