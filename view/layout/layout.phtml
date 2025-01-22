@@ -442,30 +442,38 @@ $userBar = $this->userBar();
   // Call the function when the DOM is fully loaded
   document.addEventListener('DOMContentLoaded', updateCitation);
 </script>
-<!-- Nachor tranlsation.js bug (slowed down anchor jumping) -->
+<!-- Anchor translation.js bug (slowed down anchor jumping) -->
 <script>
   // Anchor Navigation Enhancement
   (function() {
     let isScrolling = false;
 
     function handleAnchorClick(e) {
-      if (e.target.tagName === 'A' && e.target.hash && e.target.origin === window.location.origin) {
-        e.preventDefault();
-        isScrolling = true;
-
-        const targetId = e.target.hash.slice(1);
-        const targetElement = document.getElementById(targetId);
-
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-
-        setTimeout(() => {
-          isScrolling = false;
-        }, 100);
+      // Only handle clicks within the table of contents
+      if (!e.target.closest('.table-of-contents')) {
+        return;
       }
+
+      const target = e.target.closest('a');
+      if (!target || !target.hash) {
+        return;
+      }
+
+      e.preventDefault();
+      isScrolling = true;
+
+      const targetId = target.hash.slice(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 100);
     }
 
     // Make isScrolling available to other scripts
