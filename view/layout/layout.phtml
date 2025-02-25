@@ -389,7 +389,7 @@ $userBar = $this->userBar();
 
   // Function to update the citation elements
   function updateCitation() {
-    const isEnglish = window.location.href.includes('/ruzakegila-en/');
+    const isEnglish = window.location.href.includes('/ruzakegila-en/') || window.location.href.includes('/ruzakegila-rom/');
 
     // Find the citation paragraph (the second p element in the details)
     const citationParagraph = document.querySelector('div.blocks details div p:nth-child(2)');
