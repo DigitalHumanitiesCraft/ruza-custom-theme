@@ -195,12 +195,20 @@ async function translatePage() {
 // Check URL and initiate translation if needed
 function checkUrlAndTranslate() {
   const url = window.location.href;
-  //Change HTML lang attribute based on the URL
-  document.documentElement.setAttribute(
-    "lang",
-    url.includes("ruzakegila-en") ? "en" : "de"
-  );
+
+  // Determine language based on URL
+  let lang = "de";
   if (url.includes("ruzakegila-en")) {
+    lang = "en";
+  } else if (url.includes("ruzakegila-rom")) {
+    lang = "rom";
+  }
+
+  // Change HTML lang attribute based on the URL
+  document.documentElement.setAttribute("lang", lang);
+
+  // Apply English translations for both English and Romanes sites
+  if (url.includes("ruzakegila-en") || url.includes("ruzakegila-rom")) {
     translatePage();
   }
 }

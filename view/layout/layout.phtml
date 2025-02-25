@@ -1,6 +1,6 @@
 <?php
 $escape = $this->plugin('escapeHtml');
-$this->htmlElement('html')->appendAttribute('lang', 'de')->appendAttribute('class', 'h-100');
+$this->htmlElement('html')->appendAttribute('class', 'h-100');
 $this->headMeta()->setCharset('utf-8');
 $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
 $this->headTitle($site->title())->setSeparator(' · ');
@@ -214,7 +214,7 @@ $userBar = $this->userBar();
 </header>
 
 
-<?php if ($path == "/s/ruzakegila/page/willkommen" || $path == "/s/ruzakegila-en/page/willkommen") : ?>
+<?php if ($path == "/s/ruzakegila/page/willkommen" || $path == "/s/ruzakegila-en/page/willkommen" || $path == "/s/ruzakegila-rom/page/willkommen") : ?>
   <div class="carousel-wrapper container-fluid">
     <div class="carousel slide" data-bs-ride="carousel" id="carouselWelcomePage">
       <div class="carousel-inner">
@@ -313,7 +313,7 @@ $userBar = $this->userBar();
             <?php
             if (strpos($path, '/s/ruzakegila/') !== false) {
               echo "Zitierempfehlung für die digitale Ausstellung:";
-            } elseif (strpos($path, '/s/ruzakegila-en/') !== false) {
+            } elseif (strpos($path, '/s/ruzakegila-en/') !== false || strpos($path, '/s/ruzakegila-rom/') !== false) {
               echo "Citation recommendation for the digital exhibition:";
             }
             ?>
@@ -323,7 +323,7 @@ $userBar = $this->userBar();
               <?php
               if (strpos($path, '/s/ruzakegila/') !== false) {
                 echo "Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz und Manuela Nikolić. 2024. <i>Ružake gila (Ružas Lieder): Aufarbeitung des musikalischen Erbes der Roma-Sängerin Ruža Nikolić-Lakatos als digitale Ausstellung</i>. Music and Minorities Research Center (MMRC), Universität für Musik und darstellende Kunst Wien.";
-              } elseif (strpos($path, '/s/ruzakegila-en/') !== false) {
+              } elseif (strpos($path, '/s/ruzakegila-en/') !== false || strpos($path, '/s/ruzakegila-rom/') !== false) {
                 echo "Hemetek, Ursula, Eva Leick, Malik Sharif, Mozes F. Heinschink, Christiane Fennesz-Juhasz, and Manuela Nikolić. 2024. <i>Ružake Gila (Ruža's Songs): A Digital Exhibition Exploring the Musical Heritage of the Romani Singer Ruža Nikolić-Lakatos</i>. Music and Minorities Research Center (MMRC), University of Music and Performing Arts Vienna.";
               }
               ?> <a href="https://doi.org/10.21939/23dv-v776">https://doi.org/10.21939/23dv-v776</a>.</p>
