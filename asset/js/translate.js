@@ -110,11 +110,24 @@ function shouldTranslateElement(element) {
 function updateLinks() {
   const links = document.querySelectorAll("a:not(.language-picker a)");
   const englishPath = "/s/ruzakegila-en/";
+  const romanesPath = "/s/ruzakegila-rom/";
   const germanPath = "/s/ruzakegila/";
 
   links.forEach((link) => {
     if (link.href.includes(germanPath)) {
-      link.href = link.href.replace(germanPath, englishPath);
+      // Check current site version to determine correct path
+      const currentPath = window.location.href;
+      let newPath = germanPath;
+
+      if (currentPath.includes("ruzakegila-en")) {
+        newPath = englishPath;
+      } else if (currentPath.includes("ruzakegila-rom")) {
+        newPath = romanesPath;
+      }
+
+      if (newPath !== germanPath) {
+        link.href = link.href.replace(germanPath, newPath);
+      }
     }
   });
 }
