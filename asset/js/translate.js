@@ -1,5 +1,16 @@
 let cachedTranslations = null;
 
+const germanToRomanes = {
+  "neues Lied": "neve gjili",
+  Klagelied: "vatjipe",
+  "langsames Lied": "loke gjili",
+  Tanzlied: "khelimaske gjili",
+  "Lied über zwischenmenschliche Beziehungen (Liebe und Gesellschaft)":
+    "gjili pala e intepresonalni relaciji (kamipe aj societeta)",
+  Gefängnislied: "phanglimaski gjili",
+  "politisches Lied": "politikaki gjili",
+};
+
 async function fetchTranslations() {
   if (cachedTranslations) return cachedTranslations;
 
@@ -18,6 +29,24 @@ async function fetchTranslations() {
 
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function applyDirectRomanesTranslations() {
+  // Only run on the Romanes site
+  if (!window.location.href.includes("ruzakegila-rom")) return;
+
+  // Target the metadata links
+  const metadataLinks = document.querySelectorAll(
+    "#content > div.blocks.py-3.py-md-5 > div.row.mb-4 > div.col-md-8 > dl > dd > a"
+  );
+
+  // Apply direct German-to-Romanes translations
+  metadataLinks.forEach((link) => {
+    const germanText = link.textContent;
+    if (germanToRomanes[germanText]) {
+      link.textContent = germanToRomanes[germanText];
+    }
+  });
 }
 
 async function translateToEnglish(germanText) {
@@ -72,6 +101,19 @@ async function translateToEnglish(germanText) {
 }
 
 function shouldTranslateElement(element) {
+  // First check if we're on the Romanes site and the element is one of our special metadata links
+  if (window.location.href.includes("ruzakegila-rom")) {
+    // Check if this is one of our metadata links
+    if (
+      element.matches("a") &&
+      element.closest(
+        "#content > div.blocks.py-3.py-md-5 > div.row.mb-4 > div.col-md-8 > dl > dd"
+      )
+    ) {
+      return false; // Exclude from regular translation
+    }
+  }
+
   // um anchor delay zu verhindern
   if (window.isAnchorScrolling()) return false;
 
@@ -219,6 +261,9 @@ function checkUrlAndTranslate() {
 
   // Change HTML lang attribute based on the URL
   document.documentElement.setAttribute("lang", lang);
+
+  // Apply direct Romanes translations first
+  applyDirectRomanesTranslations();
 
   // Apply English translations for both English and Romanes sites
   if (url.includes("ruzakegila-en") || url.includes("ruzakegila-rom")) {
