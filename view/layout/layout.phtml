@@ -50,6 +50,7 @@ $userBar = $this->userBar();
     (function() {
       let activeRequests = 0;
       let spinner = null;
+      let spinnerTimeout = null;
 
       function getSpinner() {
         if (!spinner) {
@@ -63,6 +64,10 @@ $userBar = $this->userBar();
         const spinner = getSpinner();
         if (spinner) {
           spinner.classList.add('active');
+
+          // Safety timeout - prevents spinner from getting stuck forever
+          clearTimeout(spinnerTimeout);
+          spinnerTimeout = setTimeout(resetSpinner, 15000); // 15 seconds max
         }
       }
 
@@ -73,9 +78,38 @@ $userBar = $this->userBar();
           const spinner = getSpinner();
           if (spinner) {
             spinner.classList.remove('active');
+            clearTimeout(spinnerTimeout); // Clean up timeout when spinner is hidden
           }
         }
       }
+
+      function resetSpinner() {
+        activeRequests = 0;
+        clearTimeout(spinnerTimeout); // Clean up timeout when spinner is reset
+        const spinner = getSpinner();
+        if (spinner) {
+          spinner.classList.remove('active');
+        }
+      }
+
+      // Handle browser back/forward navigation
+      window.addEventListener('popstate', function() {
+        resetSpinner();
+      });
+
+      // Handle page show (more reliable than load for bfcache)
+      window.addEventListener('pageshow', function(event) {
+        // If the page is loaded from bfcache
+        if (event.persisted) {
+          resetSpinner();
+        }
+      });
+
+      // Show spinner when leaving page for better UX
+      window.addEventListener('beforeunload', function() {
+        showSpinner();
+        // No need to hide as page is unloading
+      });
 
       // Handle initial page load
       window.addEventListener('load', function() {
@@ -113,7 +147,19 @@ $userBar = $this->userBar();
 
         function navigateWithSpinner(url) {
           showSpinner();
-          window.location.href = url;
+
+          // Safety timeout for failed navigation
+          const navigationTimeout = setTimeout(() => {
+            resetSpinner();
+          }, 8000); // 8 seconds timeout for navigation
+
+          try {
+            window.location.href = url;
+          } catch (e) {
+            console.error('Navigation error:', e);
+            resetSpinner();
+            clearTimeout(navigationTimeout);
+          }
         }
 
         // Set up language switcher
