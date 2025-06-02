@@ -162,19 +162,31 @@ $userBar = $this->userBar();
           }
         }
 
-        // Set up language switcher
         languageLinks.forEach(link => {
           link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetLang = this.getAttribute('data-lang');
             const currentPath = window.location.pathname;
 
-            let newPath;
+            let newPath = currentPath;
+
+            // Remove any existing language prefix first
+            newPath = newPath.replace('/s/ruzakegila-en/', '/s/ruzakegila/');
+            newPath = newPath.replace('/s/ruzakegila-rom/', '/s/ruzakegila/');
+
+            // Now add the target language prefix
             if (targetLang === 'en') {
-              newPath = currentPath.replace('/s/ruzakegila/', '/s/ruzakegila-en/');
-            } else {
-              newPath = currentPath.replace('/s/ruzakegila-en/', '/s/ruzakegila/');
+              newPath = newPath.replace('/s/ruzakegila/', '/s/ruzakegila-en/');
+            } else if (targetLang === 'rom') {
+              newPath = newPath.replace('/s/ruzakegila/', '/s/ruzakegila-rom/');
             }
+            // If targetLang === 'de', we keep the base path (no replacement needed)
+
+            console.log('Language switch:', {
+              from: currentPath,
+              to: newPath,
+              targetLang: targetLang
+            });
 
             navigateWithSpinner(newPath);
           });
@@ -229,7 +241,7 @@ $userBar = $this->userBar();
     <div class="language-picker d-none d-md-block">
       <a href="/s/ruzakegila/page/willkommen" data-lang="de" class="text-dark text-decoration-none me-2 <?php echo strpos($path, '/s/ruzakegila/') !== false ? 'fw-bold' : ''; ?>">DE</a>
       <span>|</span>
-      <a href="/s/ruzakegila-en/page/willkommen" data-lang="en" class="text-dark text-decoration-none ms-2 <?php echo strpos($path, '/s/ruzakegila-en/') !== false ? 'fw-bold' : ''; ?>">EN</a>
+      <a href="/s/ruzakegila-en/page/willkommen" data-lang="en" class="text-dark text-decoration-none mx-2 <?php echo strpos($path, '/s/ruzakegila-en/') !== false ? 'fw-bold' : ''; ?>">EN</a>
       <span>|</span>
       <a href="/s/ruzakegila-rom/page/willkommen" data-lang="rom" class="text-dark text-decoration-none ms-2 <?php echo strpos($path, '/s/ruzakegila-rom/') !== false ? 'fw-bold' : ''; ?>">ROM</a>
     </div>
