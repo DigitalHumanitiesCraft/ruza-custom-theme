@@ -117,6 +117,11 @@ function shouldTranslateElement(element) {
   // um anchor delay zu verhindern
   if (window.isAnchorScrolling()) return false;
 
+  // Exclude ALL figcaption elements
+  if (element.tagName === "FIGCAPTION") return false;
+  // Exclude elements with the class "media-render html"
+  if (element.closest(".media-render.html")) return false;
+
   // Check if the element or its ancestors have the excluded classes
   if (element.closest(".page-row, .song-intertext")) {
     // Exception 1: Allow translation for <a> tags with text "Mehr" and class "btn"
