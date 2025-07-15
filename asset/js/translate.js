@@ -118,7 +118,7 @@ function shouldTranslateElement(element) {
   if (window.isAnchorScrolling()) return false;
 
   // Exclude ALL figcaption elements
-  if (element.tagName === "FIGCAPTION") return false;
+  if (element.closest("FIGCAPTION")) return false;
   // Exclude elements with the class "media-render html"
   if (element.closest(".media-render.html")) return false;
 
